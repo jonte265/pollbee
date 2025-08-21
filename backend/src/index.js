@@ -13,7 +13,7 @@ app.use(express.json());
 app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Server working');
+  res.json({ message: 'Server is live' });
 });
 
 app.listen(PORT, () => {
