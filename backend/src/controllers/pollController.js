@@ -4,6 +4,10 @@ import { nanoid } from 'nanoid';
 export const createPoll = async (req, res) => {
   const { userid, polltitle, active, options } = req.body;
 
+  if (!userid || !polltitle || !active || !options) {
+    return res.status(400).json({ message: `Fields missing` });
+  }
+
   const uniqueId = nanoid(8);
 
   const { data, error } = await supabase
@@ -39,5 +43,29 @@ export const createPoll = async (req, res) => {
     message: `Added poll: ${polltitle}`,
     poll: data,
     share_url: `http://localhost:3008/poll/${uniqueId}`,
+  });
+};
+
+export const votePoll = async (req, res) => {
+  const { voteoption } = req.body;
+
+  const { data: currentNumData, error: currentNumError } = await supabase
+    .from('poll_options')
+    .select('*')
+    .eq('id', voteoption)
+    .single();
+
+  console.log(currentNumData);
+
+  const updateNum = currentNumData.vote_count + 1;
+
+  const { data, error } = await supabase
+    .from('poll_options')
+    .update({ vote_count: updateNum })
+    .eq('id', voteoption)
+    .select();
+
+  return res.json({
+    message: `Added +1 to share_id: ${req.params.shareId} vote option: ${currentNumData.option_text}`,
   });
 };
