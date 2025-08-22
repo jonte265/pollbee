@@ -47,8 +47,34 @@ export const createPoll = async (req, res) => {
 };
 
 export const sharePoll = async (req, res) => {
+  const { data, error } = await supabase
+    .from('polls')
+    .select('*')
+    .eq('share_id', req.params.shareId)
+    .single();
+
+  if (!data) {
+    return res.status(404).json({ message: `Poll not found` });
+  }
+
+  const { data: dataOptions, error: errorOptions } = await supabase
+    .from('poll_options')
+    .select('*')
+    .eq('poll_id', data.id);
+
+  if (!dataOptions) {
+    return res.status(404).json({ message: `Poll options not found` });
+  }
+
   return res.json({
-    message: `Share poll ${req.params.shareId}`,
+    message: `Found poll ${req.params.shareId}`,
+    id: data.id,
+    created_at: data.created_at,
+    user_id: data.user_id,
+    poll_title: data.poll_title,
+    is_active: data.is_active,
+    share_id: data.share_id,
+    poll_options: dataOptions,
   });
 };
 
