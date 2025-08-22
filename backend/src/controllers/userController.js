@@ -15,6 +15,13 @@ export const createUser = async (req, res) => {
     return res.status(400).json({ message: `Username cannot contain spaces` });
   }
 
+  // No uppercase
+  if (username !== username.toLowerCase()) {
+    return res
+      .status(400)
+      .json({ message: `Username must contain only lowercase letters` });
+  }
+
   if (password.length < 8) {
     return res
       .status(400)
