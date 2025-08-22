@@ -23,7 +23,14 @@ export const loginUser = async (req, res) => {
     return res.status(401).json({ message: 'Wrong credentials' });
   }
 
-  res.status(200).json({ message: `User ${username} logged in!` });
-};
+  const token = jwt.sign(
+    {
+      userId: data.id,
+      username: data.username,
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: '2h' }
+  );
 
-// fix capatilized
+  res.status(200).json({ message: `Login successful`, token: token });
+};
