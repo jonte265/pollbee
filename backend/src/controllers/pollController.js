@@ -66,8 +66,20 @@ export const sharePoll = async (req, res) => {
     return res.status(404).json({ message: `Poll options not found` });
   }
 
+  // Get poll creator username
+  const { data: dataUser, error: errorUser } = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', data.user_id)
+    .single();
+
+  if (!dataUser) {
+    return res.status(404).json({ message: `User not found` });
+  }
+
   return res.json({
     message: `Found poll ${req.params.shareId}`,
+    poll_creator: dataUser.username,
     id: data.id,
     created_at: data.created_at,
     user_id: data.user_id,
