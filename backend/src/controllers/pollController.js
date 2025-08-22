@@ -46,6 +46,12 @@ export const createPoll = async (req, res) => {
   });
 };
 
+export const sharePoll = async (req, res) => {
+  return res.json({
+    message: `Share poll ${req.params.shareId}`,
+  });
+};
+
 export const votePoll = async (req, res) => {
   const { voteoption } = req.body;
 
@@ -66,6 +72,6 @@ export const votePoll = async (req, res) => {
     .select();
 
   return res.json({
-    message: `Added +1 to share_id: ${req.params.shareId} vote option: ${currentNumData.option_text}`,
+    message: `Added +1 to vote option: ${currentNumData.option_text}`,
   });
 };

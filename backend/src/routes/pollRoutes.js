@@ -1,12 +1,19 @@
 import express from 'express';
-import { createPoll, votePoll } from '../controllers/pollController.js';
+import {
+  createPoll,
+  sharePoll,
+  votePoll,
+} from '../controllers/pollController.js';
 
 const router = express.Router();
 
 // Create poll
 router.post('/', createPoll);
 
-// Create poll
-router.post('/:shareId', votePoll);
+// Get sharable poll
+router.get('/:shareId', sharePoll);
+
+// Vote poll
+router.post('/vote', votePoll);
 
 export default router;
