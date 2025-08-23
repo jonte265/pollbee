@@ -3,12 +3,16 @@ import {
   createPoll,
   sharePoll,
   votePoll,
+  editPoll,
 } from '../controllers/pollController.js';
 
 const router = express.Router();
 
 // Create poll
 router.post('/', createPoll);
+
+// Edit poll
+router.put('/', editPoll);
 
 // Get sharable poll
 router.get('/:shareId', sharePoll);

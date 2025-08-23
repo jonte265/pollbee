@@ -31,19 +31,60 @@ export const createPoll = async (req, res) => {
     option_text: option,
   }));
 
-  console.log(optionsToInsert);
-
   const { error: optionsError } = await supabase
     .from('poll_options')
     .insert(optionsToInsert);
-
-  console.log(optionsError);
 
   return res.status(201).json({
     message: `Added poll: ${polltitle}`,
     poll: data,
     share_url: `http://localhost:3008/poll/${uniqueId}`,
   });
+};
+
+export const editPoll = async (req, res) => {
+  const { userid, pollid, polltitle, active, options, optionsid } = req.body;
+
+  if (polltitle) {
+    const { data, error } = await supabase
+      .from('polls')
+      .update({ poll_title: polltitle })
+      .eq('id', pollid)
+      .select()
+      .single();
+
+    if (error) {
+      return res.status(400).json({ message: 'No poll id found' });
+    }
+  }
+
+  if (options) {
+    const { data: optionsData, error: optionsError } = await supabase
+      .from('poll_options')
+      .update({ option_text: options })
+      .eq('id', optionsid)
+      .select()
+      .single();
+
+    if (optionsError) {
+      return res.status(400).json({ message: 'No options id found' });
+    }
+  }
+
+  if (!active !== undefined) {
+    const { data: activeData, error: activeError } = await supabase
+      .from('polls')
+      .update({ is_active: active })
+      .eq('id', pollid)
+      .select()
+      .single();
+
+    if (activeError) {
+      return res.status(400).json({ message: 'No is_active found' });
+    }
+  }
+
+  res.json({ message: `Edited poll` });
 };
 
 export const sharePoll = async (req, res) => {
