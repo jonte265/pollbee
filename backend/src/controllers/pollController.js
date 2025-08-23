@@ -154,3 +154,24 @@ export const votePoll = async (req, res) => {
     message: `Added +1 to vote option: ${currentNumData.option_text}`,
   });
 };
+
+export const deletePoll = async (req, res) => {
+  const { userid, pollid } = req.body;
+
+  if (!pollid) {
+    return res.status(400).json({ message: 'Missing pollid' });
+  }
+
+  const { data, error } = await supabase
+    .from('polls')
+    .delete()
+    .eq('id', pollid)
+    .select()
+    .single();
+
+  if (error) {
+    return res.status(400).json({ message: 'No poll id found' });
+  }
+
+  res.json({ message: `Deleted poll ${data.poll_title}` });
+};
