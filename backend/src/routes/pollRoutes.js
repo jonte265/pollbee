@@ -6,22 +6,25 @@ import {
   editPoll,
   deletePoll,
 } from '../controllers/pollController.js';
+import authenticateToken from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Create poll
-router.post('/', createPoll);
+router.post('/', authenticateToken, createPoll);
 
 // Edit poll
-router.put('/', editPoll);
+router.put('/', authenticateToken, editPoll);
 
 // Delete poll
-router.delete('/', deletePoll);
+router.delete('/', authenticateToken, deletePoll);
 
 // Get sharable poll
 router.get('/:shareId', sharePoll);
 
 // Vote poll
 router.post('/vote', votePoll);
+
+// Need poll for my polls on profile
 
 export default router;

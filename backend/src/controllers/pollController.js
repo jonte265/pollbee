@@ -2,9 +2,10 @@ import supabase from '../config/supabaseClient.js';
 import { nanoid } from 'nanoid';
 
 export const createPoll = async (req, res) => {
-  const { userid, polltitle, active, options } = req.body;
+  const { polltitle, active, options } = req.body;
+  const userid = req.user.userId; // userid from JWT
 
-  if (!userid || !polltitle || !active || !options) {
+  if (!polltitle || !active || !options) {
     return res.status(400).json({ message: `Fields missing` });
   }
 
@@ -43,7 +44,18 @@ export const createPoll = async (req, res) => {
 };
 
 export const editPoll = async (req, res) => {
-  const { userid, pollid, polltitle, active, options, optionsid } = req.body;
+  const { pollid, polltitle, active, options, optionsid } = req.body;
+  const userid = req.user.userId; // userid from JWT
+
+  const { data: rowData, error: rowError } = await supabase
+    .from('polls')
+    .select('*')
+    .eq('id', pollid)
+    .single();
+
+  if (rowData.user_id !== userid) {
+    return res.status(403).json({ message: 'Unauthorized forbidden' });
+  }
 
   if (polltitle) {
     const { data, error } = await supabase
