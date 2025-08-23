@@ -192,6 +192,10 @@ export const deletePoll = async (req, res) => {
     .eq('id', pollid)
     .single();
 
+  if (!rowData) {
+    return res.status(404).json({ message: 'Poll not found' });
+  }
+
   if (rowData.user_id !== userid) {
     return res.status(403).json({ message: 'Unauthorized forbidden' });
   }
