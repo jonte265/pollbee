@@ -179,10 +179,21 @@ export const votePoll = async (req, res) => {
 };
 
 export const deletePoll = async (req, res) => {
-  const { userid, pollid } = req.body;
+  const { pollid } = req.body;
+  const userid = req.user.userId; // userid from JWT
 
   if (!pollid) {
     return res.status(400).json({ message: 'Missing pollid' });
+  }
+
+  const { data: rowData, error: rowError } = await supabase
+    .from('polls')
+    .select('*')
+    .eq('id', pollid)
+    .single();
+
+  if (rowData.user_id !== userid) {
+    return res.status(403).json({ message: 'Unauthorized forbidden' });
   }
 
   const { data, error } = await supabase
