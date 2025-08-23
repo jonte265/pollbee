@@ -30,6 +30,7 @@ export const createPoll = async (req, res) => {
   optionsToInsert = options.map((option) => ({
     poll_id: data.id,
     option_text: option,
+    user_id: userid,
   }));
 
   const { error: optionsError } = await supabase
@@ -55,6 +56,16 @@ export const editPoll = async (req, res) => {
 
   if (rowData.user_id !== userid) {
     return res.status(403).json({ message: 'Unauthorized forbidden' });
+  }
+
+  const { data: rowOptionsData, error: rowOptionsError } = await supabase
+    .from('poll_options')
+    .select('*')
+    .eq('id', optionsid)
+    .single();
+
+  if (rowOptionsData.user_id !== userid) {
+    return res.status(403).json({ message: 'Unauthorized forbidden options' });
   }
 
   if (polltitle) {
