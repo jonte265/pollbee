@@ -44,7 +44,7 @@ export const createPoll = async (req, res) => {
   return res.status(201).json({
     message: `Added poll: ${polltitle}`,
     poll: data,
-    share_url: `http://localhost:3008/poll/${uniqueId}`,
+    share_url: `${process.env.FRONTEND_URL}/poll/${uniqueId}`,
   });
 };
 
