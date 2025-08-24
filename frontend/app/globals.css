@@ -9,6 +9,8 @@
   --primary: #dda027;
   --secondary: #e2ed8c;
   --accent: #b6e557;
+
+  --background-muted: hsl(44, 74%, 6%, 5%);
 }
 
 @theme inline {
