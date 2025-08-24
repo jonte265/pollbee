@@ -175,6 +175,20 @@ export const votePoll = async (req, res) => {
     return res.status(404).json({ message: `Id not found` });
   }
 
+  const { data: pollsData, error: pollsError } = await supabase
+    .from('polls')
+    .select('*')
+    .eq('id', currentNumData.poll_id)
+    .single();
+
+  if (pollsError) {
+    return res.status(404).json({ message: `poll Id not found` });
+  }
+
+  if (pollsData.is_active === false) {
+    return res.status(403).json({ message: `Poll is not active` });
+  }
+
   const updateNum = currentNumData.vote_count + 1;
 
   const { data, error } = await supabase
