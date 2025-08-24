@@ -54,6 +54,10 @@ export const editPoll = async (req, res) => {
     .eq('id', pollid)
     .single();
 
+  if (rowError) {
+    return res.status(404).json({ message: `Poll Id not found` });
+  }
+
   if (rowData.user_id !== userid) {
     return res.status(403).json({ message: 'Unauthorized forbidden' });
   }
@@ -63,6 +67,10 @@ export const editPoll = async (req, res) => {
     .select('*')
     .eq('id', optionsid)
     .single();
+
+  if (rowOptionsError) {
+    return res.status(404).json({ message: `Poll Options Id not found` });
+  }
 
   if (rowOptionsData.user_id !== userid) {
     return res.status(403).json({ message: 'Unauthorized forbidden options' });
