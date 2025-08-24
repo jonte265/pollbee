@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'PollBee',
+  title: 'PollBee 🐝 Create Polls',
   description: 'Create and share interactive polls easily.',
 };
 
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} p-4 antialiased`}>
         <Header />
         {children}
       </body>
