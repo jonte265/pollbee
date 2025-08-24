@@ -5,6 +5,10 @@ export const createPoll = async (req, res) => {
   const { polltitle, active, options } = req.body;
   const userid = req.user.userId; // userid from JWT
 
+  if (!userid) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+
   if (!polltitle || active === undefined || !options) {
     return res.status(400).json({ message: `Fields missing` });
   }
