@@ -60,13 +60,44 @@ export const createUser = async (req, res) => {
   res.status(201).json({ message: `User ${username} registered` });
 };
 
-export const deleteUser = (req, res) => {
-  const { username, password } = req.body;
+export const deleteUser = async (req, res) => {
+  const { username } = req.body;
 
-  if (!username || !password) {
-    return res
-      .status(400)
-      .json({ message: `No username or password provided` });
+  if (!username) {
+    return res.status(400).json({ message: `No username provided` });
+  }
+
+  const userid = req.user.userId; // userid from JWT
+
+  const { data: rowData, error: rowError } = await supabase
+    .from('users')
+    .select('*')
+    .eq('username', username)
+    .single();
+
+  console.log(rowData);
+  console.log(rowError);
+
+  if (!rowData) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  if (rowData.id !== userid) {
+    return res.status(403).json({ message: 'Unauthorized forbidden' });
+  }
+
+  const { data, error } = await supabase
+    .from('users')
+    .delete()
+    .eq('username', username)
+    .select()
+    .single();
+
+  console.log(data);
+  console.log(error);
+
+  if (error) {
+    return res.status(400).json({ message: 'No username found' });
   }
 
   res.status(200).json({ message: `Deleted: ${username}` });
