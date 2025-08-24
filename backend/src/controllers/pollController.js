@@ -163,7 +163,9 @@ export const votePoll = async (req, res) => {
     .eq('id', voteoption)
     .single();
 
-  console.log(currentNumData);
+  if (currentNumError) {
+    return res.status(404).json({ message: `Id not found` });
+  }
 
   const updateNum = currentNumData.vote_count + 1;
 
