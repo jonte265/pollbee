@@ -1,11 +1,14 @@
 'use client';
 
 import LoadingSpin from '@/components/LoadingSpin';
+import PollCard from '@/components/PollCard';
 import { useEffect, useState } from 'react';
 
 type profileDataType = {
   poll_title: string;
   is_active: boolean;
+  share_id: string;
+  created_at: string;
 };
 
 function profilePage() {
@@ -40,11 +43,23 @@ function profilePage() {
   }, []);
 
   return (
-    <main>
-      <h2>profile page</h2>
+    <main className='flex flex-col justify-center items-center gap-4'>
+      <h2 className='text-2xl'>Profile page</h2>
+
       {loading && <LoadingSpin />}
-      {profileData.length > 0 &&
-        profileData.map((poll, index) => <p key={index}>{poll.poll_title}</p>)}
+      <div className='flex flex-col gap-2 justify-center items-center'>
+        {profileData.length > 0 &&
+          profileData.map((poll, index) => (
+            // <p key={index}>{poll.poll_title}</p>
+            <PollCard
+              key={index}
+              poll_title={poll.poll_title}
+              is_active={poll.is_active}
+              share_id={poll.share_id}
+              created_at={poll.created_at}
+            />
+          ))}
+      </div>
     </main>
   );
 }
