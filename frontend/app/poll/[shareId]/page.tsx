@@ -27,6 +27,32 @@ function SharePollPage({ params }: { params: SharePollParams }) {
 
   const { shareId } = use(params);
 
+  async function castVote(voteOption: number) {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    console.log(voteOption);
+
+    try {
+      const res = await fetch(`${apiUrl}/polls/vote`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ voteoption: voteOption }),
+      });
+
+      if (!res.ok) {
+        console.error('Error fetching vote poll api');
+        return;
+      }
+
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.error('Failed to vote:', err);
+    }
+  }
+
   async function fetchShareData() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -90,11 +116,14 @@ function SharePollPage({ params }: { params: SharePollParams }) {
                 key={option.id}
                 className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center'
               >
-                <span>{option.option_text}</span>
+                <p className='font-semibold'>{option.option_text}</p>
                 <span className='text-sm text-gray-500'>
                   {option.vote_count} votes
                 </span>
-                <button className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl'>
+                <button
+                  onClick={() => castVote(option.id)}
+                  className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl'
+                >
                   Vote
                 </button>
               </div>
