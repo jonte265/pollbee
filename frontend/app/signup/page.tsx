@@ -6,9 +6,11 @@ function SignupPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
@@ -38,6 +40,8 @@ function SignupPage() {
       setMessage('Registration successful, welcome aboard ✅');
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,7 +75,11 @@ function SignupPage() {
           Sign Up
         </button>
       </form>
-      {message ?? <p>{message}</p>}
+      {loading && (
+        <div className='w-8 h-8 border-4 border-primary-300 border-dashed rounded-full animate-spin mx-auto'></div>
+      )}
+
+      {message && <p>{message}</p>}
     </main>
   );
 }
