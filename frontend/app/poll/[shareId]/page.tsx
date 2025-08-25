@@ -48,6 +48,8 @@ function SharePollPage({ params }: { params: SharePollParams }) {
 
       const data = await res.json();
       console.log(data);
+
+      fetchShareData(); // Refresh after voted
     } catch (err) {
       console.error('Failed to vote:', err);
     }
@@ -111,23 +113,26 @@ function SharePollPage({ params }: { params: SharePollParams }) {
           </div>
 
           <div className='flex flex-col gap-1'>
-            {pollData.poll_options.map((option) => (
-              <div
-                key={option.id}
-                className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center'
-              >
-                <p className='font-semibold'>{option.option_text}</p>
-                <span className='text-sm text-gray-500'>
-                  {option.vote_count} votes
-                </span>
-                <button
-                  onClick={() => castVote(option.id)}
-                  className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl'
+            {pollData.poll_options
+              .slice()
+              .sort((a, b) => a.option_text.localeCompare(b.option_text))
+              .map((option) => (
+                <div
+                  key={option.id}
+                  className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center'
                 >
-                  Vote
-                </button>
-              </div>
-            ))}
+                  <p className='font-semibold'>{option.option_text}</p>
+                  <span className='text-sm text-gray-500'>
+                    {option.vote_count} votes
+                  </span>
+                  <button
+                    onClick={() => castVote(option.id)}
+                    className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl'
+                  >
+                    Vote
+                  </button>
+                </div>
+              ))}
           </div>
         </div>
       )}
