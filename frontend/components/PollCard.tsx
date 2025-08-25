@@ -30,7 +30,7 @@ function PollCard({
         Created: {new Date(created_at).toLocaleDateString('sv-SE')}
       </p>
       <Link href={`${apiUrl}/${share_id}`}>
-        <button className='mt-4 px-4 py-2 bg-text hover:bg-text-700 text-background rounded-4xl'>
+        <button className='mt-4 px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl'>
           View Poll
         </button>
       </Link>

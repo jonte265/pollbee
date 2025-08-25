@@ -9,7 +9,24 @@ export const profilePolls = async (req, res) => {
 
   const { data, error } = await supabase
     .from('polls')
-    .select('*')
+    .select(
+      `
+    id,
+    created_at,
+    user_id,
+    poll_title,
+    is_active,
+    share_id,
+    poll_options (
+      id,
+      created_at,
+      poll_id,
+      option_text,
+      vote_count,
+      user_id
+    )
+  `
+    )
     .eq('user_id', userid);
 
   if (error) {
