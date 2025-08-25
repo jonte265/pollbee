@@ -8,17 +8,36 @@ function SignupPage() {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log('go');
-
     e.preventDefault();
-    console.log('go2');
+
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    console.log(apiUrl);
+
+    const newUser = {
+      username: username,
+      password: password,
+    };
 
     try {
-      const res = await fetch(`${apiUrl}/`);
+      const res = await fetch(`${apiUrl}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
       const data = await res.json();
+
+      if (!res.ok) {
+        console.log('Respond not ok, problem');
+        return;
+      }
+
+      console.log(res);
       console.log(data);
+
+      setUsername('');
+      setPassword('');
+      setMessage('Registration successful, welcome aboard ✅');
     } catch (error) {
       console.error(error);
     }
@@ -34,11 +53,15 @@ function SignupPage() {
         className='flex flex-col justify-center gap-4 max-w-sm w-full'
       >
         <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           type='text'
           placeholder='Username'
           className='rounded-4xl p-2 pl-4 bg-background-50'
         />
         <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           type='password'
           placeholder='Password'
           className='rounded-4xl p-2 pl-4  bg-background-50'
@@ -50,6 +73,7 @@ function SignupPage() {
           Sign Up
         </button>
       </form>
+      {message ?? <p>{message}</p>}
     </main>
   );
 }
