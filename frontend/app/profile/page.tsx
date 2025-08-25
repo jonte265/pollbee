@@ -3,6 +3,8 @@
 import LoadingSpin from '@/components/LoadingSpin';
 import PollCard from '@/components/PollCard';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import PrimaryBtn from '@/components/PrimaryBtn';
 
 type profileDataType = {
   poll_title: string;
@@ -45,6 +47,10 @@ function profilePage() {
   return (
     <main className='flex flex-col justify-center items-center gap-16'>
       <h2 className='text-2xl'>Your polls:</h2>
+
+      <Link href='/create-poll'>
+        <PrimaryBtn btnText='Create poll' />
+      </Link>
 
       {loading && <LoadingSpin />}
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
