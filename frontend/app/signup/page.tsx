@@ -29,11 +29,9 @@ function SignupPage() {
 
       if (!res.ok) {
         console.log('Respond not ok, problem');
+        setMessage(`${data.message} ❌`);
         return;
       }
-
-      console.log(res);
-      console.log(data);
 
       setUsername('');
       setPassword('');
