@@ -4,6 +4,7 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import loginRoutes from './routes/loginRoutes.js';
 import pollRoutes from './routes/pollRoutes.js';
+import profileRoutes from './routes/profileRoutes.js';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/users', userRoutes);
 app.use('/login', loginRoutes);
 app.use('/polls', pollRoutes);
+app.use('/profile', profileRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Server is live' });
