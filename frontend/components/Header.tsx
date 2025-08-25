@@ -9,10 +9,10 @@ function Header() {
       </Link>
       <div className='flex gap-4 justify-center items-center'>
         <Link href='/login'>
-          <button>Login</button>
+          <button className='font-bold'>Login</button>
         </Link>
         <Link href='/login'>
-          <PrimaryBtn btnText='Sign Up' />
+          <PrimaryBtn btnText='Sign Up' bgColor='primary2' />
         </Link>
       </div>
     </header>
