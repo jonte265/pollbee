@@ -20,7 +20,7 @@ function PollCard({
       <h2 className='text-2xl pb-4 font-bold'>{poll_title}</h2>
       <p
         className={`py-1 px-2 rounded-4xl text-sm ${
-          is_active ? 'bg-green-500' : 'bg-red-500'
+          is_active ? 'bg-green-200' : 'bg-red-200'
         }`}
       >
         {is_active ? 'Active' : 'Inactive'}
