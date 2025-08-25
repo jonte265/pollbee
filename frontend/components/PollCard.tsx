@@ -16,12 +16,21 @@ function PollCard({
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   return (
-    <div className='flex flex-col gap-2 justify-center itemsce'>
-      <h2 className='text-xl font-semibold'>{poll_title}</h2>
-      <p className='text-xl'>{is_active ? 'Active' : 'Not active'}</p>
-      <p>Created: {new Date(created_at).toLocaleString()}</p>
+    <div className='flex flex-col gap-2 justify-center items-center bg-text-50 p-16 rounded-4xl'>
+      <h2 className='text-2xl pb-4 font-bold'>{poll_title}</h2>
+      <p
+        className={`py-1 px-2 rounded-4xl text-sm ${
+          is_active ? 'bg-green-500' : 'bg-red-500'
+        }`}
+      >
+        {is_active ? 'Active' : 'Inactive'}
+      </p>
+
+      <p className='opacity-50 text-sm'>
+        Created: {new Date(created_at).toLocaleDateString('sv-SE')}
+      </p>
       <Link href={`${apiUrl}/${share_id}`}>
-        <button className='px-4 py-2 bg-text text-background rounded-4xl'>
+        <button className='mt-4 px-4 py-2 bg-text hover:bg-text-700 text-background rounded-4xl'>
           View Poll
         </button>
       </Link>

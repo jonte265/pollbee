@@ -43,14 +43,13 @@ function profilePage() {
   }, []);
 
   return (
-    <main className='flex flex-col justify-center items-center gap-4'>
-      <h2 className='text-2xl'>Profile page</h2>
+    <main className='flex flex-col justify-center items-center gap-16'>
+      <h2 className='text-2xl'>Your polls:</h2>
 
       {loading && <LoadingSpin />}
-      <div className='flex flex-col gap-2 justify-center items-center'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
         {profileData.length > 0 &&
           profileData.map((poll, index) => (
-            // <p key={index}>{poll.poll_title}</p>
             <PollCard
               key={index}
               poll_title={poll.poll_title}
