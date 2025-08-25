@@ -1,14 +1,71 @@
+'use client';
+
+import { useState } from 'react';
+
 function LoginPage() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    const newUser = {
+      username: username,
+      password: password,
+    };
+
+    try {
+      const res = await fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.log('Respond not ok, problem');
+        setMessage(`${data.message} ❌`);
+        return;
+      }
+
+      console.log(data);
+
+      localStorage.setItem('token', data.token);
+
+      setUsername('');
+      setPassword('');
+      setMessage('Login successful, welcome back 🐝');
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className='flex flex-col gap-8 items-center justify-center'>
-      <h2 className='text-xl text-center font-bold'>Login </h2>
-      <form className='flex flex-col justify-center gap-4 max-w-sm w-full'>
+      <h2 className='text-xl text-center font-bold'>Log into your account</h2>
+      <form
+        onSubmit={handleSubmit}
+        className='flex flex-col justify-center gap-4 max-w-sm w-full'
+      >
         <input
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           type='text'
           placeholder='Username'
           className='rounded-4xl p-2 pl-4 bg-background-50'
         />
         <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           type='password'
           placeholder='Password'
           className='rounded-4xl p-2 pl-4  bg-background-50'
@@ -20,6 +77,11 @@ function LoginPage() {
           Login
         </button>
       </form>
+      {loading && (
+        <div className='w-8 h-8 border-4 border-primary-300 border-dashed rounded-full animate-spin mx-auto'></div>
+      )}
+
+      {message && <p>{message}</p>}
     </main>
   );
 }
