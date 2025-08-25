@@ -3,7 +3,7 @@ import PrimaryBtn from './PrimaryBtn';
 
 function Header() {
   return (
-    <header className='flex justify-between items-center pb-4'>
+    <header className='flex justify-between items-center pb-16'>
       <Link href='/'>
         <h1 className='font-bold text-2xl'>PollBee 🐝</h1>
       </Link>
@@ -12,7 +12,7 @@ function Header() {
           <button className='font-bold'>Login</button>
         </Link>
         <Link href='/login'>
-          <PrimaryBtn btnText='Sign Up' bgColor='primary2' />
+          <PrimaryBtn btnText='Sign Up' />
         </Link>
       </div>
     </header>
