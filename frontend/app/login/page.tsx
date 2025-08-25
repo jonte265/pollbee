@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import LoadingSpin from '@/components/LoadingSpin';
 
 function LoginPage() {
   const router = useRouter();
@@ -90,9 +91,7 @@ function LoginPage() {
           </button>
         )}
       </form>
-      {loading && (
-        <div className='w-8 h-8 border-4 border-primary-300 border-dashed rounded-full animate-spin mx-auto'></div>
-      )}
+      {loading && <LoadingSpin />}
 
       {message && <p>{message}</p>}
     </main>
