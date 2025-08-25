@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 function LoginPage() {
+  const router = useRouter();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -42,6 +45,7 @@ function LoginPage() {
       setUsername('');
       setPassword('');
       setMessage('Login successful, welcome back 🐝');
+      router.push('/profile');
     } catch (error) {
       console.error(error);
     } finally {
@@ -70,12 +74,21 @@ function LoginPage() {
           placeholder='Password'
           className='rounded-4xl p-2 pl-4  bg-background-50'
         />
-        <button
-          type='submit'
-          className='bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out'
-        >
-          Login
-        </button>
+        {!loading ? (
+          <button
+            type='submit'
+            className='bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out'
+          >
+            Login
+          </button>
+        ) : (
+          <button
+            disabled
+            className='bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out'
+          >
+            Login
+          </button>
+        )}
       </form>
       {loading && (
         <div className='w-8 h-8 border-4 border-primary-300 border-dashed rounded-full animate-spin mx-auto'></div>
