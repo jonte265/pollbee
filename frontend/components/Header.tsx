@@ -11,7 +11,7 @@ function Header() {
         <Link href='/login'>
           <button className='font-bold'>Login</button>
         </Link>
-        <Link href='/login'>
+        <Link href='/signup'>
           <PrimaryBtn btnText='Sign Up' />
         </Link>
       </div>
