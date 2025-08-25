@@ -13,7 +13,7 @@ function PollCard({
   share_id,
   created_at,
 }: pollCardType) {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const apiUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
 
   return (
     <div className='flex flex-col gap-2 justify-center items-center bg-text-50 p-16 rounded-4xl'>
@@ -29,7 +29,7 @@ function PollCard({
       <p className='opacity-50 text-sm'>
         Created: {new Date(created_at).toLocaleDateString('sv-SE')}
       </p>
-      <Link href={`${apiUrl}/${share_id}`}>
+      <Link href={`${apiUrl}/poll/${share_id}`}>
         <button className='mt-4 px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl'>
           View Poll
         </button>
