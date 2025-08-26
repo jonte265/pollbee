@@ -83,7 +83,7 @@ function CreatePoll() {
           onChange={(e) => setPollTitle(e.target.value)}
           type='text'
           placeholder='Poll Title'
-          className='rounded-4xl p-2 pl-4 bg-background-50'
+          className='rounded-4xl p-2 pl-4 bg-primary-50'
         />
 
         {options.map((opt, index) => (
@@ -93,7 +93,7 @@ function CreatePoll() {
               onChange={(e) => handleOptionChange(index, e.target.value)}
               type='text'
               placeholder={`Option ${index + 1}`}
-              className='flex-1 rounded-4xl p-2 pl-4 bg-background-50'
+              className='flex-1 rounded-4xl p-2 pl-4 bg-primary-50'
             />
             {options.length > 1 && (
               <button
