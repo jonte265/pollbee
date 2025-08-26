@@ -58,8 +58,8 @@ function ProfilePage() {
   }, []);
 
   return (
-    <main className='flex flex-col justify-center items-center gap-16'>
-      <h2 className='text-2xl'>Your polls:</h2>
+    <main className='flex flex-col justify-center items-center gap-8'>
+      <h2 className='text-2xl font-semibold'>Your polls:</h2>
 
       <Link href='/create-poll'>
         <PrimaryBtn btnText='Create poll' />
