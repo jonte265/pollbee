@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import ActiveBadge from './ActiveBadge';
 
 type pollCardType = {
   poll_title: string;
@@ -18,13 +19,8 @@ function PollCard({
   return (
     <div className='flex flex-col gap-2 justify-center items-center bg-text-50 p-16 rounded-4xl'>
       <h2 className='text-2xl text-center font-bold'>{poll_title}</h2>
-      <p
-        className={`py-1 px-2 rounded-4xl text-sm font-semibold ${
-          is_active ? 'bg-green-200' : 'bg-red-200'
-        }`}
-      >
-        {is_active ? 'Active' : 'Inactive'}
-      </p>
+
+      <ActiveBadge isActive={is_active} />
 
       <p className='opacity-50 text-sm'>
         Created: {new Date(created_at).toLocaleDateString('sv-SE')}

@@ -1,5 +1,6 @@
 'use client';
 
+import ActiveBadge from '@/components/ActiveBadge';
 import CtaSignUp from '@/components/CtaSignUp';
 import LoadingSpin from '@/components/LoadingSpin';
 import { useState, useEffect, use } from 'react';
@@ -108,13 +109,7 @@ function SharePollPage({ params }: { params: SharePollParams }) {
               {new Date(pollData.created_at).toLocaleDateString()}
             </p>
 
-            <p
-              className={`py-1 px-2 rounded-4xl text-sm font-semibold ${
-                pollData.is_active ? 'bg-green-200' : 'bg-red-200'
-              }`}
-            >
-              {pollData.is_active ? 'Active' : 'Closed'}
-            </p>
+            <ActiveBadge isActive={pollData.is_active} />
           </div>
 
           <div className='flex flex-col gap-1'>
