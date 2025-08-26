@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingSpin from '@/components/LoadingSpin';
+import { FaTrash } from 'react-icons/fa';
 
 function CreatePoll() {
   const router = useRouter();
@@ -99,9 +100,9 @@ function CreatePoll() {
               <button
                 type='button'
                 onClick={() => removeOption(index)}
-                className='text-red-500 font-bold px-2'
+                className=' font-bold px-2'
               >
-                🗑
+                <FaTrash />
               </button>
             )}
           </div>
