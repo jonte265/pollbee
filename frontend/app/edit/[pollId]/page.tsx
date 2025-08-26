@@ -1,17 +1,45 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingSpin from '@/components/LoadingSpin';
 
-function EditPoll() {
+type EditPollParams = Promise<{
+  pollId: string;
+}>;
+
+type PollOption = {
+  id: number;
+  option_text: string;
+  vote_count: number;
+};
+
+type PollData = {
+  poll_title: string;
+  poll_creator: string;
+  is_active: boolean;
+  created_at: string;
+  poll_options: PollOption[];
+};
+
+function EditPoll({ params }: { params: EditPollParams }) {
   const router = useRouter();
 
+  const { pollId } = use(params);
+
+  const [pollData, setPollData] = useState<PollData | null>(null);
   const [pollTitle, setPollTitle] = useState('');
   const [active, setActive] = useState(true);
   const [options, setOptions] = useState<string[]>(['']);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const [editMode, setEditMode] = useState(false);
+
+  const enterEditMode = () => {
+    console.log('yo');
+    setEditMode(true);
+  };
 
   const handleOptionChange = (index: number, value: string) => {
     const updatedOptions = [...options];
@@ -28,6 +56,35 @@ function EditPoll() {
     setOptions(updatedOptions);
   };
 
+  // Get poll information
+  async function fetchShareData() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    setLoading(true);
+
+    try {
+      const res = await fetch(`${apiUrl}/polls/${pollId}`);
+
+      if (!res.ok) {
+        console.error('Error fetching poll');
+        return;
+      }
+
+      const data = await res.json();
+      console.log(data);
+      setPollData(data);
+    } catch (err) {
+      console.error('Failed to fetch poll data:', err);
+    } finally {
+      setLoading(false);
+      console.log(pollData);
+    }
+  }
+
+  useEffect(() => {
+    fetchShareData();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -43,8 +100,8 @@ function EditPoll() {
     try {
       const token = localStorage.getItem('token'); // Get jwt token localstorage
 
-      const res = await fetch(`${apiUrl}/polls/`, {
-        method: 'POST',
+      const res = await fetch(`${apiUrl}/polls`, {
+        method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -55,13 +112,13 @@ function EditPoll() {
       const data = await res.json();
 
       if (!res.ok) {
-        setMessage(`${data.message || 'Error creating poll'} ❌`);
+        setMessage(`${data.message || 'Error editing poll'} ❌`);
         return;
       }
 
       setPollTitle('');
       setOptions(['']);
-      setMessage('Created new poll! 🐝');
+      setMessage('Edited poll! 🐝');
       setTimeout(() => router.push('/profile'), 2000);
     } catch (error) {
       console.error(error);
@@ -78,14 +135,40 @@ function EditPoll() {
         onSubmit={handleSubmit}
         className='flex flex-col justify-center gap-4 max-w-sm w-full'
       >
-        <input
-          value={pollTitle}
-          onChange={(e) => setPollTitle(e.target.value)}
-          type='text'
-          placeholder='Poll Title'
-          className='rounded-4xl p-2 pl-4 bg-primary-50'
-        />
+        <p>Title:</p>
+        {editMode ? (
+          <div className='flex gap-4 justify-between items-center'>
+            <input
+              value={pollTitle}
+              onChange={(e) => setPollTitle(e.target.value)}
+              type='text'
+              placeholder='Poll Title'
+              className='w-full rounded-4xl p-2 pl-4 bg-primary-50'
+            />
+            <div className='flex gap-4'>
+              <button>✔️</button>
+              <button>✖️</button>
+            </div>
+          </div>
+        ) : (
+          <div className='flex justify-between items-center'>
+            <input
+              value={pollData ? pollData.poll_title : 'null'}
+              readOnly
+              onChange={(e) => setPollTitle(e.target.value)}
+              type='text'
+              className='rounded-4xl p-2 pl-4 '
+            />
+            <button
+              onClick={enterEditMode}
+              className='font-bold px-4 py-2 bg-primary-50 hover:bg-primary-100 rounded-4xl  transition-all ease-in-out'
+            >
+              Edit
+            </button>
+          </div>
+        )}
 
+        <p>Options:</p>
         {options.map((opt, index) => (
           <div key={index} className='flex gap-2 items-center'>
             <input
