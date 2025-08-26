@@ -31,14 +31,14 @@ function Header() {
       {isLoggedIn ? (
         <div className='flex gap-2 justify-center items-center'>
           <Link href='/profile'>
-            <button className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl'>
+            <button className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl transition-all ease-in-out'>
               Profile
             </button>
           </Link>
 
           <button
             onClick={signOutUser}
-            className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl'
+            className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl  transition-all ease-in-out'
           >
             Sign Out
           </button>
@@ -46,7 +46,7 @@ function Header() {
       ) : (
         <div className='flex gap-2 justify-center items-center'>
           <Link href='/login'>
-            <button className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl'>
+            <button className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl  transition-all ease-in-out'>
               Login
             </button>
           </Link>
