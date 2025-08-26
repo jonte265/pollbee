@@ -1,11 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingSpin from '@/components/LoadingSpin';
 
 function SignupPage() {
   const router = useRouter();
+
+  // Redirect to profile if logged in
+  useEffect(() => {
+    const tokenLocal = localStorage.getItem('token');
+
+    if (tokenLocal !== null) {
+      router.push('/profile');
+    } else {
+    }
+  }, []);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
