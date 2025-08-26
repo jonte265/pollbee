@@ -22,6 +22,14 @@ type PollOptionType = {
   id: number;
 };
 
+type NewUpdatePoll = {
+  pollid: number;
+  polltitle?: string;
+  active?: boolean;
+  options?: string;
+  optionsid?: number;
+};
+
 function EditPoll({ params }: { params: EditPollParams }) {
   const [pollData, setPollData] = useState<PollDataType | null>(null);
 
@@ -51,7 +59,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
       console.log(newUpdate);
       const token = localStorage.getItem('token'); // Get jwt token localstorage
 
-      async function pushUpdate(updateObj) {
+      async function pushUpdate(updateObj: NewUpdatePoll) {
         try {
           const res = await fetch(`${apiUrl}/polls`, {
             method: 'PUT',
