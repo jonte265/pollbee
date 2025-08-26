@@ -125,9 +125,9 @@ function EditPoll({ params }: { params: EditPollParams }) {
 
       {pollData ? (
         <div className='flex flex-col max-w-sm w-full px-4'>
-          <p className=''>Title:</p>
+          <p className='mb-1'>Title:</p>
 
-          <div className='flex flex-col gap-2'>
+          <div className='border border-gray-300 rounded-4xl px-4 py-2 flex flex-col gap-2'>
             {editMode === -5 ? (
               <div className='flex gap-2'>
                 <input
@@ -153,10 +153,10 @@ function EditPoll({ params }: { params: EditPollParams }) {
               </div>
             ) : (
               <div className='flex justify-between items-center gap-4'>
-                <p className=''>{pollData.poll_title}</p>
+                <p className='font-semibold'>{pollData.poll_title}</p>
                 <button
                   onClick={() => setEditMode(-5)}
-                  className='font-bold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
+                  className='font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
                 >
                   Edit
                 </button>
@@ -164,11 +164,14 @@ function EditPoll({ params }: { params: EditPollParams }) {
             )}
           </div>
 
-          <p className='mt-4'>Options:</p>
+          <p className='mt-4 mb-1'>Options:</p>
           <div className='flex flex-col gap-2'>
             {pollData.poll_options.map((opt, index) =>
               editMode === opt.id ? (
-                <div className='flex gap-2' key={opt.id}>
+                <div
+                  className='border border-gray-300 rounded-4xl px-4 py-2 flex flex-row gap-2'
+                  key={opt.id}
+                >
                   <input
                     disabled={loadingState}
                     value={updateText}
@@ -197,12 +200,12 @@ function EditPoll({ params }: { params: EditPollParams }) {
               ) : (
                 <div
                   key={opt.id}
-                  className='flex justify-between items-center gap-4'
+                  className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center gap-4'
                 >
-                  <p className=''>{opt.option_text}</p>
+                  <p className='font-semibold'>{opt.option_text}</p>
                   <button
                     onClick={() => setEditMode(opt.id)}
-                    className='font-bold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
+                    className='font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
                   >
                     Edit
                   </button>
