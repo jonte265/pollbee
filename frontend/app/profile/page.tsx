@@ -5,6 +5,7 @@ import PollCard from '@/components/PollCard';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PrimaryBtn from '@/components/PrimaryBtn';
+import { useRouter } from 'next/navigation';
 
 type profileDataType = {
   poll_title: string;
@@ -13,7 +14,19 @@ type profileDataType = {
   created_at: string;
 };
 
-function profilePage() {
+function ProfilePage() {
+  // Redirect if not logged in
+  const router = useRouter();
+
+  useEffect(() => {
+    const tokenLocal = localStorage.getItem('token');
+
+    if (tokenLocal === null) {
+      router.push('/login');
+    } else {
+    }
+  }, []);
+
   const [profileData, setProfileData] = useState<profileDataType[]>([]);
 
   const [loading, setLoading] = useState(false);
@@ -69,4 +82,4 @@ function profilePage() {
   );
 }
 
-export default profilePage;
+export default ProfilePage;

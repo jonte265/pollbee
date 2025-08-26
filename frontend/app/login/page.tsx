@@ -46,7 +46,8 @@ function LoginPage() {
       setUsername('');
       setPassword('');
       setMessage('Login successful, welcome back 🐝');
-      router.push('/profile');
+      // router.push('/profile');
+      window.location.href = '/';
     } catch (error) {
       console.error(error);
     } finally {
