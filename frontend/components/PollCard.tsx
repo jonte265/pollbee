@@ -26,8 +26,13 @@ function PollCard({
         Created: {new Date(created_at).toLocaleDateString('sv-SE')}
       </p>
       <Link href={`${apiUrl}/poll/${share_id}`}>
-        <button className='mt-4 px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl'>
+        <button className='mt-4 px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl transition-all ease-in-out'>
           View Poll
+        </button>
+      </Link>
+      <Link href={`${apiUrl}/polls`}>
+        <button className='mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
+          Edit Poll
         </button>
       </Link>
     </div>
