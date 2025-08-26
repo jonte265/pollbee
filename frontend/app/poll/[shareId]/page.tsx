@@ -127,15 +127,17 @@ function SharePollPage({ params }: { params: SharePollParams }) {
                   className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center'
                 >
                   <p className='font-semibold'>{option.option_text}</p>
-                  <span className='text-sm text-gray-500'>
-                    {option.vote_count} votes
-                  </span>
-                  <button
-                    onClick={() => castVote(option.id)}
-                    className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl'
-                  >
-                    Vote
-                  </button>
+                  <div className='flex items-center justify-center'>
+                    <span className='text-sm text-gray-500'>
+                      {option.vote_count} votes
+                    </span>
+                    <button
+                      onClick={() => castVote(option.id)}
+                      className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl'
+                    >
+                      Vote
+                    </button>
+                  </div>
                 </div>
               ))}
             <p className='text-center text-sm text-gray-500 mt-4'>
