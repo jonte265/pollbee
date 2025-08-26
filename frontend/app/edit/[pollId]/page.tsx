@@ -41,44 +41,53 @@ function EditPoll({ params }: { params: EditPollParams }) {
   const [editMode, setEditMode] = useState(-10);
   const [updateText, setUpdateText] = useState('');
 
-  function saveChange(updateText: string, pollType: string, optionId?: number) {
-    console.log(updateText);
-    console.log(pollType);
+  async function saveChange(
+    updateText: string,
+    pollType: string,
+    optionId?: number
+  ) {
+    if (!pollData) return;
 
-    if (pollData) {
-      const newUpdate = {
-        pollid: pollData.id,
-        polltitle: pollType === 'forTitle' ? updateText : pollData.poll_title,
-        active: true,
-        options:
-          pollType === 'forOption'
-            ? updateText
-            : pollData.poll_options[0].option_text,
-        optionsid: optionId ? optionId : pollData.poll_options[0].id,
-      };
-      console.log(newUpdate);
-      const token = localStorage.getItem('token'); // Get jwt token localstorage
-
-      async function pushUpdate(updateObj: NewUpdatePoll) {
-        try {
-          const res = await fetch(`${apiUrl}/polls`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(updateObj),
-          });
-
-          if (!res.ok) {
-            console.log('Res not ok');
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      }
-      pushUpdate(newUpdate);
+    if (updateText.trim() === '') {
+      return;
     }
+
+    const newUpdate: NewUpdatePoll = {
+      pollid: pollData.id,
+    };
+
+    if (pollType === 'forTitle') {
+      newUpdate.polltitle = updateText;
+    }
+
+    if (pollType === 'forOption') {
+      newUpdate.options = updateText;
+      newUpdate.optionsid = optionId;
+    }
+
+    const token = localStorage.getItem('token');
+
+    async function pushUpdate(updateObj: NewUpdatePoll) {
+      try {
+        const res = await fetch(`${apiUrl}/polls`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updateObj),
+        });
+
+        if (!res.ok) {
+          console.log('Res not ok');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    await pushUpdate(newUpdate);
+    await fetchPollData();
 
     setUpdateText('');
     setEditMode(-10);
