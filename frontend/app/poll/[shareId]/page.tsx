@@ -83,6 +83,10 @@ function SharePollPage({ params }: { params: SharePollParams }) {
     fetchShareData();
   }, []);
 
+  const totalVotes = pollData
+    ? pollData.poll_options.reduce((acc, option) => acc + option.vote_count, 0)
+    : 0;
+
   if (!loading && !pollData) {
     return (
       <main className='flex justify-center items-center font-bold'>
@@ -133,6 +137,9 @@ function SharePollPage({ params }: { params: SharePollParams }) {
                   </button>
                 </div>
               ))}
+            <p className='text-center text-sm text-gray-500 mt-4'>
+              {totalVotes} total votes
+            </p>
           </div>
         </div>
       )}
