@@ -1,5 +1,6 @@
 'use client';
 
+import CtaSignUp from '@/components/CtaSignUp';
 import LoadingSpin from '@/components/LoadingSpin';
 import { useState, useEffect, use } from 'react';
 
@@ -143,6 +144,7 @@ function SharePollPage({ params }: { params: SharePollParams }) {
           </div>
         </div>
       )}
+      <CtaSignUp />
     </main>
   );
 }

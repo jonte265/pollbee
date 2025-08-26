@@ -21,20 +21,20 @@ export default function Home() {
       </main>
       <div className='flex flex-col gap-4'>
         <FeatureSection
-          sectionTitle={'Create Polls Instantly'}
+          sectionTitle={'Create Polls Instantly 📊'}
           li1={'Set up a poll in seconds with a simple interface'}
           li2='Add unlimited options and control vote settings'
           li3='Mobile-friendly and responsive design'
         />
         <FeatureSection
-          sectionTitle='Share Seamlessly'
+          sectionTitle='Share Seamlessly 🔁'
           li1='Generate a shareable link and share with anyone'
           li2='No login required for voters'
           li3='Real-time updates as votes come in'
         />
 
         <FeatureSection
-          sectionTitle='Track Results Live'
+          sectionTitle='Track Results Live 📈'
           li1='See live vote counts'
           li2='Get insights on poll engagement'
           li3='Built-in analytics coming soon'
