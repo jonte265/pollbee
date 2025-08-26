@@ -30,7 +30,7 @@ function PollCard({
           View Poll
         </button>
       </Link>
-      <Link href={`${apiUrl}/polls`}>
+      <Link href={`${apiUrl}/edit/${share_id}`}>
         <button className='mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
           Edit Poll
         </button>
