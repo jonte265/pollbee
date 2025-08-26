@@ -30,9 +30,17 @@ function EditPoll({ params }: { params: EditPollParams }) {
   const { pollId } = use(params);
 
   const [editMode, setEditMode] = useState(-10);
+  const [updateText, setUpdateText] = useState('');
 
-  function enableEditMode(id: number) {
-    setEditMode(id);
+  function saveChange(updateText: string) {
+    console.log(updateText);
+    setUpdateText('');
+    setEditMode(-10);
+  }
+
+  function cancelEdit() {
+    setEditMode(-10);
+    setUpdateText('');
   }
 
   async function fetchPollData() {
@@ -79,7 +87,22 @@ function EditPoll({ params }: { params: EditPollParams }) {
           <div className='flex flex-col gap-2'>
             {pollData.poll_options.map((opt, index) =>
               editMode === opt.id ? (
-                <p key={opt.id}>Edit mode on</p>
+                <div className='flex gap-2' key={opt.id}>
+                  <input
+                    value={updateText}
+                    onChange={(e) => setUpdateText(e.target.value)}
+                    type='text'
+                    placeholder={opt.option_text}
+                    className='rounded-4xl p-2 pl-4 bg-primary-50'
+                  />
+
+                  <button onClick={() => saveChange(updateText)}>
+                    <FaCheck />
+                  </button>
+                  <button onClick={cancelEdit}>
+                    <FaTimes />
+                  </button>
+                </div>
               ) : (
                 <div
                   key={opt.id}
