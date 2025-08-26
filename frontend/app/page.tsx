@@ -11,8 +11,7 @@ export default function Home() {
   useEffect(() => {
     const tokenLocal = localStorage.getItem('token');
 
-    if (tokenLocal === null) {
-    } else {
+    if (tokenLocal) {
       setSignedIn(true);
     }
   }, []);
