@@ -166,52 +166,54 @@ function EditPoll({ params }: { params: EditPollParams }) {
 
           <p className='mt-4 mb-1'>Options:</p>
           <div className='flex flex-col gap-2'>
-            {pollData.poll_options.map((opt, index) =>
-              editMode === opt.id ? (
-                <div
-                  className='border border-gray-300 rounded-4xl px-4 py-2 flex flex-row gap-2'
-                  key={opt.id}
-                >
-                  <input
-                    disabled={loadingState}
-                    value={updateText}
-                    onChange={(e) => setUpdateText(e.target.value)}
-                    type='text'
-                    placeholder={opt.option_text}
-                    className='flex-grow rounded-4xl p-2 pl-4 bg-primary-50'
-                  />
-                  {loadingState ? (
-                    <LoadingSpin />
-                  ) : (
-                    <div className='flex items-center justify-center gap-4'>
-                      <button
-                        onClick={() =>
-                          saveChange(updateText, 'forOption', opt.id)
-                        }
-                      >
-                        <FaCheck />
-                      </button>
-                      <button onClick={cancelEdit}>
-                        <FaTimes />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div
-                  key={opt.id}
-                  className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center gap-4'
-                >
-                  <p className='font-semibold'>{opt.option_text}</p>
-                  <button
-                    onClick={() => setEditMode(opt.id)}
-                    className='font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
+            {[...pollData.poll_options]
+              .sort((a, b) => a.id - b.id)
+              .map((opt, index) =>
+                editMode === opt.id ? (
+                  <div
+                    className='border border-gray-300 rounded-4xl px-4 py-2 flex flex-row gap-2'
+                    key={opt.id}
                   >
-                    Edit
-                  </button>
-                </div>
-              )
-            )}
+                    <input
+                      disabled={loadingState}
+                      value={updateText}
+                      onChange={(e) => setUpdateText(e.target.value)}
+                      type='text'
+                      placeholder={opt.option_text}
+                      className='flex-grow rounded-4xl p-2 pl-4 bg-primary-50'
+                    />
+                    {loadingState ? (
+                      <LoadingSpin />
+                    ) : (
+                      <div className='flex items-center justify-center gap-4'>
+                        <button
+                          onClick={() =>
+                            saveChange(updateText, 'forOption', opt.id)
+                          }
+                        >
+                          <FaCheck />
+                        </button>
+                        <button onClick={cancelEdit}>
+                          <FaTimes />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div
+                    key={opt.id}
+                    className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center gap-4'
+                  >
+                    <p className='font-semibold'>{opt.option_text}</p>
+                    <button
+                      onClick={() => setEditMode(opt.id)}
+                      className='font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )
+              )}
           </div>
         </div>
       ) : (
