@@ -19,7 +19,7 @@ function PollCard({
     <div className='flex flex-col gap-2 justify-center items-center bg-text-50 p-16 rounded-4xl'>
       <h2 className='text-2xl pb-4 font-bold'>{poll_title}</h2>
       <p
-        className={`py-1 px-2 rounded-4xl text-sm ${
+        className={`py-1 px-2 rounded-4xl text-sm font-semibold ${
           is_active ? 'bg-green-200' : 'bg-red-200'
         }`}
       >
