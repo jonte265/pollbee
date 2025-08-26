@@ -2,7 +2,7 @@ type activeBadgeTypes = {
   isActive: boolean;
 };
 
-function ActiveBadge({ isActive }) {
+function ActiveBadge({ isActive }: activeBadgeTypes) {
   return (
     <div>
       <p
