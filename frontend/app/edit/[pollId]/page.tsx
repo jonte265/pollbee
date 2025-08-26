@@ -13,6 +13,7 @@ type EditPollParams = Promise<{
 
 type PollDataType = {
   poll_title: string;
+  id: number;
   poll_options: PollOptionType[];
 };
 
@@ -32,8 +33,45 @@ function EditPoll({ params }: { params: EditPollParams }) {
   const [editMode, setEditMode] = useState(-10);
   const [updateText, setUpdateText] = useState('');
 
-  function saveChange(updateText: string) {
+  function saveChange(updateText: string, pollType: string, optionId?: number) {
     console.log(updateText);
+    console.log(pollType);
+
+    if (pollData) {
+      const newUpdate = {
+        pollid: pollData.id,
+        polltitle: pollType === 'forTitle' ? updateText : pollData.poll_title,
+        active: true,
+        options:
+          pollType === 'forOption'
+            ? updateText
+            : pollData.poll_options[0].option_text,
+        optionsid: optionId ? optionId : pollData.poll_options[0].id,
+      };
+      console.log(newUpdate);
+      const token = localStorage.getItem('token'); // Get jwt token localstorage
+
+      async function pushUpdate(updateObj) {
+        try {
+          const res = await fetch(`${apiUrl}/polls`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(updateObj),
+          });
+
+          if (!res.ok) {
+            console.log('Res not ok');
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      pushUpdate(newUpdate);
+    }
+
     setUpdateText('');
     setEditMode(-10);
   }
@@ -69,7 +107,22 @@ function EditPoll({ params }: { params: EditPollParams }) {
 
           <div className='flex justify-center items-center gap-4'>
             {editMode === -5 ? (
-              <p>Edit mode on</p>
+              <div className='flex gap-2'>
+                <input
+                  value={updateText}
+                  onChange={(e) => setUpdateText(e.target.value)}
+                  type='text'
+                  placeholder={pollData.poll_title}
+                  className='rounded-4xl p-2 pl-4 bg-primary-50'
+                />
+
+                <button onClick={() => saveChange(updateText, 'forTitle')}>
+                  <FaCheck />
+                </button>
+                <button onClick={cancelEdit}>
+                  <FaTimes />
+                </button>
+              </div>
             ) : (
               <div className='flex justify-center items-center gap-4'>
                 <p>{pollData.poll_title}</p>
@@ -96,7 +149,9 @@ function EditPoll({ params }: { params: EditPollParams }) {
                     className='rounded-4xl p-2 pl-4 bg-primary-50'
                   />
 
-                  <button onClick={() => saveChange(updateText)}>
+                  <button
+                    onClick={() => saveChange(updateText, 'forOption', opt.id)}
+                  >
                     <FaCheck />
                   </button>
                   <button onClick={cancelEdit}>
