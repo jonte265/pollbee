@@ -66,18 +66,22 @@ export const editPoll = async (req, res) => {
     return res.status(403).json({ message: 'Unauthorized forbidden' });
   }
 
-  const { data: rowOptionsData, error: rowOptionsError } = await supabase
-    .from('poll_options')
-    .select('*')
-    .eq('id', optionsid)
-    .single();
+  if (optionsid) {
+    const { data: rowOptionsData, error: rowOptionsError } = await supabase
+      .from('poll_options')
+      .select('*')
+      .eq('id', optionsid)
+      .single();
 
-  if (rowOptionsError) {
-    return res.status(404).json({ message: `Poll Options Id not found` });
-  }
+    if (rowOptionsError) {
+      return res.status(404).json({ message: `Poll Options Id not found` });
+    }
 
-  if (rowOptionsData.user_id !== userid) {
-    return res.status(403).json({ message: 'Unauthorized forbidden options' });
+    if (rowOptionsData.user_id !== userid) {
+      return res
+        .status(403)
+        .json({ message: 'Unauthorized forbidden options' });
+    }
   }
 
   if (polltitle) {
@@ -93,7 +97,7 @@ export const editPoll = async (req, res) => {
     }
   }
 
-  if (options) {
+  if (options && optionsid) {
     const { data: optionsData, error: optionsError } = await supabase
       .from('poll_options')
       .update({ option_text: options })
@@ -106,7 +110,7 @@ export const editPoll = async (req, res) => {
     }
   }
 
-  if (!active !== undefined) {
+  if (active !== undefined) {
     const { data: activeData, error: activeError } = await supabase
       .from('polls')
       .update({ is_active: active })
