@@ -58,11 +58,21 @@ function EditPoll({ params }: { params: EditPollParams }) {
       {pollData ? (
         <div className='flex flex-col'>
           <p className='text-xl'>Title:</p>
+
           <div className='flex justify-center items-center gap-4'>
-            <p>{pollData.poll_title}</p>
-            <button className='font-bold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'>
-              Edit
-            </button>
+            {editMode === -5 ? (
+              <p>Edit mode on</p>
+            ) : (
+              <div className='flex justify-center items-center gap-4'>
+                <p>{pollData.poll_title}</p>
+                <button
+                  onClick={() => setEditMode(-5)}
+                  className='font-bold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
+                >
+                  Edit
+                </button>
+              </div>
+            )}
           </div>
 
           <p className='text-xl mt-4'>Options:</p>
