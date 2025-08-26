@@ -69,6 +69,7 @@ function SignupPage() {
         onSubmit={handleSubmit}
         className='flex flex-col justify-center gap-4 max-w-sm w-full'
       >
+        <p>Username</p>
         <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -76,6 +77,7 @@ function SignupPage() {
           placeholder='Username'
           className='rounded-4xl p-2 pl-4 bg-primary-50'
         />
+        <p>Password</p>
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
