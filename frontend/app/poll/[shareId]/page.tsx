@@ -92,10 +92,10 @@ function SharePollPage({ params }: { params: SharePollParams }) {
   }
 
   return (
-    <main className='flex flex-col justify-center'>
+    <main className='flex flex-col justify-center items-center px-4 py-8'>
       {loading && <LoadingSpin />}
       {pollData && (
-        <div>
+        <div className='w-full max-w-3xl'>
           <h1 className='text-4xl font-bold mb-4'>{pollData.poll_title}</h1>
           <div className='flex justify-between items-center gap-4 mb-4'>
             <p className='text-gray-600 '>
