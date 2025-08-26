@@ -128,7 +128,7 @@ function SharePollPage({ params }: { params: SharePollParams }) {
                     </span>
                     <button
                       onClick={() => castVote(option.id)}
-                      className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl'
+                      className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl transition-all ease-in-out'
                     >
                       Vote
                     </button>
