@@ -7,8 +7,8 @@ type FeatureSectionTypes = {
 
 function FeatureSection({ sectionTitle, li1, li2, li3 }: FeatureSectionTypes) {
   return (
-    <section className='flex justify-center items-center py-32 rounded-4xl bg-gray-100'>
-      <div className='flex flex-col justify-center  items-center gap-8'>
+    <section className='flex justify-center items-center py-32 px-8 rounded-4xl bg-gray-100'>
+      <div className='flex flex-col justify-center text-center items-center gap-8'>
         <h2 className='text-4xl font-semibold'>{sectionTitle}</h2>
         <ul className='flex flex-col justify-center items-center'>
           {li1 && <li>{li1}</li>}
