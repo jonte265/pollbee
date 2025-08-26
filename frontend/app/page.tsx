@@ -1,8 +1,22 @@
+'use client';
+
 import Link from 'next/link';
 import PrimaryBtn from '@/components/PrimaryBtn';
 import FeatureSection from '@/components/FeatureSection';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
+  const [signedIn, setSignedIn] = useState(false);
+
+  useEffect(() => {
+    const tokenLocal = localStorage.getItem('token');
+
+    if (tokenLocal === null) {
+    } else {
+      setSignedIn(true);
+    }
+  }, []);
+
   return (
     <>
       <main className='flex flex-col justify-center items-center gap-4 max-w-xl mx-auto p-6 text-center'>
@@ -12,11 +26,19 @@ export default function Home() {
           your polls in one place.
         </p>
         <div className='flex gap-4 mb-6'>
-          <Link href='/signup'>
-            <button className='px-6 py-2 border border-primary text-primary rounded-3xl font-semibold hover:bg-primary hover:text-background transition'>
-              Sign Up
-            </button>
-          </Link>
+          {signedIn ? (
+            <Link href='/profile'>
+              <button className='px-6 py-2 border border-primary text-primary rounded-3xl font-semibold hover:bg-primary hover:text-background transition'>
+                Profile
+              </button>
+            </Link>
+          ) : (
+            <Link href='/signup'>
+              <button className='px-6 py-2 border border-primary text-primary rounded-3xl font-semibold hover:bg-primary hover:text-background transition'>
+                Sign Up
+              </button>
+            </Link>
+          )}
         </div>
       </main>
       <div className='flex flex-col gap-4'>
