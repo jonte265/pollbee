@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [username, setUsername] = useState('');
+
   function signOutUser() {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
@@ -15,6 +17,10 @@ function Header() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const usernameLocal = localStorage.getItem('username');
+    if (usernameLocal) {
+      setUsername(usernameLocal);
+    }
 
     if (token === null) {
       setIsLoggedIn(false);
@@ -32,7 +38,7 @@ function Header() {
         <div className='flex gap-2 justify-center items-center'>
           <Link href='/profile'>
             <button className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl transition-all ease-in-out'>
-              Profile
+              @{username}
             </button>
           </Link>
 
