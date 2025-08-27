@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingSpin from '@/components/LoadingSpin';
+import { motion } from 'motion/react';
 
 function SignupPage() {
   const router = useRouter();
@@ -61,50 +62,56 @@ function SignupPage() {
   };
 
   return (
-    <main className='flex flex-col gap-8 items-center justify-center'>
-      <h2 className='text-xl text-center font-bold'>
-        Create your free account
-      </h2>
-      <form
-        onSubmit={handleSubmit}
-        className='flex flex-col justify-center gap-4 max-w-sm w-full'
-      >
-        <p>Username</p>
-        <input
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          type='text'
-          placeholder='Username'
-          className='rounded-4xl p-2 pl-4 bg-primary-50'
-        />
-        <p>Password</p>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type='password'
-          placeholder='Password'
-          className='rounded-4xl p-2 pl-4  bg-primary-50'
-        />
-        {!loading ? (
-          <button
-            type='submit'
-            className='bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out'
-          >
-            Sign Up
-          </button>
-        ) : (
-          <button
-            disabled
-            className='bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out'
-          >
-            Sign Up
-          </button>
-        )}
-      </form>
-      {loading && <LoadingSpin />}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <main className='flex flex-col gap-8 items-center justify-center'>
+        <h2 className='text-xl text-center font-bold'>
+          Create your free account
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          className='flex flex-col justify-center gap-4 max-w-sm w-full'
+        >
+          <p>Username</p>
+          <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            type='text'
+            placeholder='Username'
+            className='rounded-4xl p-2 pl-4 bg-primary-50'
+          />
+          <p>Password</p>
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type='password'
+            placeholder='Password'
+            className='rounded-4xl p-2 pl-4  bg-primary-50'
+          />
+          {!loading ? (
+            <button
+              type='submit'
+              className='bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out'
+            >
+              Sign Up
+            </button>
+          ) : (
+            <button
+              disabled
+              className='bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out'
+            >
+              Sign Up
+            </button>
+          )}
+        </form>
+        {loading && <LoadingSpin />}
 
-      {message && <p>{message}</p>}
-    </main>
+        {message && <p>{message}</p>}
+      </main>
+    </motion.div>
   );
 }
 

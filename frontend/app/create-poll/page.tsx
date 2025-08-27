@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingSpin from '@/components/LoadingSpin';
 import { FaTrash } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
+import { motion } from 'motion/react';
 
 function CreatePoll() {
   const router = useRouter();
@@ -73,69 +75,84 @@ function CreatePoll() {
   };
 
   return (
-    <main className='flex flex-col gap-8 items-center justify-center'>
-      <h2 className='text-xl text-center font-bold'>Create a poll</h2>
-      <form
-        onSubmit={handleSubmit}
-        className='flex flex-col justify-center gap-4 max-w-sm w-full'
-      >
-        <input
-          value={pollTitle}
-          onChange={(e) => setPollTitle(e.target.value)}
-          type='text'
-          placeholder='Poll Title'
-          className='rounded-4xl p-2 pl-4 bg-primary-50'
-        />
-
-        {options.map((opt, index) => (
-          <div key={index} className='flex gap-2 items-center'>
-            <input
-              value={opt}
-              onChange={(e) => handleOptionChange(index, e.target.value)}
-              type='text'
-              placeholder={`Option ${index + 1}`}
-              className='flex-1 rounded-4xl p-2 pl-4 bg-primary-50'
-            />
-            {options.length > 1 && (
-              <button
-                type='button'
-                onClick={() => removeOption(index)}
-                className=' font-bold px-2'
-              >
-                <FaTrash />
-              </button>
-            )}
-          </div>
-        ))}
-
-        <button
-          type='button'
-          onClick={addOption}
-          className='text-sm text-primary font-bold hover:underline self-start'
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <main className='flex flex-col gap-8 items-center justify-center max-w-sm mx-auto p-4'>
+        <motion.button
+          onClick={() => router.push('/profile')}
+          className='hover:bg-primary-50 p-4 rounded-4xl text-start self-start'
+          whileHover={{ scale: 1.2 }}
+          transition={{ type: 'spring', stiffness: 300 }}
+          aria-label='Go to profile'
         >
-          + Add Option
-        </button>
+          <FaArrowLeft />
+        </motion.button>
+        <h2 className='text-xl text-center font-bold'>Create a poll</h2>
+        <form
+          onSubmit={handleSubmit}
+          className='flex flex-col justify-center gap-4 max-w-sm w-full'
+        >
+          <input
+            value={pollTitle}
+            onChange={(e) => setPollTitle(e.target.value)}
+            type='text'
+            placeholder='Poll Title'
+            className='rounded-4xl p-2 pl-4 bg-primary-50'
+          />
 
-        {!loading ? (
-          <button
-            type='submit'
-            className='bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out'
-          >
-            Create Poll
-          </button>
-        ) : (
-          <button
-            disabled
-            className='bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out'
-          >
-            Creating...
-          </button>
-        )}
-      </form>
+          {options.map((opt, index) => (
+            <div key={index} className='flex gap-2 items-center'>
+              <input
+                value={opt}
+                onChange={(e) => handleOptionChange(index, e.target.value)}
+                type='text'
+                placeholder={`Option ${index + 1}`}
+                className='flex-1 rounded-4xl p-2 pl-4 bg-primary-50'
+              />
+              {options.length > 1 && (
+                <button
+                  type='button'
+                  onClick={() => removeOption(index)}
+                  className=' font-bold px-2'
+                >
+                  <FaTrash />
+                </button>
+              )}
+            </div>
+          ))}
 
-      {loading && <LoadingSpin />}
-      {message && <p>{message}</p>}
-    </main>
+          <button
+            type='button'
+            onClick={addOption}
+            className='text-sm text-primary font-bold hover:underline self-start'
+          >
+            + Add Option
+          </button>
+
+          {!loading ? (
+            <button
+              type='submit'
+              className='bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out'
+            >
+              Create Poll
+            </button>
+          ) : (
+            <button
+              disabled
+              className='bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out'
+            >
+              Creating...
+            </button>
+          )}
+        </form>
+
+        {loading && <LoadingSpin />}
+        {message && <p>{message}</p>}
+      </main>
+    </motion.div>
   );
 }
 

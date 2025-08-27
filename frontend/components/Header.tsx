@@ -32,10 +32,10 @@ function Header() {
   return (
     <header className='flex justify-between items-center pb-16'>
       <Link href='/'>
-        <h1 className='font-bold text-2xl'>PollBee 🐝</h1>
+        <h1 className='font-bold text-xl sm:text-2xl'>PollBee 🐝</h1>
       </Link>
       {isLoggedIn ? (
-        <div className='flex gap-2 justify-center items-center'>
+        <div className='flex sm:gap-2 justify-center items-center'>
           <Link href='/profile'>
             <button className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl transition-all ease-in-out'>
               @{username}
@@ -50,7 +50,7 @@ function Header() {
           </button>
         </div>
       ) : (
-        <div className='flex gap-2 justify-center items-center'>
+        <div className='flex sm:gap-2 justify-center items-center'>
           <Link href='/login'>
             <button className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl  transition-all ease-in-out'>
               Login
