@@ -1,6 +1,9 @@
-# 🎉 PollBee
+# 🐝 PollBee
 
 Create your own polls, share them with others, and collect votes in real-time—all in one simple app!
+
+<img src="https://github.com/user-attachments/assets/45c2aaa1-7024-413f-9d0f-7be91dd9db54" alt="demo gif" />
+
 
 ---
 
