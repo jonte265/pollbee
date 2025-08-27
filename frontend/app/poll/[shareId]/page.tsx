@@ -4,6 +4,7 @@ import ActiveBadge from '@/components/ActiveBadge';
 import CtaSignUp from '@/components/CtaSignUp';
 import LoadingSpin from '@/components/LoadingSpin';
 import { useState, useEffect, use } from 'react';
+import { motion } from 'motion/react';
 
 type SharePollParams = Promise<{
   shareId: string;
@@ -98,51 +99,57 @@ function SharePollPage({ params }: { params: SharePollParams }) {
   }
 
   return (
-    <main className='flex flex-col justify-center items-center px-4 py-8'>
-      {loading && <LoadingSpin />}
-      {pollData && (
-        <div className='w-full max-w-3xl'>
-          <h1 className='text-4xl font-bold mb-4'>{pollData.poll_title}</h1>
-          <div className='flex justify-between items-center gap-4 mb-4'>
-            <p className='text-gray-600 '>
-              Created by <strong>{pollData.poll_creator}</strong> on{' '}
-              {new Date(pollData.created_at).toLocaleDateString()}
-            </p>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <main className='flex flex-col justify-center items-center px-4 py-8'>
+        {loading && <LoadingSpin />}
+        {pollData && (
+          <div className='w-full max-w-3xl'>
+            <h1 className='text-4xl font-bold mb-4'>{pollData.poll_title}</h1>
+            <div className='flex justify-between items-center gap-4 mb-4'>
+              <p className='text-gray-600 '>
+                Created by <strong>{pollData.poll_creator}</strong> on{' '}
+                {new Date(pollData.created_at).toLocaleDateString()}
+              </p>
 
-            <ActiveBadge isActive={pollData.is_active} />
-          </div>
+              <ActiveBadge isActive={pollData.is_active} />
+            </div>
 
-          <div className='flex flex-col gap-1'>
-            {pollData.poll_options
-              .slice()
-              .sort((a, b) => a.option_text.localeCompare(b.option_text))
-              .map((option) => (
-                <div
-                  key={option.id}
-                  className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center'
-                >
-                  <p className='font-semibold'>{option.option_text}</p>
-                  <div className='flex items-center justify-center'>
-                    <span className='text-sm text-gray-500'>
-                      {option.vote_count} votes
-                    </span>
-                    <button
-                      onClick={() => castVote(option.id)}
-                      className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl transition-all ease-in-out'
-                    >
-                      Vote
-                    </button>
+            <div className='flex flex-col gap-1'>
+              {pollData.poll_options
+                .slice()
+                .sort((a, b) => a.option_text.localeCompare(b.option_text))
+                .map((option) => (
+                  <div
+                    key={option.id}
+                    className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center'
+                  >
+                    <p className='font-semibold'>{option.option_text}</p>
+                    <div className='flex items-center justify-center'>
+                      <span className='text-sm text-gray-500'>
+                        {option.vote_count} votes
+                      </span>
+                      <button
+                        onClick={() => castVote(option.id)}
+                        className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl transition-all ease-in-out'
+                      >
+                        Vote
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            <p className='text-center text-sm text-gray-500 mt-4'>
-              {totalVotes} total votes
-            </p>
+                ))}
+              <p className='text-center text-sm text-gray-500 mt-4'>
+                {totalVotes} total votes
+              </p>
+            </div>
           </div>
-        </div>
-      )}
-      <CtaSignUp />
-    </main>
+        )}
+        <CtaSignUp />
+      </main>
+    </motion.div>
   );
 }
 
