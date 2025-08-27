@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PrimaryBtn from '@/components/PrimaryBtn';
 import { useRouter } from 'next/navigation';
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 type profileDataType = {
   poll_title: string;
@@ -17,6 +18,10 @@ type profileDataType = {
 function ProfilePage() {
   // Redirect if not logged in
   const router = useRouter();
+
+  function deleteAccount() {}
+
+  const userNameLocal = localStorage.getItem('username');
 
   useEffect(() => {
     const tokenLocal = localStorage.getItem('token');
@@ -59,7 +64,10 @@ function ProfilePage() {
 
   return (
     <main className='flex flex-col justify-center items-center gap-8'>
-      <h2 className='text-2xl font-semibold'>Your polls:</h2>
+      <div className='flex flex-col gap-2 text-center'>
+        <h2 className='text-2xl font-semibold'>Welcome {userNameLocal}!</h2>
+        <h3 className='text-xl font-semibold'>Your polls:</h3>
+      </div>
 
       <Link href='/create-poll'>
         <PrimaryBtn btnText='Create poll' />
@@ -78,6 +86,11 @@ function ProfilePage() {
             />
           ))}
       </div>
+      <button
+        className={`flex justify-center items-center gap-2 bg-red-500 text-background font-bold rounded-4xl px-4 py-2 hover:bg-red-700 transition-all ease-in-out`}
+      >
+        <FaExclamationTriangle /> Delete Account
+      </button>
     </main>
   );
 }

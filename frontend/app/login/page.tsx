@@ -42,6 +42,7 @@ function LoginPage() {
       console.log(data);
 
       localStorage.setItem('token', data.token);
+      localStorage.setItem('username', data.username);
 
       setUsername('');
       setPassword('');
