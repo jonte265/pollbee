@@ -3,11 +3,12 @@
 import Link from 'next/link';
 import PrimaryBtn from './PrimaryBtn';
 import { useState, useEffect } from 'react';
+import LoadingSpin from './LoadingSpin';
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   function signOutUser() {
     localStorage.removeItem('token');
@@ -16,6 +17,7 @@ function Header() {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     const token = localStorage.getItem('token');
     const usernameLocal = localStorage.getItem('username');
     if (usernameLocal) {
@@ -27,7 +29,16 @@ function Header() {
     } else {
       setIsLoggedIn(true);
     }
+    setIsLoading(false);
   }, []);
+
+  if (isLoading) {
+    return (
+      <header className='flex justify-between items-center pb-16'>
+        <LoadingSpin />
+      </header>
+    );
+  }
 
   return (
     <header className='flex justify-between items-center pb-16'>
@@ -38,7 +49,7 @@ function Header() {
         <div className='flex sm:gap-2 justify-center items-center'>
           <Link href='/profile'>
             <button className='font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl transition-all ease-in-out'>
-              @{username}
+              {username ? `@${username}` : 'Profile'}
             </button>
           </Link>
 
