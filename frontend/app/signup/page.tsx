@@ -52,7 +52,7 @@ function SignupPage() {
       setUsername('');
       setPassword('');
       setMessage('Registration successful, welcome aboard ✅');
-      setTimeout(() => router.push('/login'), 1500);
+      setTimeout(() => router.push('/login'), 500);
     } catch (error) {
       console.error(error);
     } finally {

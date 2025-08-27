@@ -63,7 +63,7 @@ function CreatePoll() {
       setPollTitle('');
       setOptions(['']);
       setMessage('Created new poll! 🐝');
-      setTimeout(() => router.push('/profile'), 1000);
+      setTimeout(() => router.push('/profile'), 500);
     } catch (error) {
       console.error(error);
       setMessage('Something went wrong ❌');
