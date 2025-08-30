@@ -132,12 +132,22 @@ function SharePollPage({ params }: { params: SharePollParams }) {
                       <span className='text-sm text-gray-500'>
                         {option.vote_count} votes
                       </span>
-                      <button
-                        onClick={() => castVote(option.id)}
-                        className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl transition-all ease-in-out'
-                      >
-                        Vote
-                      </button>
+                      {pollData.is_active ? (
+                        <button
+                          onClick={() => castVote(option.id)}
+                          className='ml-4 px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl transition-all ease-in-out'
+                        >
+                          Vote
+                        </button>
+                      ) : (
+                        <button
+                          disabled
+                          onClick={() => castVote(option.id)}
+                          className='ml-4 px-4 py-2 bg-gray-400 text-gray-700 rounded-4xl transition-all ease-in-out'
+                        >
+                          Vote
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
