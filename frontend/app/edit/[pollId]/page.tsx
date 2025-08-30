@@ -306,7 +306,9 @@ function EditPoll({ params }: { params: EditPollParams }) {
               </div>
               <div className='flex flex-col justify-center items-center mt-4'>
                 <p className='text-center'>Active?</p>
-                {pollData?.is_active ? (
+                {loadingState ? (
+                  <LoadingSpin />
+                ) : pollData?.is_active ? (
                   <div className='flex flex-row justify-center items-center gap-2'>
                     <button
                       onClick={() => saveActive(true)}
