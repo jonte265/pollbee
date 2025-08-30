@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import ActiveBadge from './ActiveBadge';
+import { FaRegCopy, FaCheck } from 'react-icons/fa';
+import { useState, useEffect } from 'react';
 
 type pollCardType = {
   poll_title: string;
@@ -16,8 +18,17 @@ function PollCard({
 }: pollCardType) {
   const apiUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
 
+  const [copied, setCopied] = useState(false);
+
+  function handleCopyLink() {
+    navigator.clipboard.writeText(`${apiUrl}/poll/${share_id}`);
+    setCopied(true);
+
+    setTimeout(() => setCopied(false), 1500);
+  }
+
   return (
-    <div className='flex flex-col gap-2 justify-center items-center bg-text-50 p-16 rounded-4xl'>
+    <div className='flex flex-col gap-2 justify-center items-center bg-gray-100 p-16 rounded-4xl'>
       <h2 className='text-2xl text-center font-bold'>{poll_title}</h2>
 
       <ActiveBadge isActive={is_active} />
@@ -30,6 +41,22 @@ function PollCard({
           View Poll
         </button>
       </Link>
+      <button
+        onClick={handleCopyLink}
+        className='flex justify-between items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
+      >
+        {copied ? (
+          <>
+            <FaCheck />
+            Copied
+          </>
+        ) : (
+          <>
+            <FaRegCopy />
+            Copy Link
+          </>
+        )}
+      </button>
       <Link href={`${apiUrl}/edit/${share_id}`}>
         <button className='mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
           Edit Poll
