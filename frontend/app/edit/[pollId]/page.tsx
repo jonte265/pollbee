@@ -8,6 +8,7 @@ import { FaCheck, FaTimes } from 'react-icons/fa';
 import PrimaryBtn from '@/components/PrimaryBtn';
 import { motion } from 'motion/react';
 import { FaExclamationTriangle } from 'react-icons/fa';
+import { LuCircleCheckBig, LuCircle } from 'react-icons/lu';
 
 type EditPollParams = Promise<{
   pollId: string;
@@ -46,6 +47,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
   const [askDelete, setAskDelete] = useState(false);
   const [token, setToken] = useState<string | null>(null); // Get jwt token localstorage
 
+  const [isActivePoll, setIsActivePoll] = useState(true);
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
@@ -264,6 +266,32 @@ function EditPoll({ params }: { params: EditPollParams }) {
                       </div>
                     )
                   )}
+              </div>
+              <div className='flex flex-col justify-center items-center mt-4'>
+                <p className='text-center'>Active?</p>
+                {isActivePoll ? (
+                  <div className='flex flex-row justify-center items-center gap-2'>
+                    <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800 rounded-4xl transition-all ease-in-out'>
+                      <LuCircleCheckBig />
+                      Yes
+                    </button>
+                    <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
+                      <LuCircle />
+                      No
+                    </button>
+                  </div>
+                ) : (
+                  <div className='flex flex-row justify-center items-center gap-24'>
+                    <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
+                      <LuCircle />
+                      Yes
+                    </button>
+                    <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800  rounded-4xl transition-all ease-in-out'>
+                      <LuCircleCheckBig />
+                      No
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
