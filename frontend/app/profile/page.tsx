@@ -105,7 +105,7 @@ function ProfilePage() {
         </div>
 
         <Link href='/create-poll'>
-          <PrimaryBtn btnText='Create poll' />
+          <PrimaryBtn btnText='+ Create poll' />
         </Link>
 
         {loading && <LoadingSpin />}

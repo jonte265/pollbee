@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ActiveBadge from './ActiveBadge';
-import { FaRegCopy, FaCheck } from 'react-icons/fa';
+import { LuCopy, LuCheck, LuSquarePen } from 'react-icons/lu';
 import { useState, useEffect } from 'react';
 
 type pollCardType = {
@@ -41,27 +41,28 @@ function PollCard({
           View Poll
         </button>
       </Link>
+      <Link href={`${apiUrl}/edit/${share_id}`}>
+        <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
+          <LuSquarePen />
+          Edit
+        </button>
+      </Link>
       <button
         onClick={handleCopyLink}
         className='flex justify-between items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
       >
         {copied ? (
           <>
-            <FaCheck />
+            <LuCheck />
             Copied
           </>
         ) : (
           <>
-            <FaRegCopy />
-            Copy Link
+            <LuCopy />
+            Copy link
           </>
         )}
       </button>
-      <Link href={`${apiUrl}/edit/${share_id}`}>
-        <button className='mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
-          Edit Poll
-        </button>
-      </Link>
     </div>
   );
 }
