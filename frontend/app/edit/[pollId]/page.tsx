@@ -63,8 +63,6 @@ function EditPoll({ params }: { params: EditPollParams }) {
   }, []);
 
   async function deletePoll(pollId: number) {
-    console.log(pollId);
-
     const res = await fetch(`${apiUrl}/polls`, {
       method: 'DELETE',
       headers: {
@@ -149,8 +147,6 @@ function EditPoll({ params }: { params: EditPollParams }) {
   async function saveActive(act: boolean) {
     if (!pollData) return;
 
-    console.log('save active');
-
     setLoadingState(true);
 
     const newActiveUpdate = {
@@ -173,7 +169,6 @@ function EditPoll({ params }: { params: EditPollParams }) {
       }
 
       const data = await res.json();
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -187,7 +182,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
       const res = await fetch(`${apiUrl}/polls/${pollId}`);
       const data = await res.json();
 
-      console.log(data);
+      // console.log(data);
       setPollData(data);
     } catch (error) {
       console.error(error);
