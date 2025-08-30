@@ -18,6 +18,7 @@ type PollDataType = {
   poll_title: string;
   id: number;
   message: string;
+  is_active: boolean;
   poll_options: PollOptionType[];
 };
 
@@ -47,7 +48,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
   const [askDelete, setAskDelete] = useState(false);
   const [token, setToken] = useState<string | null>(null); // Get jwt token localstorage
 
-  const [isActivePoll, setIsActivePoll] = useState(true);
+  const [updateActivePoll, setUpdateActivePoll] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
@@ -145,12 +146,48 @@ function EditPoll({ params }: { params: EditPollParams }) {
     setUpdateText('');
   }
 
+  async function saveActive(act: boolean) {
+    if (!pollData) return;
+
+    console.log('save active');
+
+    setLoadingState(true);
+
+    const newActiveUpdate = {
+      pollid: pollData.id,
+      active: act,
+    };
+
+    try {
+      const res = await fetch(`${apiUrl}/polls`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newActiveUpdate),
+      });
+
+      if (!res.ok) {
+        console.log('Res not ok, active update');
+      }
+
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+
+    await fetchPollData();
+    setLoadingState(false);
+  }
+
   async function fetchPollData() {
     try {
       const res = await fetch(`${apiUrl}/polls/${pollId}`);
       const data = await res.json();
 
-      // console.log(data);
+      console.log(data);
       setPollData(data);
     } catch (error) {
       console.error(error);
@@ -269,24 +306,36 @@ function EditPoll({ params }: { params: EditPollParams }) {
               </div>
               <div className='flex flex-col justify-center items-center mt-4'>
                 <p className='text-center'>Active?</p>
-                {isActivePoll ? (
+                {pollData?.is_active ? (
                   <div className='flex flex-row justify-center items-center gap-2'>
-                    <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800 rounded-4xl transition-all ease-in-out'>
+                    <button
+                      onClick={() => saveActive(true)}
+                      className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800 rounded-4xl transition-all ease-in-out'
+                    >
                       <LuCircleCheckBig />
                       Yes
                     </button>
-                    <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
+                    <button
+                      onClick={() => saveActive(false)}
+                      className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
+                    >
                       <LuCircle />
                       No
                     </button>
                   </div>
                 ) : (
-                  <div className='flex flex-row justify-center items-center gap-24'>
-                    <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
+                  <div className='flex flex-row justify-center items-center gap-2'>
+                    <button
+                      onClick={() => saveActive(true)}
+                      className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
+                    >
                       <LuCircle />
                       Yes
                     </button>
-                    <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800  rounded-4xl transition-all ease-in-out'>
+                    <button
+                      onClick={() => saveActive(false)}
+                      className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800  rounded-4xl transition-all ease-in-out'
+                    >
                       <LuCircleCheckBig />
                       No
                     </button>
