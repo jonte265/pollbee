@@ -38,19 +38,19 @@ function PollCard({
       </p>
       <div className='flex flex-col justify-center items-center'>
         <Link href={`${apiUrl}/poll/${share_id}`}>
-          <button className='min-w-32 mt-4 px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl transition-all ease-in-out'>
+          <button className='mt-4 px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl transition-all ease-in-out'>
             View Poll
           </button>
         </Link>
         <Link href={`${apiUrl}/edit/${share_id}`}>
-          <button className='min-w-32 flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
+          <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
             <LuSquarePen />
             Edit
           </button>
         </Link>
         <button
           onClick={handleCopyLink}
-          className='min-w-32 flex justify-start items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
+          className='flex justify-start items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
         >
           {copied ? (
             <>

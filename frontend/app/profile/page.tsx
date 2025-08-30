@@ -110,7 +110,7 @@ function ProfilePage() {
 
         {loading && <LoadingSpin />}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32'>
-          {profileData.length > 0 &&
+          {profileData.length > 0 ? (
             profileData.map((poll, index) => (
               <PollCard
                 key={index}
@@ -119,7 +119,10 @@ function ProfilePage() {
                 share_id={poll.share_id}
                 created_at={poll.created_at}
               />
-            ))}
+            ))
+          ) : (
+            <p>No polls found.</p>
+          )}
         </div>
         {userNameLocal && askDelete === false && (
           <button
