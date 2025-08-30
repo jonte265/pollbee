@@ -5,6 +5,7 @@ import PrimaryBtn from '@/components/PrimaryBtn';
 import FeatureSection from '@/components/FeatureSection';
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
+import { LuCircleUserRound } from 'react-icons/lu';
 
 export default function Home() {
   const [signedIn, setSignedIn] = useState(false);
@@ -33,7 +34,8 @@ export default function Home() {
           <div className='flex gap-4 mb-6'>
             {signedIn ? (
               <Link href='/profile'>
-                <button className='px-6 py-2 border border-primary text-primary rounded-3xl font-semibold hover:bg-primary hover:text-background transition'>
+                <button className='flex flex-row justify-center items-center gap-1 px-6 py-2 border border-primary text-primary rounded-3xl font-semibold hover:bg-primary hover:text-background transition'>
+                  <LuCircleUserRound />
                   Profile
                 </button>
               </Link>
