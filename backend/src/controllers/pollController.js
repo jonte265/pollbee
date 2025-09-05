@@ -1,5 +1,6 @@
 import supabase from '../config/supabaseClient.js';
 import { nanoid } from 'nanoid';
+import OpenAI from 'openai';
 
 export const createPoll = async (req, res) => {
   const { polltitle, active, options } = req.body;
@@ -247,5 +248,22 @@ export const deletePoll = async (req, res) => {
 };
 
 export const pollIdea = async (req, res) => {
+  const openai = new OpenAI({
+    baseURL: 'https://openrouter.ai/api/v1',
+    apiKey: process.env.AI_API_KEY,
+  });
+
+  const completion = await openai.chat.completions.create({
+    model: 'meta-llama/llama-3.3-70b-instruct:free',
+    messages: [
+      {
+        role: 'user',
+        content: process.env.AI_PROMPT,
+      },
+    ],
+  });
+
+  console.log(completion.choices[0].message);
+
   res.json({ message: 'hello' });
 };
