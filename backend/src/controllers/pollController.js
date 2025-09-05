@@ -290,5 +290,17 @@ export const pollIdea = async (req, res) => {
 
   console.log(completion.choices[0].message);
 
-  res.json({ message: 'hello' });
+  let poll;
+  try {
+    poll = JSON.parse(completion.choices[0].message.content);
+  } catch (error) {
+    console.error('Json parse error', error);
+    return res.status(500).json({ message: 'Invalid ai response' });
+  }
+
+  res.json({
+    message: 'Success',
+    poll_ai: poll,
+    tries_left: 1,
+  });
 };
