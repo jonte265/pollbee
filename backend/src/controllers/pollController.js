@@ -245,3 +245,7 @@ export const deletePoll = async (req, res) => {
 
   res.json({ message: `Deleted poll ${data.poll_title}` });
 };
+
+export const pollIdea = async (req, res) => {
+  res.json({ message: 'hello' });
+};

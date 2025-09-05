@@ -5,10 +5,14 @@ import {
   votePoll,
   editPoll,
   deletePoll,
+  pollIdea,
 } from '../controllers/pollController.js';
 import authenticateToken from '../middleware/auth.js';
 
 const router = express.Router();
+
+// AI poll idea
+router.get('/ai/poll-idea', authenticateToken, pollIdea);
 
 // Create poll
 router.post('/', authenticateToken, createPoll);
@@ -24,7 +28,5 @@ router.get('/:shareId', sharePoll);
 
 // Vote poll
 router.post('/vote', votePoll);
-
-// Need poll for my polls on profile
 
 export default router;
