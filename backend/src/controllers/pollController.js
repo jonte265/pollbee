@@ -255,12 +255,37 @@ export const pollIdea = async (req, res) => {
 
   const completion = await openai.chat.completions.create({
     model: 'meta-llama/llama-3.3-70b-instruct:free',
-    messages: [
-      {
-        role: 'user',
-        content: process.env.AI_PROMPT,
+    messages: [{ role: 'user', content: process.env.AI_PROMPT }],
+    response_format: {
+      type: 'json_schema',
+      json_schema: {
+        name: 'polls',
+        strict: true,
+        schema: {
+          type: 'object',
+          properties: {
+            title: {
+              type: 'string',
+              description: 'poll title',
+            },
+            option_1: {
+              type: 'string',
+              description: 'poll option 1',
+            },
+            option_2: {
+              type: 'string',
+              description: 'poll option 2',
+            },
+            option_3: {
+              type: 'string',
+              description: 'poll option 3',
+            },
+          },
+          required: ['title', 'option_1', 'option_2', 'option_3'],
+          additionalProperties: false,
+        },
       },
-    ],
+    },
   });
 
   console.log(completion.choices[0].message);
