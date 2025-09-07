@@ -131,7 +131,7 @@ function CreatePoll() {
             <LuBot />
             Get AI Poll Idea
           </button>
-          <p>(3 uses per day)</p>
+          <p className='text-sm'>(3 uses per day)</p>
           {aiMsg && <p>{aiMsg}</p>}
         </div>
         <form
