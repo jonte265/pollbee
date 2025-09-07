@@ -11,7 +11,7 @@ export const loginUser = async (req, res) => {
     .eq('username', username)
     .single();
 
-  console.log(data);
+  // console.log(data);
 
   if (!data) {
     return res.status(404).json({ message: 'User not found' });
@@ -32,11 +32,9 @@ export const loginUser = async (req, res) => {
     { expiresIn: '2h' }
   );
 
-  res
-    .status(200)
-    .json({
-      message: `Login successful`,
-      token: token,
-      username: data.username,
-    });
+  res.status(200).json({
+    message: `Login successful`,
+    token: token,
+    username: data.username,
+  });
 };

@@ -341,6 +341,7 @@ export const pollIdea = async (req, res) => {
     res.json({
       message: 'Success',
       poll_ai: poll,
+      usages: dataCreate[0].usage_count,
     });
   } else {
     const increment = data[0].usage_count + 1;
@@ -375,6 +376,7 @@ export const pollIdea = async (req, res) => {
     res.json({
       message: 'Success',
       poll_ai: poll,
+      usages: increment,
     });
   }
 };

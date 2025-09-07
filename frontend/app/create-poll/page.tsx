@@ -6,6 +6,7 @@ import LoadingSpin from '@/components/LoadingSpin';
 import { FaTrash } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa';
 import { motion } from 'motion/react';
+import { LuBot } from 'react-icons/lu';
 
 function CreatePoll() {
   const router = useRouter();
@@ -15,6 +16,7 @@ function CreatePoll() {
   const [options, setOptions] = useState<string[]>(['']);
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [aiMsg, setAiMsg] = useState('');
 
   const handleOptionChange = (index: number, value: string) => {
     const updatedOptions = [...options];
@@ -74,6 +76,35 @@ function CreatePoll() {
     }
   };
 
+  const handleAiIdea = async () => {
+    setLoading(true);
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    try {
+      const token = localStorage.getItem('token'); // Get jwt token localstorage
+
+      const res = await fetch(`${apiUrl}/polls/ai/poll-idea`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      console.log('ya', data);
+      setAiMsg(data.message);
+      setPollTitle(data.poll_ai.title);
+      setOptions([
+        data.poll_ai.option_1,
+        data.poll_ai.option_2,
+        data.poll_ai.option_3,
+      ]);
+    } catch (error) {
+      console.error(error);
+      setAiMsg('Error, try again later');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -91,6 +122,18 @@ function CreatePoll() {
           <FaArrowLeft />
         </motion.button>
         <h2 className='text-xl text-center font-bold'>Create a poll</h2>
+
+        <div className='flex flex-col justify-center items-center gap-2'>
+          <button
+            onClick={handleAiIdea}
+            className='flex justify-center items-center gap-1 bg-secondary text-background font-bold rounded-4xl px-4 py-2 hover:bg-secondary-300 transition-all ease-in-out'
+          >
+            <LuBot />
+            Get AI Poll Idea
+          </button>
+          <p>(3 uses per day)</p>
+          {aiMsg && <p>{aiMsg}</p>}
+        </div>
         <form
           onSubmit={handleSubmit}
           className='flex flex-col justify-center gap-4 max-w-sm w-full'
