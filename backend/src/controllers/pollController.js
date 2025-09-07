@@ -248,59 +248,133 @@ export const deletePoll = async (req, res) => {
 };
 
 export const pollIdea = async (req, res) => {
+  const userid = req.user.userId; // userid from JWT
+  const today = new Date().toISOString().split('T')[0]; // today date
+
   const openai = new OpenAI({
     baseURL: 'https://openrouter.ai/api/v1',
     apiKey: process.env.AI_API_KEY,
   });
 
-  const completion = await openai.chat.completions.create({
-    model: 'meta-llama/llama-3.3-70b-instruct:free',
-    messages: [{ role: 'user', content: process.env.AI_PROMPT }],
-    response_format: {
-      type: 'json_schema',
-      json_schema: {
-        name: 'polls',
-        strict: true,
-        schema: {
-          type: 'object',
-          properties: {
-            title: {
-              type: 'string',
-              description: 'poll title',
+  async function getAiIdea() {
+    const completion = await openai.chat.completions.create({
+      model: 'meta-llama/llama-3.3-70b-instruct:free',
+      messages: [{ role: 'user', content: process.env.AI_PROMPT }],
+      response_format: {
+        type: 'json_schema',
+        json_schema: {
+          name: 'polls',
+          strict: true,
+          schema: {
+            type: 'object',
+            properties: {
+              title: {
+                type: 'string',
+                description: 'poll title',
+              },
+              option_1: {
+                type: 'string',
+                description: 'poll option 1',
+              },
+              option_2: {
+                type: 'string',
+                description: 'poll option 2',
+              },
+              option_3: {
+                type: 'string',
+                description: 'poll option 3',
+              },
             },
-            option_1: {
-              type: 'string',
-              description: 'poll option 1',
-            },
-            option_2: {
-              type: 'string',
-              description: 'poll option 2',
-            },
-            option_3: {
-              type: 'string',
-              description: 'poll option 3',
-            },
+            required: ['title', 'option_1', 'option_2', 'option_3'],
+            additionalProperties: false,
           },
-          required: ['title', 'option_1', 'option_2', 'option_3'],
-          additionalProperties: false,
         },
       },
-    },
-  });
+    });
 
-  console.log(completion.choices[0].message);
+    // console.log(completion.choices[0].message);
 
-  let poll;
-  try {
-    poll = JSON.parse(completion.choices[0].message.content);
-  } catch (error) {
-    console.error('Json parse error', error);
-    return res.status(500).json({ message: 'Invalid ai response' });
+    let poll;
+    try {
+      poll = JSON.parse(completion.choices[0].message.content);
+    } catch (error) {
+      console.error('Json parse error', error);
+      return { error: 'Invalid AI response' };
+    }
+    return poll;
   }
 
-  res.json({
-    message: 'Success',
-    poll_ai: poll,
-    tries_left: 1,
-  });
+  const { data, error } = await supabase
+    .from('ai_usage_daily')
+    .select('*')
+    .eq('user_id', userid)
+    .eq('date_today', today);
+
+  if (error) {
+    console.log('Error data', error);
+    return res.status(500).json({ message: 'Error fetching data' });
+  }
+
+  if (data.length === 0) {
+    // No row for today creating new
+    const { data: dataCreate, error: errorCreate } = await supabase
+      .from('ai_usage_daily')
+      .insert({
+        user_id: userid,
+        date_today: today,
+        usage_count: 1,
+      })
+      .select();
+
+    if (errorCreate) {
+      console.log('Error data', errorCreate);
+      return res.status(500).json({ message: 'Error increment ai usage data' });
+    }
+
+    const poll = await getAiIdea();
+    console.log(poll);
+
+    if (poll.error) {
+      return res.status(500).json({ message: poll.error });
+    }
+
+    res.json({
+      message: 'Success',
+      poll_ai: poll,
+    });
+  } else {
+    const increment = data[0].usage_count + 1;
+
+    if (increment > 3) {
+      return res
+        .status(400)
+        .json({ message: 'Max AI usage reached for today' });
+    }
+
+    const { data: dataAdd, error: errorAdd } = await supabase
+      .from('ai_usage_daily')
+      .update({
+        usage_count: increment,
+      })
+      .eq('user_id', userid)
+      .eq('date_today', today)
+      .select();
+
+    if (errorAdd) {
+      console.log('Error data', errorAdd);
+      return res.status(500).json({ message: 'Error increment ai usage data' });
+    }
+
+    const poll = await getAiIdea();
+    console.log(poll);
+
+    if (poll.error) {
+      return res.status(500).json({ message: poll.error });
+    }
+
+    res.json({
+      message: 'Success',
+      poll_ai: poll,
+    });
+  }
 };
