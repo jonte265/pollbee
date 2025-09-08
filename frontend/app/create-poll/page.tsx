@@ -17,6 +17,7 @@ function CreatePoll() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [aiMsg, setAiMsg] = useState('');
+  const [aiUsageLeft, setAiUsageLeft] = useState(3);
 
   const handleOptionChange = (index: number, value: string) => {
     const updatedOptions = [...options];
@@ -91,6 +92,7 @@ function CreatePoll() {
       const data = await res.json();
       console.log('ya', data);
       setAiMsg(data.message);
+      setAiUsageLeft(3 - data.usages);
       setPollTitle(data.poll_ai.title);
       setOptions([
         data.poll_ai.option_1,
@@ -99,7 +101,7 @@ function CreatePoll() {
       ]);
     } catch (error) {
       console.error(error);
-      setAiMsg('Error, try again later');
+      setAiMsg(`Max AI usage reached for today`);
     } finally {
       setLoading(false);
     }
@@ -132,7 +134,10 @@ function CreatePoll() {
             Get AI Poll Idea
           </button>
           <p className='text-sm'>(3 uses per day)</p>
-          {aiMsg && <p>{aiMsg}</p>}
+          {aiMsg && <p className='text-sm'>{aiMsg}</p>}
+          {aiUsageLeft > 0 && (
+            <p className='text-sm'>Uses left: {aiUsageLeft}</p>
+          )}
         </div>
         <form
           onSubmit={handleSubmit}
