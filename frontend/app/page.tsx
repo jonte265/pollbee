@@ -55,11 +55,11 @@ export default function Home() {
             transition={{ duration: 0.5 }}
           >
             <FeatureSection
-              sectionTitle={'Create Polls Instantly 📊'}
+              sectionTitle={'Create Polls Instantly with AI Assistance 📊'}
               li1={'Set up a poll in seconds with a simple interface'}
               li2='Add unlimited options and control vote settings'
-              li3='Mobile-friendly and responsive design'
-              img='img1.png'
+              li3='Generate poll ideas automatically with AI'
+              img='create-poll-homescreen.png'
             />
           </motion.div>
           <motion.div
