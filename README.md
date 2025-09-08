@@ -4,6 +4,10 @@ Create your own polls, share them with others, and collect votes in real-time—
 
 <img src="https://github.com/user-attachments/assets/45c2aaa1-7024-413f-9d0f-7be91dd9db54" alt="demo gif" />
 
+Poll idea with ai:
+
+![demopoll-2-ai-4](https://github.com/user-attachments/assets/298c059a-d27e-4d5a-a11d-fcee92902cc5)
+
 ---
 
 ## 🌐 Live Demo
@@ -54,11 +58,19 @@ https://pollbee.vercel.app/
 3. Set up environment variables in backend folder (.env):
 
    JWT_SECRET=your_jwt_secret
+   
    SUPABASE_URL=your_supabase_url
+   
    SUPABASE_KEY=your_supabase_key
+   
    FRONTEND_URL=http://localhost:3000
 
-4. Run the development server (backend and frontend folder):
+   AI_API_KEY=your_openrouter_api_key
+
+   AI_PROMPT="Your ai prompt"
+   
+
+5. Run the development server (backend and frontend folder):
 
    npm run dev
 
