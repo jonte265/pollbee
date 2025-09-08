@@ -17,7 +17,7 @@ function CreatePoll() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [aiMsg, setAiMsg] = useState('');
-  const [aiUsageLeft, setAiUsageLeft] = useState(3);
+  const [aiUsageLeft, setAiUsageLeft] = useState(0);
 
   const handleOptionChange = (index: number, value: string) => {
     const updatedOptions = [...options];
@@ -90,7 +90,18 @@ function CreatePoll() {
         },
       });
       const data = await res.json();
-      console.log('ya', data);
+
+      if (!res.ok) {
+        setAiMsg(`Max AI usage reached for today`);
+        return console.log(data.message);
+      }
+
+      if (!data) {
+        setAiMsg(`Error, No data`);
+        return console.log('Error, No data');
+      }
+
+      // console.log('ya', data);
       setAiMsg(data.message);
       setAiUsageLeft(3 - data.usages);
       setPollTitle(data.poll_ai.title);
@@ -101,7 +112,7 @@ function CreatePoll() {
       ]);
     } catch (error) {
       console.error(error);
-      setAiMsg(`Max AI usage reached for today`);
+      setAiMsg('Error, try again later');
     } finally {
       setLoading(false);
     }
