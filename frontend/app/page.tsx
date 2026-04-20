@@ -25,11 +25,13 @@ export default function Home() {
         transition={{ duration: 0.5 }}
       >
         <main className="flex flex-col justify-center items-center gap-4 max-w-xl mx-auto p-6 text-center">
-          <h1 className="text-4xl font-extrabold mb-4">PollBee 🐝</h1>
-          <p className="text-lg text-gray-700">
-            Create and share live polls easily. Build your profile to manage all
-            your polls in one place.
-          </p>
+          <div>
+            <h1 className="text-4xl font-extrabold mb-4">PollBee 🐝</h1>
+            <p className="">
+              Create and share live polls easily. Build your profile to manage
+              all your polls in one place.
+            </p>
+          </div>
           <div className="flex gap-4 mb-6">
             {signedIn ? (
               <Link href="/profile">
