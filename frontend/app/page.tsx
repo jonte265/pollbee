@@ -24,15 +24,15 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <main className="flex flex-col justify-center items-center gap-4 max-w-xl mx-auto p-6 text-center">
-          <div>
-            <h1 className="text-4xl font-extrabold mb-4">PollBee 🐝</h1>
+        <main className="flex flex-col justify-center items-center gap-8 max-w-xl mx-auto p-6 text-center">
+          <div className="flex flex-col gap-2 text-center">
+            <h1 className="text-4xl font-extrabold ">PollBee 🐝</h1>
             <p className="">
               Create and share live polls easily. Build your profile to manage
               all your polls in one place.
             </p>
           </div>
-          <div className="flex gap-4 mb-6">
+          <div className="flex gap-4">
             {signedIn ? (
               <Link href="/profile">
                 <button className="flex flex-row justify-center items-center gap-1 px-6 py-2 border border-primary text-primary rounded-3xl font-semibold hover:bg-primary hover:text-background transition">
