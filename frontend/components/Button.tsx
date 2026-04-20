@@ -1,13 +1,28 @@
+import { ReactNode } from "react";
+
+type ButtonVariant = "primary" | "secondary" | "outline";
+
 type PrimaryBtnType = {
-  btnText: string;
+  btnText: string | ReactNode;
   onClick?: () => void;
+  variant?: ButtonVariant;
 };
 
-export default function Button({ btnText, onClick }: PrimaryBtnType) {
+const variantStyles: Record<ButtonVariant, string> = {
+  primary: "bg-primary text-background hover:bg-primary-700",
+  secondary: "bg-text text-background hover:bg-text-800",
+  outline: "border border-text text-text hover:bg-text hover:text-background",
+};
+
+export default function Button({
+  btnText,
+  onClick,
+  variant = "primary",
+}: PrimaryBtnType) {
   return (
     <button
       onClick={onClick}
-      className={`bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out`}
+      className={`flex justify-center items-center gap-1 rounded-4xl px-4 py-2 w-full transition-all ease-in-out ${variantStyles[variant]}`}
     >
       {btnText}
     </button>

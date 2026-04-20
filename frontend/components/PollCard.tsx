@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ActiveBadge from "./ActiveBadge";
+import Button from "./Button";
 import { LuCopy, LuCheck, LuSquarePen } from "react-icons/lu";
 import { useState, useEffect } from "react";
 
@@ -10,7 +11,7 @@ type pollCardType = {
   created_at: string;
 };
 
-function PollCard({
+export default function PollCard({
   poll_title,
   is_active,
   share_id,
@@ -28,45 +29,46 @@ function PollCard({
   }
 
   return (
-    <div className="flex flex-col gap-2 justify-center items-center bg-gray-100 p-16 rounded-4xl">
-      <h2 className="text-2xl text-center font-bold">{poll_title}</h2>
-      <p className="opacity-50 text-sm">
-        Created: {new Date(created_at).toLocaleDateString("sv-SE")}
-      </p>
-
-      <ActiveBadge isActive={is_active} />
-
-      <div className="flex flex-col justify-center items-center gap-2">
+    <div className="flex flex-col gap-8 justify-center bg-gray-100 p-16 rounded-4xl">
+      <div className="flex justify-center items-center">
+        <ActiveBadge isActive={is_active} />
+      </div>
+      <div>
+        <h2 className="text-2xl text-center font-bold">{poll_title}</h2>
+        <p className="opacity-50 text-sm text-center">
+          Created: {new Date(created_at).toLocaleDateString("sv-SE")}
+        </p>
+      </div>
+      <div className="flex flex-col justify-center gap-2">
         <Link href={`${apiUrl}/poll/${share_id}`}>
-          <button className=" px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl transition-all ease-in-out">
-            View Poll
-          </button>
+          <Button variant="secondary" btnText="View Poll" />
         </Link>
         <Link href={`${apiUrl}/edit/${share_id}`}>
-          <button className="flex flex-row justify-center items-center gap-2  px-4 py-2 border border-text hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out">
-            <LuSquarePen />
-            Edit
-          </button>
+          <Button
+            variant="outline"
+            btnText={
+              <>
+                <LuSquarePen /> Edit
+              </>
+            }
+          />
         </Link>
-        <button
+        <Button
+          variant="outline"
+          btnText={
+            copied ? (
+              <>
+                <LuCheck /> Copied
+              </>
+            ) : (
+              <>
+                <LuCopy /> Copy link
+              </>
+            )
+          }
           onClick={handleCopyLink}
-          className="flex justify-start items-center gap-2 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out"
-        >
-          {copied ? (
-            <>
-              <LuCheck />
-              Copied
-            </>
-          ) : (
-            <>
-              <LuCopy />
-              Copy link
-            </>
-          )}
-        </button>
+        />
       </div>
     </div>
   );
 }
-
-export default PollCard;
