@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState, use, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import LoadingSpin from '@/components/LoadingSpin';
-import { FaCheck, FaTimes } from 'react-icons/fa';
-import PrimaryBtn from '@/components/PrimaryBtn';
-import { motion } from 'motion/react';
-import { FaExclamationTriangle } from 'react-icons/fa';
-import { LuCircleCheckBig, LuCircle } from 'react-icons/lu';
+import Link from "next/link";
+import { useState, use, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import LoadingSpin from "@/components/LoadingSpin";
+import { FaCheck, FaTimes } from "react-icons/fa";
+import { motion } from "motion/react";
+import { FaExclamationTriangle } from "react-icons/fa";
+import { LuCircleCheckBig, LuCircle } from "react-icons/lu";
+import Button from "@/components/Button";
 
 type EditPollParams = Promise<{
   pollId: string;
@@ -44,7 +44,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
   const { pollId } = use(params);
 
   const [editMode, setEditMode] = useState(-10);
-  const [updateText, setUpdateText] = useState('');
+  const [updateText, setUpdateText] = useState("");
   const [askDelete, setAskDelete] = useState(false);
   const [token, setToken] = useState<string | null>(null); // Get jwt token localstorage
 
@@ -52,21 +52,21 @@ function EditPoll({ params }: { params: EditPollParams }) {
   const [loadingState, setLoadingState] = useState(false);
 
   useEffect(() => {
-    const username = localStorage.getItem('username');
-    const tok = localStorage.getItem('token');
+    const username = localStorage.getItem("username");
+    const tok = localStorage.getItem("token");
 
     setToken(tok);
 
     if (!tok) {
-      router.push('/login');
+      router.push("/login");
     }
   }, []);
 
   async function deletePoll(pollId: number) {
     const res = await fetch(`${apiUrl}/polls`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -75,23 +75,23 @@ function EditPoll({ params }: { params: EditPollParams }) {
     });
 
     if (!res.ok) {
-      console.log('Error, not ok fail delete poll');
+      console.log("Error, not ok fail delete poll");
     }
 
     const data = await res.json();
 
-    router.push('/profile');
+    router.push("/profile");
     // window.location.href = '/profile'; // Refresh window
   }
 
   async function saveChange(
     updateText: string,
     pollType: string,
-    optionId?: number
+    optionId?: number,
   ) {
     if (!pollData) return;
 
-    if (updateText.trim() === '') {
+    if (updateText.trim() === "") {
       return;
     }
 
@@ -101,30 +101,30 @@ function EditPoll({ params }: { params: EditPollParams }) {
       pollid: pollData.id,
     };
 
-    if (pollType === 'forTitle') {
+    if (pollType === "forTitle") {
       newUpdate.polltitle = updateText;
     }
 
-    if (pollType === 'forOption') {
+    if (pollType === "forOption") {
       newUpdate.options = updateText;
       newUpdate.optionsid = optionId;
     }
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     async function pushUpdate(updateObj: NewUpdatePoll) {
       try {
         const res = await fetch(`${apiUrl}/polls`, {
-          method: 'PUT',
+          method: "PUT",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(updateObj),
         });
 
         if (!res.ok) {
-          console.log('Res not ok');
+          console.log("Res not ok");
         }
       } catch (error) {
         console.error(error);
@@ -135,13 +135,13 @@ function EditPoll({ params }: { params: EditPollParams }) {
     await fetchPollData();
     setLoadingState(false);
 
-    setUpdateText('');
+    setUpdateText("");
     setEditMode(-10);
   }
 
   function cancelEdit() {
     setEditMode(-10);
-    setUpdateText('');
+    setUpdateText("");
   }
 
   async function saveActive(act: boolean) {
@@ -156,16 +156,16 @@ function EditPoll({ params }: { params: EditPollParams }) {
 
     try {
       const res = await fetch(`${apiUrl}/polls`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newActiveUpdate),
       });
 
       if (!res.ok) {
-        console.log('Res not ok, active update');
+        console.log("Res not ok, active update");
       }
 
       const data = await res.json();
@@ -199,33 +199,33 @@ function EditPoll({ params }: { params: EditPollParams }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      {pollData?.message === 'Poll not found' ? (
-        <p className='text-center text-2xl'>Poll not found</p>
+      {pollData?.message === "Poll not found" ? (
+        <p className="text-center text-2xl">Poll not found</p>
       ) : (
-        <main className='flex flex-col gap-8 items-center justify-center'>
-          <h2 className='text-xl text-center font-bold'>Edit Poll</h2>
+        <main className="flex flex-col gap-8 items-center justify-center">
+          <h2 className="text-xl text-center font-bold">Edit Poll</h2>
 
           {pollData ? (
-            <div className='flex flex-col max-w-sm w-full px-4'>
-              <p className='mb-1'>Title:</p>
+            <div className="flex flex-col max-w-sm w-full px-4">
+              <p className="mb-1">Title:</p>
 
-              <div className='border border-gray-300 rounded-4xl px-4 py-2 flex flex-col gap-2'>
+              <div className="border border-gray-300 rounded-4xl px-4 py-2 flex flex-col gap-2">
                 {editMode === -5 ? (
-                  <div className='flex gap-2'>
+                  <div className="flex gap-2">
                     <input
                       disabled={loadingState}
                       value={updateText}
                       onChange={(e) => setUpdateText(e.target.value)}
-                      type='text'
+                      type="text"
                       placeholder={pollData.poll_title}
-                      className='flex-grow rounded-4xl p-2 pl-4 bg-primary-50'
+                      className="flex-grow rounded-4xl p-2 pl-4 bg-primary-50"
                     />
                     {loadingState ? (
                       <LoadingSpin />
                     ) : (
-                      <div className='flex items-center justify-center gap-4'>
+                      <div className="flex items-center justify-center gap-4">
                         <button
-                          onClick={() => saveChange(updateText, 'forTitle')}
+                          onClick={() => saveChange(updateText, "forTitle")}
                         >
                           <FaCheck />
                         </button>
@@ -236,11 +236,11 @@ function EditPoll({ params }: { params: EditPollParams }) {
                     )}
                   </div>
                 ) : (
-                  <div className='flex justify-between items-center gap-4'>
-                    <p className='font-semibold'>{pollData.poll_title}</p>
+                  <div className="flex justify-between items-center gap-4">
+                    <p className="font-semibold">{pollData.poll_title}</p>
                     <button
                       onClick={() => setEditMode(-5)}
-                      className='font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
+                      className="font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out"
                     >
                       Edit
                     </button>
@@ -248,31 +248,31 @@ function EditPoll({ params }: { params: EditPollParams }) {
                 )}
               </div>
 
-              <p className='mt-4 mb-1'>Options:</p>
-              <div className='flex flex-col gap-2'>
+              <p className="mt-4 mb-1">Options:</p>
+              <div className="flex flex-col gap-2">
                 {[...pollData.poll_options]
                   .sort((a, b) => a.id - b.id)
                   .map((opt, index) =>
                     editMode === opt.id ? (
                       <div
-                        className='border border-gray-300 rounded-4xl px-4 py-2 flex flex-row gap-2'
+                        className="border border-gray-300 rounded-4xl px-4 py-2 flex flex-row gap-2"
                         key={opt.id}
                       >
                         <input
                           disabled={loadingState}
                           value={updateText}
                           onChange={(e) => setUpdateText(e.target.value)}
-                          type='text'
+                          type="text"
                           placeholder={opt.option_text}
-                          className='flex-grow rounded-4xl p-2 pl-4 bg-primary-50'
+                          className="flex-grow rounded-4xl p-2 pl-4 bg-primary-50"
                         />
                         {loadingState ? (
                           <LoadingSpin />
                         ) : (
-                          <div className='flex items-center justify-center gap-4'>
+                          <div className="flex items-center justify-center gap-4">
                             <button
                               onClick={() =>
-                                saveChange(updateText, 'forOption', opt.id)
+                                saveChange(updateText, "forOption", opt.id)
                               }
                             >
                               <FaCheck />
@@ -286,52 +286,52 @@ function EditPoll({ params }: { params: EditPollParams }) {
                     ) : (
                       <div
                         key={opt.id}
-                        className='border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center gap-4'
+                        className="border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center gap-4"
                       >
-                        <p className='font-semibold'>{opt.option_text}</p>
+                        <p className="font-semibold">{opt.option_text}</p>
                         <button
                           onClick={() => setEditMode(opt.id)}
-                          className='font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out'
+                          className="font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out"
                         >
                           Edit
                         </button>
                       </div>
-                    )
+                    ),
                   )}
               </div>
-              <div className='flex flex-col justify-center items-center mt-4'>
-                <p className='text-center'>Active?</p>
+              <div className="flex flex-col justify-center items-center mt-4">
+                <p className="text-center">Active?</p>
                 {loadingState ? (
                   <LoadingSpin />
                 ) : pollData?.is_active ? (
-                  <div className='flex flex-row justify-center items-center gap-2'>
+                  <div className="flex flex-row justify-center items-center gap-2">
                     <button
                       onClick={() => saveActive(true)}
-                      className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800 rounded-4xl transition-all ease-in-out'
+                      className="flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800 rounded-4xl transition-all ease-in-out"
                     >
                       <LuCircleCheckBig />
                       Yes
                     </button>
                     <button
                       onClick={() => saveActive(false)}
-                      className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
+                      className="flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out"
                     >
                       <LuCircle />
                       No
                     </button>
                   </div>
                 ) : (
-                  <div className='flex flex-row justify-center items-center gap-2'>
+                  <div className="flex flex-row justify-center items-center gap-2">
                     <button
                       onClick={() => saveActive(true)}
-                      className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
+                      className="flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out"
                     >
                       <LuCircle />
                       Yes
                     </button>
                     <button
                       onClick={() => saveActive(false)}
-                      className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800  rounded-4xl transition-all ease-in-out'
+                      className="flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800  rounded-4xl transition-all ease-in-out"
                     >
                       <LuCircleCheckBig />
                       No
@@ -343,8 +343,8 @@ function EditPoll({ params }: { params: EditPollParams }) {
           ) : (
             <LoadingSpin />
           )}
-          <Link href='/profile'>
-            <PrimaryBtn btnText='Done' />
+          <Link href="/profile">
+            <Button btnText="Done" />
           </Link>
 
           {askDelete === false && (
@@ -357,11 +357,11 @@ function EditPoll({ params }: { params: EditPollParams }) {
           )}
           {askDelete && (
             <div>
-              <p className='text-center'>
+              <p className="text-center">
                 Are you sure you want to delete this poll? <br />
                 This will permanently delete the poll and its data.
               </p>
-              <div className='flex flex-row gap-2 pt-4'>
+              <div className="flex flex-row gap-2 pt-4">
                 <button
                   onClick={() => {
                     if (pollData?.id) deletePoll(pollData?.id);

@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
-import LoadingSpin from '@/components/LoadingSpin';
-import PollCard from '@/components/PollCard';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import PrimaryBtn from '@/components/PrimaryBtn';
-import { useRouter } from 'next/navigation';
-import { FaExclamationTriangle } from 'react-icons/fa';
-import { motion } from 'motion/react';
+import LoadingSpin from "@/components/LoadingSpin";
+import PollCard from "@/components/PollCard";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+
+import { useRouter } from "next/navigation";
+import { FaExclamationTriangle } from "react-icons/fa";
+import { motion } from "motion/react";
+import Button from "@/components/Button";
 
 type profileDataType = {
   poll_title: string;
@@ -16,7 +17,7 @@ type profileDataType = {
   created_at: string;
 };
 
-function ProfilePage() {
+export default function ProfilePage() {
   // Redirect if not logged in
   const router = useRouter();
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -27,14 +28,14 @@ function ProfilePage() {
   const [askDelete, setAskDelete] = useState(false);
 
   useEffect(() => {
-    const username = localStorage.getItem('username');
-    const tok = localStorage.getItem('token');
+    const username = localStorage.getItem("username");
+    const tok = localStorage.getItem("token");
 
     setUserNameLocal(username);
     setToken(tok);
 
     if (!tok) {
-      router.push('/login');
+      router.push("/login");
     }
   }, []);
 
@@ -42,9 +43,9 @@ function ProfilePage() {
     console.log(userDelete);
 
     const res = await fetch(`${apiUrl}/users`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
@@ -53,14 +54,14 @@ function ProfilePage() {
     });
 
     if (!res.ok) {
-      console.log('Error, not ok fail delete account');
+      console.log("Error, not ok fail delete account");
     }
 
     const data = await res.json();
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
     // router.push('/');
-    window.location.href = '/'; // Refresh window
+    window.location.href = "/"; // Refresh window
   }
 
   const [profileData, setProfileData] = useState<profileDataType[]>([]);
@@ -77,7 +78,7 @@ function ProfilePage() {
     });
 
     if (!res.ok) {
-      console.log('Error, not ok');
+      console.log("Error, not ok");
     }
 
     const data = await res.json();
@@ -98,18 +99,18 @@ function ProfilePage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className='flex flex-col justify-center items-center gap-8'>
-        <div className='flex flex-col gap-2 text-center'>
-          <h2 className='text-2xl font-semibold'>Welcome {userNameLocal}!</h2>
-          <h3 className='text-xl font-semibold'>Your polls:</h3>
+      <main className="flex flex-col justify-center items-center gap-8 ">
+        <div className="flex flex-col gap-2 text-center">
+          <h2 className="text-2xl font-semibold">Welcome {userNameLocal}!</h2>
+          <h3 className="text-xl font-semibold">Your polls:</h3>
         </div>
 
-        <Link href='/create-poll'>
-          <PrimaryBtn btnText='+ Create poll' />
+        <Link href="/create-poll">
+          <Button btnText="+ Create poll" />
         </Link>
 
         {loading && <LoadingSpin />}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32'>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {profileData.length > 0 ? (
             profileData.map((poll, index) => (
               <PollCard
@@ -134,11 +135,11 @@ function ProfilePage() {
         )}
         {askDelete && (
           <div>
-            <p className='text-center'>
+            <p className="text-center">
               Are you sure you want to delete your account? <br />
               This will permanently delete all your data
             </p>
-            <div className='flex flex-row gap-2 pt-4'>
+            <div className="flex flex-row gap-2 pt-4">
               <button
                 onClick={() => {
                   if (userNameLocal) deleteAccount(userNameLocal);
@@ -160,5 +161,3 @@ function ProfilePage() {
     </motion.div>
   );
 }
-
-export default ProfilePage;

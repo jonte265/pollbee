@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import ActiveBadge from './ActiveBadge';
-import { LuCopy, LuCheck, LuSquarePen } from 'react-icons/lu';
-import { useState, useEffect } from 'react';
+import Link from "next/link";
+import ActiveBadge from "./ActiveBadge";
+import { LuCopy, LuCheck, LuSquarePen } from "react-icons/lu";
+import { useState, useEffect } from "react";
 
 type pollCardType = {
   poll_title: string;
@@ -28,29 +28,29 @@ function PollCard({
   }
 
   return (
-    <div className='flex flex-col gap-2 justify-center items-center bg-gray-100 p-16 rounded-4xl'>
-      <h2 className='text-2xl text-center font-bold'>{poll_title}</h2>
+    <div className="flex flex-col gap-2 justify-center items-center bg-gray-100 p-16 rounded-4xl">
+      <h2 className="text-2xl text-center font-bold">{poll_title}</h2>
+      <p className="opacity-50 text-sm">
+        Created: {new Date(created_at).toLocaleDateString("sv-SE")}
+      </p>
 
       <ActiveBadge isActive={is_active} />
 
-      <p className='opacity-50 text-sm'>
-        Created: {new Date(created_at).toLocaleDateString('sv-SE')}
-      </p>
-      <div className='flex flex-col justify-center items-center'>
+      <div className="flex flex-col justify-center items-center gap-2">
         <Link href={`${apiUrl}/poll/${share_id}`}>
-          <button className='mt-4 px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl transition-all ease-in-out'>
+          <button className=" px-4 py-2 bg-text hover:bg-text-800 text-background rounded-4xl transition-all ease-in-out">
             View Poll
           </button>
         </Link>
         <Link href={`${apiUrl}/edit/${share_id}`}>
-          <button className='flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'>
+          <button className="flex flex-row justify-center items-center gap-2  px-4 py-2 border border-text hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out">
             <LuSquarePen />
             Edit
           </button>
         </Link>
         <button
           onClick={handleCopyLink}
-          className='flex justify-start items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out'
+          className="flex justify-start items-center gap-2 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out"
         >
           {copied ? (
             <>
