@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import LoadingSpin from "./LoadingSpin";
 import Button from "./Button";
+import { LuLogOut } from "react-icons/lu";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,7 +58,10 @@ function Header() {
             onClick={signOutUser}
             className="font-bold px-4 py-2 hover:bg-primary-50 rounded-4xl  transition-all ease-in-out"
           >
-            Sign Out
+            <span className="sm:hidden">
+              <LuLogOut size={16} />
+            </span>
+            <span className="hidden sm:inline">Sign Out</span>
           </button>
         </div>
       ) : (
