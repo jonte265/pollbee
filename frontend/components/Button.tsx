@@ -12,7 +12,8 @@ const variantStyles: Record<ButtonVariant, string> = {
   primary:
     "bg-primary text-background hover:bg-primary-700 active:bg-primary-800",
   secondary: "bg-text text-background hover:bg-text-800 active:bg-text-900",
-  outline: "border border-text text-text hover:bg-text hover:text-background",
+  outline:
+    "bg-transparent text-text border border-text/50 hover:bg-text hover:text-background hover:border-transparent",
 };
 
 export default function Button({
@@ -23,7 +24,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className={`flex justify-center items-center gap-1 rounded-4xl px-4 py-2 w-full transition-all ease-in-out ${variantStyles[variant]}`}
+      className={` font-bold flex justify-center items-center gap-1 rounded-4xl px-4 py-2 w-full transition-all ease-in-out ${variantStyles[variant]}`}
     >
       {btnText}
     </button>

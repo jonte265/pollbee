@@ -39,7 +39,7 @@ export default function PollCard({
           Created: {new Date(created_at).toLocaleDateString("sv-SE")}
         </p>
       </div>
-      <div className="flex flex-col justify-center gap-2">
+      <div className="flex flex-col justify-center gap-2 ">
         <Link href={`${apiUrl}/poll/${share_id}`}>
           <Button variant="secondary" btnText="View Poll" />
         </Link>
