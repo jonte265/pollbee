@@ -104,73 +104,79 @@ function SharePollPage({ params }: { params: SharePollParams }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="flex flex-col justify-center items-center px-4 py-8">
-        {loading && <LoadingSpin />}
+      <main className="flex flex-col justify-center items-center py-8">
         {pollData && (
-          <div className="w-full max-w-3xl">
-            <h1 className="text-4xl font-bold mb-4">{pollData.poll_title}</h1>
-            <div className="flex justify-between items-center gap-4 mb-4">
-              <p className="text-gray-600 ">
+          <div className="flex flex-col gap-8 w-full max-w-3xl">
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center flex-wrap">
+                <h1 className="text-2xl sm:text-4xl font-bold">
+                  {pollData.poll_title}
+                </h1>
+                <ActiveBadge isActive={pollData.is_active} />
+              </div>
+              <p className="text-gray-600 text-sm ">
                 Created by <strong>{pollData.poll_creator}</strong> on{" "}
                 {new Date(pollData.created_at).toLocaleDateString()}
               </p>
-
-              <ActiveBadge isActive={pollData.is_active} />
             </div>
 
-            <div className="flex flex-col gap-1">
-              {pollData.poll_options
-                .slice()
-                .sort((a, b) => b.vote_count - a.vote_count) // Sort by votes (most first)
-                .map((option) => {
-                  const percentage =
-                    totalVotes > 0
-                      ? Math.round((option.vote_count / totalVotes) * 100)
-                      : 0;
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                {pollData.poll_options
+                  .slice()
+                  .sort((a, b) => b.vote_count - a.vote_count) // Sort by votes (most first)
+                  .map((option) => {
+                    const percentage =
+                      totalVotes > 0
+                        ? Math.round((option.vote_count / totalVotes) * 100)
+                        : 0;
 
-                  return (
-                    <div
-                      key={option.id}
-                      className="border border-gray-300 rounded-4xl px-4 py-2 relative overflow-hidden"
-                    >
-                      {/* Progress bar */}
+                    return (
                       <div
-                        className="absolute inset-0 bg-primary-200 opacity-50"
-                        style={{ width: `${percentage}%` }}
-                      />
+                        key={option.id}
+                        className="border border-gray-300 rounded-4xl px-4 py-2 relative overflow-hidden"
+                      >
+                        {/* Progress bar */}
+                        <div
+                          className="absolute inset-0 bg-primary-200 opacity-50"
+                          style={{ width: `${percentage}%` }}
+                        />
 
-                      <div className="relative flex justify-between items-center">
-                        <p className="font-semibold">{option.option_text}</p>
-                        <div className="flex items-center justify-center gap-4">
-                          <span className="text-sm text-gray-600">
-                            {option.vote_count} votes ({percentage}%)
-                          </span>
-                          {pollData.is_active ? (
-                            <button
-                              onClick={() => castVote(option.id)}
-                              className="px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl"
-                            >
-                              Vote
-                            </button>
-                          ) : (
-                            <button
-                              disabled
-                              className="px-4 py-2 bg-gray-400 text-gray-700 rounded-4xl"
-                            >
-                              Vote
-                            </button>
-                          )}
+                        <div className="relative flex justify-between items-center">
+                          <p className="font-semibold">{option.option_text}</p>
+                          <div className="flex items-center justify-center gap-4">
+                            <span className="text-sm text-gray-600">
+                              {option.vote_count} votes ({percentage}%)
+                            </span>
+                            {pollData.is_active ? (
+                              <button
+                                onClick={() => castVote(option.id)}
+                                className="px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl"
+                              >
+                                Vote
+                              </button>
+                            ) : (
+                              <button
+                                disabled
+                                className="px-4 py-2 bg-gray-400 text-gray-700 rounded-4xl"
+                              >
+                                Vote
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-              <p className="text-center text-sm text-gray-500 mt-4">
+                    );
+                  })}
+              </div>
+              <p className="text-center text-sm text-gray-500">
                 {totalVotes} total votes
               </p>
             </div>
+            {loading && <LoadingSpin />}
           </div>
         )}
+
         <CtaSignUp />
       </main>
     </motion.div>
