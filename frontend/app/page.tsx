@@ -26,7 +26,7 @@ export default function Home() {
         transition={{ duration: 0.5 }}
       >
         <main className="flex flex-col gap-16 text-center ">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 py-32 px-8">
             <div className="flex flex-col gap-2 text-center">
               <h1 className="text-4xl font-bold ">PollBee🐝</h1>
               <div>
