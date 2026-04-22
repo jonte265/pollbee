@@ -47,7 +47,10 @@ export default function Header() {
         <h1 className="font-bold text-xl sm:text-2xl">PollBee🐝</h1>
       </Link>
       {isLoggedIn ? (
-        <div className="flex sm:gap-2 justify-center items-center">
+        <div
+          className="flex 
+        gap-2 justify-center items-center"
+        >
           <Link href="/profile">
             <Button
               variant="outline"
@@ -60,7 +63,7 @@ export default function Header() {
             variant="secondary"
             btnText={
               <>
-                <span className="sm:hidden">
+                <span className="sm:hidden ">
                   <LuLogOut size={16} />
                 </span>
 
@@ -73,7 +76,7 @@ export default function Header() {
           />
         </div>
       ) : (
-        <div className="flex sm:gap-2 justify-center items-center">
+        <div className="flex gap-2 justify-center items-center">
           <Link href="/login">
             <Button variant="outline" btnText={<>Log in</>} />
           </Link>
