@@ -44,7 +44,7 @@ function Header() {
   return (
     <header className="flex justify-between items-center pb-16">
       <Link href="/">
-        <h1 className="font-bold text-xl sm:text-2xl">PollBee 🐝</h1>
+        <h1 className="font-bold text-xl sm:text-2xl">PollBee🐝</h1>
       </Link>
       {isLoggedIn ? (
         <div className="flex sm:gap-2 justify-center items-center">
@@ -72,7 +72,7 @@ function Header() {
             </button>
           </Link>
           <Link href="/signup">
-            <Button btnText="Sign Up" />
+            <Button btnText={<>Sign Up</>} />
           </Link>
         </div>
       )}

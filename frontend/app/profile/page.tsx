@@ -7,6 +7,8 @@ import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 import { FaExclamationTriangle } from "react-icons/fa";
+import { LuPlus } from "react-icons/lu";
+
 import { motion } from "motion/react";
 import Button from "@/components/Button";
 
@@ -106,7 +108,13 @@ export default function ProfilePage() {
         </div>
 
         <Link href="/create-poll">
-          <Button btnText="+ Create poll" />
+          <Button
+            btnText={
+              <>
+                Create poll <LuPlus />
+              </>
+            }
+          />
         </Link>
 
         {loading && <LoadingSpin />}
