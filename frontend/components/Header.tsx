@@ -42,7 +42,7 @@ function Header() {
   }
 
   return (
-    <header className="flex justify-between items-center pb-16">
+    <header className="flex justify-between items-center pb-16 max-w-6xl m-auto">
       <Link href="/">
         <h1 className="font-bold text-xl sm:text-2xl">PollBee🐝</h1>
       </Link>
