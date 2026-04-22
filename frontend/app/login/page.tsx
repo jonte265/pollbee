@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import LoadingSpin from '@/components/LoadingSpin';
-import { motion } from 'motion/react';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import LoadingSpin from "@/components/LoadingSpin";
+import { motion } from "motion/react";
 
 function LoginPage() {
   const router = useRouter();
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,30 +26,30 @@ function LoginPage() {
 
     try {
       const res = await fetch(`${apiUrl}/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(newUser),
       });
       const data = await res.json();
 
       if (!res.ok) {
-        console.log('Respond not ok, problem');
+        console.log("Respond not ok, problem");
         setMessage(`${data.message} ❌`);
         return;
       }
 
       console.log(data);
 
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('username', data.username);
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("username", data.username);
 
-      setUsername('');
-      setPassword('');
-      setMessage('Login successful, welcome back 🐝');
+      setUsername("");
+      setPassword("");
+      setMessage("Login successful, welcome back 🐝");
       // router.push('/profile');
-      window.location.href = '/';
+      window.location.href = "/";
     } catch (error) {
       console.error(error);
     } finally {
@@ -63,39 +63,41 @@ function LoginPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className='flex flex-col gap-8 items-center justify-center'>
-        <h2 className='text-xl text-center font-bold'>Log into your account</h2>
+      <main className="flex flex-col gap-8 items-center justify-center">
+        <h2 className="text-2xl text-center font-bold">
+          Log into your account
+        </h2>
         <form
           onSubmit={handleSubmit}
-          className='flex flex-col justify-center gap-4 max-w-sm w-full'
+          className="flex flex-col justify-center gap-4 max-w-sm w-full"
         >
           <p>Username</p>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            type='text'
-            placeholder='Username'
-            className='rounded-4xl p-2 pl-4 bg-primary-50'
+            type="text"
+            placeholder="Username"
+            className="rounded-4xl p-2 pl-4 bg-primary-50"
           />
           <p>Password</p>
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            type='password'
-            placeholder='Password'
-            className='rounded-4xl p-2 pl-4  bg-primary-50'
+            type="password"
+            placeholder="Password"
+            className="rounded-4xl p-2 pl-4  bg-primary-50"
           />
           {!loading ? (
             <button
-              type='submit'
-              className='bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out'
+              type="submit"
+              className="bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out"
             >
               Login
             </button>
           ) : (
             <button
               disabled
-              className='bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out'
+              className="bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out"
             >
               Login
             </button>

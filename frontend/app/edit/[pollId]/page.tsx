@@ -203,7 +203,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
         <p className="text-center text-2xl">Poll not found</p>
       ) : (
         <main className="flex flex-col gap-8 items-center justify-center">
-          <h2 className="text-xl text-center font-bold">Edit Poll</h2>
+          <h2 className="text-2xl text-center font-bold">Edit Poll</h2>
 
           {pollData ? (
             <div className="flex flex-col max-w-sm w-full px-4">

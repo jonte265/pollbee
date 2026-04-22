@@ -30,8 +30,10 @@ export default function Home() {
             <div className="flex flex-col gap-2 text-center">
               <h1 className="text-4xl font-bold ">PollBee🐝</h1>
               <div>
-                <p className="text-2xl">Create and share live polls easily.</p>
-                <p className="text-2xl">
+                <p className="text-xl sm:text-2xl">
+                  Create and share live polls easily.
+                </p>
+                <p className="text-xl sm:text-2xl">
                   Build your profile to manage all your polls in one place.
                 </p>
               </div>
