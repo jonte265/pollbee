@@ -24,7 +24,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
-      className={` font-bold flex justify-center items-center gap-1 rounded-4xl px-4 py-2 w-full transition-all ease-in-out ${variantStyles[variant]}`}
+      className={` font-bold flex justify-center items-center gap-1 rounded-4xl px-4 py-2 w-full min-h-10 transition-all ease-in-out ${variantStyles[variant]}`}
     >
       {btnText}
     </button>
