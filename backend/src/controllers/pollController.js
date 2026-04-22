@@ -1,13 +1,13 @@
-import supabase from '../config/supabaseClient.js';
-import { nanoid } from 'nanoid';
-import OpenAI from 'openai';
+import supabase from "../config/supabaseClient.js";
+import { nanoid } from "nanoid";
+import OpenAI from "openai";
 
 export const createPoll = async (req, res) => {
   const { polltitle, active, options } = req.body;
   const userid = req.user.userId; // userid from JWT
 
   if (!userid) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: "Unauthorized" });
   }
 
   if (!polltitle || active === undefined || !options) {
@@ -17,7 +17,7 @@ export const createPoll = async (req, res) => {
   const uniqueId = nanoid(8);
 
   const { data, error } = await supabase
-    .from('polls')
+    .from("polls")
     .insert({
       user_id: userid,
       poll_title: polltitle,
@@ -28,7 +28,7 @@ export const createPoll = async (req, res) => {
     .single();
 
   if (!data) {
-    return res.status(400).json({ message: 'Error null' });
+    return res.status(400).json({ message: "Error null" });
   }
 
   let optionsToInsert = [];
@@ -39,7 +39,7 @@ export const createPoll = async (req, res) => {
   }));
 
   const { error: optionsError } = await supabase
-    .from('poll_options')
+    .from("poll_options")
     .insert(optionsToInsert);
 
   return res.status(201).json({
@@ -54,9 +54,9 @@ export const editPoll = async (req, res) => {
   const userid = req.user.userId; // userid from JWT
 
   const { data: rowData, error: rowError } = await supabase
-    .from('polls')
-    .select('*')
-    .eq('id', pollid)
+    .from("polls")
+    .select("*")
+    .eq("id", pollid)
     .single();
 
   if (rowError) {
@@ -64,14 +64,14 @@ export const editPoll = async (req, res) => {
   }
 
   if (rowData.user_id !== userid) {
-    return res.status(403).json({ message: 'Unauthorized forbidden' });
+    return res.status(403).json({ message: "Unauthorized forbidden" });
   }
 
   if (optionsid) {
     const { data: rowOptionsData, error: rowOptionsError } = await supabase
-      .from('poll_options')
-      .select('*')
-      .eq('id', optionsid)
+      .from("poll_options")
+      .select("*")
+      .eq("id", optionsid)
       .single();
 
     if (rowOptionsError) {
@@ -81,46 +81,46 @@ export const editPoll = async (req, res) => {
     if (rowOptionsData.user_id !== userid) {
       return res
         .status(403)
-        .json({ message: 'Unauthorized forbidden options' });
+        .json({ message: "Unauthorized forbidden options" });
     }
   }
 
   if (polltitle) {
     const { data, error } = await supabase
-      .from('polls')
+      .from("polls")
       .update({ poll_title: polltitle })
-      .eq('id', pollid)
+      .eq("id", pollid)
       .select()
       .single();
 
     if (error) {
-      return res.status(400).json({ message: 'No poll id found' });
+      return res.status(400).json({ message: "No poll id found" });
     }
   }
 
   if (options && optionsid) {
     const { data: optionsData, error: optionsError } = await supabase
-      .from('poll_options')
+      .from("poll_options")
       .update({ option_text: options })
-      .eq('id', optionsid)
+      .eq("id", optionsid)
       .select()
       .single();
 
     if (optionsError) {
-      return res.status(400).json({ message: 'No options id found' });
+      return res.status(400).json({ message: "No options id found" });
     }
   }
 
   if (active !== undefined) {
     const { data: activeData, error: activeError } = await supabase
-      .from('polls')
+      .from("polls")
       .update({ is_active: active })
-      .eq('id', pollid)
+      .eq("id", pollid)
       .select()
       .single();
 
     if (activeError) {
-      return res.status(400).json({ message: 'No is_active found' });
+      return res.status(400).json({ message: "No is_active found" });
     }
   }
 
@@ -129,9 +129,9 @@ export const editPoll = async (req, res) => {
 
 export const sharePoll = async (req, res) => {
   const { data, error } = await supabase
-    .from('polls')
-    .select('*')
-    .eq('share_id', req.params.shareId)
+    .from("polls")
+    .select("*")
+    .eq("share_id", req.params.shareId)
     .single();
 
   if (!data) {
@@ -139,9 +139,9 @@ export const sharePoll = async (req, res) => {
   }
 
   const { data: dataOptions, error: errorOptions } = await supabase
-    .from('poll_options')
-    .select('*')
-    .eq('poll_id', data.id);
+    .from("poll_options")
+    .select("*")
+    .eq("poll_id", data.id);
 
   if (!dataOptions) {
     return res.status(404).json({ message: `Poll options not found` });
@@ -149,9 +149,9 @@ export const sharePoll = async (req, res) => {
 
   // Get poll creator username
   const { data: dataUser, error: errorUser } = await supabase
-    .from('users')
-    .select('*')
-    .eq('id', data.user_id)
+    .from("users")
+    .select("*")
+    .eq("id", data.user_id)
     .single();
 
   if (!dataUser) {
@@ -175,9 +175,9 @@ export const votePoll = async (req, res) => {
   const { voteoption } = req.body;
 
   const { data: currentNumData, error: currentNumError } = await supabase
-    .from('poll_options')
-    .select('*')
-    .eq('id', voteoption)
+    .from("poll_options")
+    .select("*")
+    .eq("id", voteoption)
     .single();
 
   if (currentNumError) {
@@ -185,9 +185,9 @@ export const votePoll = async (req, res) => {
   }
 
   const { data: pollsData, error: pollsError } = await supabase
-    .from('polls')
-    .select('*')
-    .eq('id', currentNumData.poll_id)
+    .from("polls")
+    .select("*")
+    .eq("id", currentNumData.poll_id)
     .single();
 
   if (pollsError) {
@@ -201,9 +201,9 @@ export const votePoll = async (req, res) => {
   const updateNum = currentNumData.vote_count + 1;
 
   const { data, error } = await supabase
-    .from('poll_options')
+    .from("poll_options")
     .update({ vote_count: updateNum })
-    .eq('id', voteoption)
+    .eq("id", voteoption)
     .select();
 
   return res.json({
@@ -216,32 +216,32 @@ export const deletePoll = async (req, res) => {
   const userid = req.user.userId; // userid from JWT
 
   if (!pollid) {
-    return res.status(400).json({ message: 'Missing pollid' });
+    return res.status(400).json({ message: "Missing pollid" });
   }
 
   const { data: rowData, error: rowError } = await supabase
-    .from('polls')
-    .select('*')
-    .eq('id', pollid)
+    .from("polls")
+    .select("*")
+    .eq("id", pollid)
     .single();
 
   if (!rowData) {
-    return res.status(404).json({ message: 'Poll not found' });
+    return res.status(404).json({ message: "Poll not found" });
   }
 
   if (rowData.user_id !== userid) {
-    return res.status(403).json({ message: 'Unauthorized forbidden' });
+    return res.status(403).json({ message: "Unauthorized forbidden" });
   }
 
   const { data, error } = await supabase
-    .from('polls')
+    .from("polls")
     .delete()
-    .eq('id', pollid)
+    .eq("id", pollid)
     .select()
     .single();
 
   if (error) {
-    return res.status(400).json({ message: 'No poll id found' });
+    return res.status(400).json({ message: "No poll id found" });
   }
 
   res.json({ message: `Deleted poll ${data.poll_title}` });
@@ -249,43 +249,43 @@ export const deletePoll = async (req, res) => {
 
 export const pollIdea = async (req, res) => {
   const userid = req.user.userId; // userid from JWT
-  const today = new Date().toISOString().split('T')[0]; // today date
+  const today = new Date().toISOString().split("T")[0]; // today date
 
   const openai = new OpenAI({
-    baseURL: 'https://openrouter.ai/api/v1',
+    baseURL: "https://openrouter.ai/api/v1",
     apiKey: process.env.AI_API_KEY,
   });
 
   async function getAiIdea() {
     const completion = await openai.chat.completions.create({
-      model: 'meta-llama/llama-3.3-70b-instruct:free',
-      messages: [{ role: 'user', content: process.env.AI_PROMPT }],
+      model: "openai/gpt-oss-120b:free",
+      messages: [{ role: "user", content: process.env.AI_PROMPT }],
       response_format: {
-        type: 'json_schema',
+        type: "json_schema",
         json_schema: {
-          name: 'polls',
+          name: "polls",
           strict: true,
           schema: {
-            type: 'object',
+            type: "object",
             properties: {
               title: {
-                type: 'string',
-                description: 'poll title',
+                type: "string",
+                description: "poll title",
               },
               option_1: {
-                type: 'string',
-                description: 'poll option 1',
+                type: "string",
+                description: "poll option 1",
               },
               option_2: {
-                type: 'string',
-                description: 'poll option 2',
+                type: "string",
+                description: "poll option 2",
               },
               option_3: {
-                type: 'string',
-                description: 'poll option 3',
+                type: "string",
+                description: "poll option 3",
               },
             },
-            required: ['title', 'option_1', 'option_2', 'option_3'],
+            required: ["title", "option_1", "option_2", "option_3"],
             additionalProperties: false,
           },
         },
@@ -298,27 +298,27 @@ export const pollIdea = async (req, res) => {
     try {
       poll = JSON.parse(completion.choices[0].message.content);
     } catch (error) {
-      console.error('Json parse error', error);
-      return { error: 'Invalid AI response' };
+      console.error("Json parse error", error);
+      return { error: "Invalid AI response" };
     }
     return poll;
   }
 
   const { data, error } = await supabase
-    .from('ai_usage_daily')
-    .select('*')
-    .eq('user_id', userid)
-    .eq('date_today', today);
+    .from("ai_usage_daily")
+    .select("*")
+    .eq("user_id", userid)
+    .eq("date_today", today);
 
   if (error) {
-    console.log('Error data', error);
-    return res.status(500).json({ message: 'Error fetching data' });
+    console.log("Error data", error);
+    return res.status(500).json({ message: "Error fetching data" });
   }
 
   if (data.length === 0) {
     // No row for today creating new
     const { data: dataCreate, error: errorCreate } = await supabase
-      .from('ai_usage_daily')
+      .from("ai_usage_daily")
       .insert({
         user_id: userid,
         date_today: today,
@@ -327,8 +327,8 @@ export const pollIdea = async (req, res) => {
       .select();
 
     if (errorCreate) {
-      console.log('Error data', errorCreate);
-      return res.status(500).json({ message: 'Error increment ai usage data' });
+      console.log("Error data", errorCreate);
+      return res.status(500).json({ message: "Error increment ai usage data" });
     }
 
     const poll = await getAiIdea();
@@ -339,7 +339,7 @@ export const pollIdea = async (req, res) => {
     }
 
     res.json({
-      message: 'Success',
+      message: "Success",
       poll_ai: poll,
       usages: dataCreate[0].usage_count,
     });
@@ -349,21 +349,21 @@ export const pollIdea = async (req, res) => {
     if (increment > 3) {
       return res
         .status(400)
-        .json({ message: 'Max AI usage reached for today' });
+        .json({ message: "Max AI usage reached for today" });
     }
 
     const { data: dataAdd, error: errorAdd } = await supabase
-      .from('ai_usage_daily')
+      .from("ai_usage_daily")
       .update({
         usage_count: increment,
       })
-      .eq('user_id', userid)
-      .eq('date_today', today)
+      .eq("user_id", userid)
+      .eq("date_today", today)
       .select();
 
     if (errorAdd) {
-      console.log('Error data', errorAdd);
-      return res.status(500).json({ message: 'Error increment ai usage data' });
+      console.log("Error data", errorAdd);
+      return res.status(500).json({ message: "Error increment ai usage data" });
     }
 
     const poll = await getAiIdea();
@@ -374,7 +374,7 @@ export const pollIdea = async (req, res) => {
     }
 
     res.json({
-      message: 'Success',
+      message: "Success",
       poll_ai: poll,
       usages: increment,
     });
