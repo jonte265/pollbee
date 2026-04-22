@@ -24,7 +24,7 @@ type PollData = {
   poll_options: PollOption[];
 };
 
-function SharePollPage({ params }: { params: SharePollParams }) {
+export default function SharePollPage({ params }: { params: SharePollParams }) {
   const [loading, setLoading] = useState(false);
   const [pollData, setPollData] = useState<PollData | null>(null);
 
@@ -173,14 +173,12 @@ function SharePollPage({ params }: { params: SharePollParams }) {
                 {totalVotes} total votes
               </p>
             </div>
-            {loading && <LoadingSpin />}
           </div>
         )}
+        {loading && <LoadingSpin />}
 
         <CtaSignUp />
       </main>
     </motion.div>
   );
 }
-
-export default SharePollPage;
