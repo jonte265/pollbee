@@ -153,7 +153,7 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                             {pollData.is_active ? (
                               <button
                                 onClick={() => castVote(option.id)}
-                                className="px-4 py-2 bg-primary hover:bg-primary-800 text-background rounded-4xl"
+                                className="px-4 py-2 bg-primary hover:bg-primary-800 text-button-text-white rounded-4xl"
                               >
                                 Vote
                               </button>

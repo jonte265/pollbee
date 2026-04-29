@@ -8,6 +8,7 @@
   --color-primary: hsl(228, 100%, 50%);
   --color-secondary: hsl(5, 82%, 75%);
   --color-accent: hsl(52, 82%, 61%);
+  --color-button-text-white: hsl(220, 60%, 99%);
 
   --color-text-50: hsl(229, 44%, 95%);
   --color-text-100: hsl(229, 41%, 90%);
@@ -76,6 +77,7 @@
   --color-primary: hsl(228, 100%, 50%);
   --color-secondary: hsl(5, 83%, 25%);
   --color-accent: hsl(52, 82%, 39%);
+  --color-button-text-white: hsl(229, 44%, 93%);
 
   --color-text-50: hsl(229, 44%, 5%);
   --color-text-100: hsl(230, 45%, 10%);

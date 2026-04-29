@@ -10,7 +10,8 @@ type PrimaryBtnType = {
 };
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-text hover:bg-primary-700 active:bg-primary-800",
+  primary:
+    "bg-primary text-button-text-white hover:bg-primary-700 active:bg-primary-800",
   secondary: "bg-text text-background hover:bg-text-800 active:bg-text-900",
   outline:
     "bg-transparent text-text border border-text/50 hover:bg-text hover:text-background hover:border-transparent",
