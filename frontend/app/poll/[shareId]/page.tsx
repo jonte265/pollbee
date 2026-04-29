@@ -5,6 +5,7 @@ import CtaSignUp from "@/components/CtaSignUp";
 import LoadingSpin from "@/components/LoadingSpin";
 import { useState, useEffect, use } from "react";
 import { motion } from "motion/react";
+import Typography from "@/components/ui/typography/Typography";
 
 type SharePollParams = Promise<{
   shareId: string;
@@ -114,10 +115,11 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                 </h1>
                 <ActiveBadge isActive={pollData.is_active} />
               </div>
-              <p className="text-gray-600 text-sm ">
+
+              <Typography light small>
                 Created by <strong>{pollData.poll_creator}</strong> on{" "}
                 {new Date(pollData.created_at).toLocaleDateString()}
-              </p>
+              </Typography>
             </div>
 
             <div className="flex flex-col gap-4">

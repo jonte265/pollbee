@@ -4,6 +4,7 @@ import Button from "./Button";
 import { LuCopy, LuCheck, LuSquarePen } from "react-icons/lu";
 import { useState, useEffect } from "react";
 import H2 from "./ui/typography/H2";
+import Typography from "./ui/typography/Typography";
 
 type pollCardType = {
   poll_title: string;
@@ -34,11 +35,11 @@ export default function PollCard({
       <div className="flex justify-center items-center">
         <ActiveBadge isActive={is_active} />
       </div>
-      <div>
+      <div className="text-center">
         <H2>{poll_title}</H2>
-        <p className="opacity-50 text-sm text-center">
+        <Typography light small>
           Created: {new Date(created_at).toLocaleDateString("sv-SE")}
-        </p>
+        </Typography>
       </div>
       <div className="flex flex-col justify-center gap-2 ">
         <Link href={`${apiUrl}/poll/${share_id}`}>
