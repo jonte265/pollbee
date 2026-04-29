@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LoadingSpin from "@/components/LoadingSpin";
 import { FaTrash } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
+import { MdArrowBackIosNew } from "react-icons/md";
 import { motion } from "motion/react";
 import { LuBot } from "react-icons/lu";
 
-function CreatePoll() {
+export default function CreatePoll() {
   const router = useRouter();
 
   const [pollTitle, setPollTitle] = useState("");
@@ -124,17 +124,19 @@ function CreatePoll() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="flex flex-col gap-8 items-center justify-center max-w-sm mx-auto p-4">
-        <motion.button
-          onClick={() => router.push("/profile")}
-          className="hover:bg-primary-50 p-4 rounded-4xl text-start self-start"
-          whileHover={{ scale: 1.2 }}
-          transition={{ type: "spring", stiffness: 300 }}
-          aria-label="Go to profile"
-        >
-          <FaArrowLeft />
-        </motion.button>
-        <h2 className="text-2xl text-center font-bold">Create a poll</h2>
+      <main className="flex flex-col gap-8 items-center justify-center max-w-sm mx-auto">
+        <div className="flex justify-between items-center w-full gap-2">
+          <motion.button
+            onClick={() => router.push("/profile")}
+            className="rounded-4xl "
+            whileHover={{ scale: 1.2 }}
+            aria-label="Go to profile"
+          >
+            <MdArrowBackIosNew className="text-2xl" />
+          </motion.button>
+          <h2 className="text-2xl text-center font-bold">Create a poll</h2>
+          <div className="w-6 h-6"></div>
+        </div>
 
         <div className="flex flex-col justify-center items-center gap-2">
           <button
@@ -150,10 +152,12 @@ function CreatePoll() {
             <p className="text-sm">Uses left: {aiUsageLeft}</p>
           )}
         </div>
+
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center gap-4 max-w-sm w-full"
         >
+          <label>Poll title</label>
           <input
             value={pollTitle}
             onChange={(e) => setPollTitle(e.target.value)}
@@ -162,6 +166,7 @@ function CreatePoll() {
             className="rounded-4xl p-2 pl-4 bg-primary-50"
           />
 
+          <label>Options</label>
           {options.map((opt, index) => (
             <div key={index} className="flex gap-2 items-center">
               <input
@@ -214,5 +219,3 @@ function CreatePoll() {
     </motion.div>
   );
 }
-
-export default CreatePoll;
