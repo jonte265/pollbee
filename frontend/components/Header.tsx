@@ -6,6 +6,7 @@ import LoadingSpin from "./LoadingSpin";
 import Button from "./Button";
 import { LuLogOut, LuArrowRight, LuMenu, LuX } from "react-icons/lu";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "motion/react";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -105,29 +106,38 @@ export default function Header() {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div className="sm:hidden w-full bg-gray-100 p-4 rounded-xl flex flex-col gap-2">
-          {isLoggedIn ? (
-            <>
-              <Button
-                onClick={signOutUser}
-                variant="secondary"
-                btnText={
-                  <>
-                    <LuLogOut size={16} /> Sign Out
-                  </>
-                }
-              />
-            </>
-          ) : (
-            <>
-              <Link href="/login" className="w-full">
-                <Button variant="outline" btnText={<>Log in</>} />
-              </Link>
-            </>
-          )}
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            <div className="sm:hidden w-full bg-gray-100 p-4 rounded-xl flex flex-col gap-2 ">
+              {isLoggedIn ? (
+                <>
+                  <Button
+                    onClick={signOutUser}
+                    variant="secondary"
+                    btnText={
+                      <>
+                        <LuLogOut size={16} /> Sign Out
+                      </>
+                    }
+                  />
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="w-full">
+                    <Button variant="outline" btnText={<>Log in</>} />
+                  </Link>
+                </>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
