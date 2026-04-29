@@ -4,12 +4,15 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import LoadingSpin from "./LoadingSpin";
 import Button from "./Button";
-import { LuLogOut, LuArrowRight } from "react-icons/lu";
+import { LuLogOut, LuArrowRight, LuMenu, LuX } from "react-icons/lu";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   function signOutUser() {
     localStorage.removeItem("token");
@@ -33,6 +36,10 @@ export default function Header() {
     setIsLoading(false);
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
   if (isLoading) {
     return (
       <header className="flex justify-between items-center pb-16">
@@ -42,53 +49,83 @@ export default function Header() {
   }
 
   return (
-    <header className="flex justify-between items-center pb-16 max-w-6xl m-auto">
-      <Link href="/">
-        <h1 className="font-bold text-xl sm:text-2xl">PollBee🐝</h1>
-      </Link>
-      {isLoggedIn ? (
-        <div
-          className="flex 
-        gap-2 justify-center items-center"
-        >
-          <Link href="/profile">
-            <Button
-              variant="outline"
-              btnText={<>{username ? `@${username}` : "Profile"}</>}
-            />
-          </Link>
+    <header className="flex flex-col max-w-6xl m-auto gap-4 pb-16">
+      <div className="flex justify-between items-center ">
+        <Link href="/">
+          <h1 className="font-bold text-xl sm:text-2xl">PollBee🐝</h1>
+        </Link>
 
-          <Button
-            onClick={signOutUser}
-            variant="secondary"
-            btnText={
-              <>
-                <span className="sm:hidden ">
-                  <LuLogOut size={16} />
-                </span>
+        <div className="flex gap-2 justify-center items-center ">
+          {isLoggedIn ? (
+            <>
+              <Link href="/profile">
+                <Button
+                  variant="outline"
+                  btnText={<>{username ? `@${username}` : "Profile"}</>}
+                />
+              </Link>
 
-                <span className="hidden sm:flex items-center gap-1">
-                  <LuLogOut size={16} />
-                  <span>Sign Out</span>
-                </span>
-              </>
-            }
-          />
+              <div className="sm:flex hidden">
+                <Button
+                  onClick={signOutUser}
+                  variant="secondary"
+                  btnText={
+                    <>
+                      <LuLogOut /> Sign Out
+                    </>
+                  }
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <Link className="sm:flex hidden" href="/login">
+                <Button variant="outline" btnText={<>Log in</>} />
+              </Link>
+
+              <Link href="/signup">
+                <Button
+                  btnText={
+                    <>
+                      Sign Up <LuArrowRight />
+                    </>
+                  }
+                />
+              </Link>
+            </>
+          )}
+
+          <button
+            className="sm:hidden text-2xl"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? <LuX /> : <LuMenu />}
+          </button>
         </div>
-      ) : (
-        <div className="flex gap-2 justify-center items-center">
-          <Link href="/login">
-            <Button variant="outline" btnText={<>Log in</>} />
-          </Link>
-          <Link href="/signup">
-            <Button
-              btnText={
-                <>
-                  Sign Up <LuArrowRight />
-                </>
-              }
-            />
-          </Link>
+      </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="sm:hidden w-full bg-gray-100 p-4 rounded-xl flex flex-col gap-2">
+          {isLoggedIn ? (
+            <>
+              <Button
+                onClick={signOutUser}
+                variant="secondary"
+                btnText={
+                  <>
+                    <LuLogOut size={16} /> Sign Out
+                  </>
+                }
+              />
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="w-full">
+                <Button variant="outline" btnText={<>Log in</>} />
+              </Link>
+            </>
+          )}
         </div>
       )}
     </header>
