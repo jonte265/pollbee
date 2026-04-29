@@ -9,6 +9,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import { LuPlus } from "react-icons/lu";
 import { motion } from "motion/react";
 import Button from "@/components/Button";
+import H2 from "@/components/ui/typography/H2";
 
 type profileDataType = {
   poll_title: string;
@@ -101,7 +102,7 @@ export default function ProfilePage() {
     >
       <main className="flex flex-col justify-center items-center gap-8 ">
         <div className="flex flex-col gap-2 text-center">
-          <h2 className="text-2xl font-bold">Welcome {userNameLocal}!</h2>
+          <H2>Welcome {userNameLocal}!</H2>
           <h3>Your polls</h3>
         </div>
 
