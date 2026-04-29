@@ -1,8 +1,8 @@
 import Link from "next/link";
 import ActiveBadge from "./ActiveBadge";
 import Button from "./Button";
-import { LuCopy, LuCheck, LuSquarePen } from "react-icons/lu";
-import { useState, useEffect } from "react";
+import { LuCopy, LuLink2, LuCheck, LuSquarePen } from "react-icons/lu";
+import { useState } from "react";
 import H2 from "./ui/typography/H2";
 import Typography from "./ui/typography/Typography";
 
@@ -31,7 +31,7 @@ export default function PollCard({
   }
 
   return (
-    <div className="flex flex-col gap-8 justify-between bg-gray-100 p-16 rounded-4xl">
+    <div className="flex flex-col gap-8 justify-between bg-gray-100 p-16 rounded-4xl max-w-md w-full mx-auto">
       <div className="flex justify-center items-center">
         <ActiveBadge isActive={is_active} />
       </div>
@@ -43,35 +43,39 @@ export default function PollCard({
         </Typography>
       </div>
 
-      <div className="flex flex-col gap-2 w-full max-w-40 mx-auto">
+      <div className="flex flex-col gap-2 w-full">
+        <div className="flex gap-2 ">
+          <div className="w-full">
+            <Button
+              variant="outline"
+              btnText={
+                copied ? (
+                  <>
+                    <LuCheck /> Copied
+                  </>
+                ) : (
+                  <>
+                    <LuLink2 /> Copy
+                  </>
+                )
+              }
+              onClick={handleCopyLink}
+            />
+          </div>
+          <Link href={`${apiUrl}/edit/${share_id}`} className="w-full">
+            <Button
+              variant="outline"
+              btnText={
+                <>
+                  <LuSquarePen /> Edit
+                </>
+              }
+            />
+          </Link>
+        </div>
         <Link href={`${apiUrl}/poll/${share_id}`}>
           <Button variant="secondary" btnText="View Poll" />
         </Link>
-        <Link href={`${apiUrl}/edit/${share_id}`}>
-          <Button
-            variant="outline"
-            btnText={
-              <>
-                <LuSquarePen /> Edit
-              </>
-            }
-          />
-        </Link>
-        <Button
-          variant="outline"
-          btnText={
-            copied ? (
-              <>
-                <LuCheck /> Copied
-              </>
-            ) : (
-              <>
-                <LuCopy /> Copy link
-              </>
-            )
-          }
-          onClick={handleCopyLink}
-        />
       </div>
     </div>
   );
