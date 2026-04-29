@@ -4,7 +4,14 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import LoadingSpin from "./LoadingSpin";
 import Button from "./Button";
-import { LuLogOut, LuArrowRight, LuMenu, LuX } from "react-icons/lu";
+import {
+  LuLogOut,
+  LuArrowRight,
+  LuMenu,
+  LuX,
+  LuSun,
+  LuMoonStar,
+} from "react-icons/lu";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -13,6 +20,7 @@ export default function Header() {
   const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   const pathname = usePathname();
 
   function signOutUser() {
@@ -20,6 +28,28 @@ export default function Header() {
     setIsLoggedIn(false);
     window.location.href = "/";
   }
+
+  function handleDarkMode() {
+    if (darkMode) {
+      setDarkMode(false);
+      localStorage.setItem("darkMode", "false");
+    } else {
+      setDarkMode(true);
+      localStorage.setItem("darkMode", "true");
+    }
+
+    document.documentElement.classList.toggle("dark");
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem("darkMode") === "true") {
+      setDarkMode(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      setDarkMode(false);
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -57,6 +87,10 @@ export default function Header() {
         </Link>
 
         <div className="flex gap-2 justify-center items-center ">
+          <button className="hidden sm:flex text-2xl" onClick={handleDarkMode}>
+            {darkMode ? <LuSun /> : <LuMoonStar />}
+          </button>
+
           {isLoggedIn ? (
             <>
               <Link href="/profile">
@@ -114,9 +148,14 @@ export default function Header() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
           >
-            <div className="sm:hidden w-full bg-gray-100 p-4 rounded-xl flex flex-col gap-2 ">
+            <div className="sm:hidden w-full bg-text/5 p-4 rounded-xl flex flex-col gap-4 ">
               {isLoggedIn ? (
                 <>
+                  <div className="flex justify-center items-center w-full text-2xl">
+                    <button onClick={handleDarkMode}>
+                      {darkMode ? <LuSun /> : <LuMoonStar />}
+                    </button>
+                  </div>
                   <Button
                     onClick={signOutUser}
                     variant="secondary"
@@ -129,6 +168,11 @@ export default function Header() {
                 </>
               ) : (
                 <>
+                  <div className="flex justify-center items-center w-full text-2xl">
+                    <button onClick={handleDarkMode}>
+                      {darkMode ? <LuSun /> : <LuMoonStar />}
+                    </button>
+                  </div>
                   <Link href="/login" className="w-full">
                     <Button variant="outline" btnText={<>Log in</>} />
                   </Link>

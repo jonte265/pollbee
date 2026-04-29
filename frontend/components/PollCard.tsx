@@ -31,7 +31,7 @@ export default function PollCard({
   }
 
   return (
-    <div className="flex flex-col gap-8 justify-between bg-gray-100 p-16 rounded-4xl max-w-md w-full mx-auto">
+    <div className="flex flex-col gap-8 justify-between bg-text/5 p-16 rounded-4xl max-w-md w-full mx-auto">
       <div className="flex justify-center items-center">
         <ActiveBadge isActive={is_active} />
       </div>

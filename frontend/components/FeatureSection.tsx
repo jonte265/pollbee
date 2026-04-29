@@ -17,7 +17,7 @@ function FeatureSection({
   img,
 }: FeatureSectionTypes) {
   return (
-    <section className="flex flex-col justify-center items-center gap-8 p-8 sm:p-16 rounded-4xl bg-gray-100">
+    <section className="flex flex-col justify-center items-center gap-8 p-8 sm:p-16 rounded-4xl bg-text/5">
       <div className="flex flex-col gap-4">
         <H2>{sectionTitle}</H2>
         <ul className="flex flex-col justify-center items-center">

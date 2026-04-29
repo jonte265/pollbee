@@ -8,6 +8,7 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import { motion } from "motion/react";
 import { LuBot } from "react-icons/lu";
 import BackHeader from "@/components/BackHeader";
+import Button from "@/components/Button";
 
 export default function CreatePoll() {
   const router = useRouter();
@@ -131,11 +132,12 @@ export default function CreatePoll() {
         <div className="flex flex-col justify-center items-center gap-2">
           <button
             onClick={handleAiIdea}
-            className="flex justify-center items-center gap-1 bg-secondary text-background font-bold rounded-4xl px-4 py-2 hover:bg-secondary-300 transition-all ease-in-out"
+            className="flex justify-center items-center gap-1 bg-secondary text-text font-bold rounded-4xl px-4 py-2 hover:bg-secondary-300 transition-all ease-in-out"
           >
             <LuBot />
             Get AI Poll Idea
           </button>
+
           <p className="text-sm">(3 uses per day)</p>
           {aiMsg && <p className="text-sm">{aiMsg}</p>}
           {aiUsageLeft > 0 && (
@@ -189,14 +191,14 @@ export default function CreatePoll() {
           {!loading ? (
             <button
               type="submit"
-              className="bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out"
+              className="bg-primary text-text font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out"
             >
               Create Poll
             </button>
           ) : (
             <button
               disabled
-              className="bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out"
+              className="bg-primary-100 text-text font-bold rounded-4xl px-4 py-2 transition-all ease-in-out"
             >
               Creating...
             </button>
