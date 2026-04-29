@@ -31,17 +31,19 @@ export default function PollCard({
   }
 
   return (
-    <div className="flex flex-col gap-8 justify-center bg-gray-100 p-16 rounded-4xl">
+    <div className="flex flex-col gap-8 justify-between bg-gray-100 p-16 rounded-4xl">
       <div className="flex justify-center items-center">
         <ActiveBadge isActive={is_active} />
       </div>
+
       <div className="text-center">
         <H2>{poll_title}</H2>
         <Typography light small>
           Created: {new Date(created_at).toLocaleDateString("sv-SE")}
         </Typography>
       </div>
-      <div className="flex flex-col justify-center gap-2 ">
+
+      <div className="flex flex-col gap-2 w-full max-w-40 mx-auto">
         <Link href={`${apiUrl}/poll/${share_id}`}>
           <Button variant="secondary" btnText="View Poll" />
         </Link>
