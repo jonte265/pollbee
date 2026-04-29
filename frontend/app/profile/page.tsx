@@ -103,7 +103,7 @@ export default function ProfilePage() {
       <main className="flex flex-col justify-center items-center gap-8 ">
         <div className="flex flex-col gap-2 text-center">
           <H2>Welcome {userNameLocal}!</H2>
-          <h3>Your polls</h3>
+          <p>Your polls</p>
         </div>
 
         <div className="flex flex-col gap-4">

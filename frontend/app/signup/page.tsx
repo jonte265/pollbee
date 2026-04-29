@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LoadingSpin from "@/components/LoadingSpin";
 import { motion } from "motion/react";
+import H2 from "@/components/ui/typography/H2";
 
 function SignupPage() {
   const router = useRouter();
@@ -68,9 +69,7 @@ function SignupPage() {
       transition={{ duration: 0.5 }}
     >
       <main className="flex flex-col gap-8 items-center justify-center">
-        <h2 className="text-2xl text-center font-bold">
-          Create your free account
-        </h2>
+        <H2>Create your free account</H2>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center gap-4 max-w-sm w-full"

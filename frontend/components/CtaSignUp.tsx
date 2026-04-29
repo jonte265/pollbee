@@ -19,8 +19,8 @@ function CtaSignUp() {
   }
 
   return (
-    <section className="flex flex-col justify-center items-center gap-2 py-32">
-      <h3>Want to create and share your own polls?</h3>
+    <section className="flex flex-col justify-center items-center gap-4 py-32">
+      <p>Want to create and share your own polls?</p>
       <Link href="/signup">
         <Button
           btnText={

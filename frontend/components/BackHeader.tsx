@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { MdArrowBackIosNew } from "react-icons/md";
+import H2 from "./ui/typography/H2";
 
 type PageHeaderProps = {
   title: string;
@@ -23,7 +24,7 @@ export default function BackHeader({ title, routePage }: PageHeaderProps) {
         <MdArrowBackIosNew className="text-2xl" />
       </motion.button>
 
-      <h2 className="text-2xl text-center font-bold">{title}</h2>
+      <H2>{title}</H2>
 
       <div className="w-6 h-6" />
     </div>

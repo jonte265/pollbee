@@ -1,4 +1,5 @@
 import Image from "next/image";
+import H2 from "./ui/typography/H2";
 
 type FeatureSectionTypes = {
   sectionTitle: string;
@@ -16,9 +17,9 @@ function FeatureSection({
   img,
 }: FeatureSectionTypes) {
   return (
-    <section className="flex justify-center items-center py-32 px-8 rounded-4xl bg-gray-100">
+    <section className="flex justify-center items-center p-16 rounded-4xl bg-gray-100">
       <div className="flex flex-col justify-center text-center items-center gap-8">
-        <h2 className="text-4xl font-bold">{sectionTitle}</h2>
+        <H2>{sectionTitle}</H2>
         <ul className="flex flex-col justify-center items-center">
           {li1 && <li>{li1}</li>}
           {li2 && <li>{li2}</li>}

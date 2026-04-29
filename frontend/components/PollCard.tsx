@@ -3,6 +3,7 @@ import ActiveBadge from "./ActiveBadge";
 import Button from "./Button";
 import { LuCopy, LuCheck, LuSquarePen } from "react-icons/lu";
 import { useState, useEffect } from "react";
+import H2 from "./ui/typography/H2";
 
 type pollCardType = {
   poll_title: string;
@@ -34,7 +35,7 @@ export default function PollCard({
         <ActiveBadge isActive={is_active} />
       </div>
       <div>
-        <h2 className="text-2xl text-center font-bold">{poll_title}</h2>
+        <H2>{poll_title}</H2>
         <p className="opacity-50 text-sm text-center">
           Created: {new Date(created_at).toLocaleDateString("sv-SE")}
         </p>

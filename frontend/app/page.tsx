@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { LuCircleUserRound, LuArrowRight } from "react-icons/lu";
 import Button from "@/components/Button";
+import H2 from "@/components/ui/typography/H2";
 
 export default function Home() {
   const [signedIn, setSignedIn] = useState(false);
@@ -26,16 +27,14 @@ export default function Home() {
         transition={{ duration: 0.5 }}
       >
         <main className="flex flex-col gap-16 text-center ">
-          <div className="flex flex-col gap-8 py-32 px-8">
+          <div className="flex flex-col gap-8 py-32">
             <div className="flex flex-col gap-2 text-center">
               <h1 className="text-4xl font-bold ">PollBee🐝</h1>
               <div>
-                <p className="text-lg sm:text-2xl font-bold">
-                  Create and share live polls easily.
-                </p>
-                <p className="text-lg sm:text-2xl">
+                <H2>Create and share live polls easily.</H2>
+                <H2 bold={false}>
                   Build your profile to manage all your polls in one place.
-                </p>
+                </H2>
               </div>
             </div>
             <div className="flex justify-center items-center">
