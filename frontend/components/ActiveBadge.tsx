@@ -6,14 +6,14 @@ function ActiveBadge({ isActive }: activeBadgeTypes) {
   return (
     <div>
       <p
-        className={`py-1 px-2 rounded-4xl text-sm font-semibold flex justify-center items-center gap-2 ${
-          isActive ? 'bg-green-200' : 'bg-red-200'
+        className={`py-1 px-2 rounded-4xl text-sm font-bold flex justify-center items-center gap-2 ${
+          isActive ? "bg-green-200" : "bg-red-200"
         }`}
       >
         {isActive && (
-          <span className='h-2 w-2 rounded-full bg-green-600 animate-pulse' />
+          <span className="h-2 w-2 rounded-full bg-green-600 animate-pulse" />
         )}
-        {isActive ? 'Active' : 'Inactive'}
+        {isActive ? "Active" : "Inactive"}
       </p>
     </div>
   );

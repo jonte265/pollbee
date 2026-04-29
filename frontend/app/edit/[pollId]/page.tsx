@@ -236,10 +236,10 @@ function EditPoll({ params }: { params: EditPollParams }) {
                   </div>
                 ) : (
                   <div className="flex justify-between items-center gap-4">
-                    <p className="font-semibold">{pollData.poll_title}</p>
+                    <p className="font-bold">{pollData.poll_title}</p>
                     <button
                       onClick={() => setEditMode(-5)}
-                      className="font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out"
+                      className="font-bold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out"
                     >
                       Edit
                     </button>
@@ -287,10 +287,10 @@ function EditPoll({ params }: { params: EditPollParams }) {
                         key={opt.id}
                         className="border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center gap-4"
                       >
-                        <p className="font-semibold">{opt.option_text}</p>
+                        <p className="font-bold">{opt.option_text}</p>
                         <button
                           onClick={() => setEditMode(opt.id)}
-                          className="font-semibold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out"
+                          className="font-bold px-4 py-2 bg-primary-50 hover:bg-primary-100 hover:underline rounded-4xl  transition-all ease-in-out"
                         >
                           Edit
                         </button>

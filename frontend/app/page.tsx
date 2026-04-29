@@ -30,7 +30,7 @@ export default function Home() {
             <div className="flex flex-col gap-2 text-center">
               <h1 className="text-4xl font-bold ">PollBee🐝</h1>
               <div>
-                <p className="text-lg sm:text-2xl font-semibold">
+                <p className="text-lg sm:text-2xl font-bold">
                   Create and share live polls easily.
                 </p>
                 <p className="text-lg sm:text-2xl">

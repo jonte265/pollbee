@@ -143,7 +143,7 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                         />
 
                         <div className="relative flex justify-between items-center">
-                          <p className="font-semibold">{option.option_text}</p>
+                          <p className="font-bold">{option.option_text}</p>
                           <div className="flex items-center justify-center gap-4">
                             <span className="text-sm text-gray-600">
                               {option.vote_count} votes ({percentage}%)
