@@ -9,6 +9,7 @@ import { motion } from "motion/react";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { LuCircleCheckBig, LuCircle } from "react-icons/lu";
 import Button from "@/components/Button";
+import BackHeader from "@/components/BackHeader";
 
 type EditPollParams = Promise<{
   pollId: string;
@@ -202,13 +203,11 @@ function EditPoll({ params }: { params: EditPollParams }) {
       {pollData?.message === "Poll not found" ? (
         <p className="text-center text-2xl">Poll not found</p>
       ) : (
-        <main className="flex flex-col gap-8 items-center justify-center">
-          <h2 className="text-2xl text-center font-bold">Edit Poll</h2>
-
+        <main className="flex flex-col gap-8 items-center justify-center max-w-xl mx-auto">
+          <BackHeader title="Edit Poll" routePage="profile" />
           {pollData ? (
-            <div className="flex flex-col max-w-sm w-full px-4">
-              <p className="mb-1">Title:</p>
-
+            <div className="flex flex-col w-full gap-2">
+              <p>Poll title</p>
               <div className="border border-gray-300 rounded-4xl px-4 py-2 flex flex-col gap-2">
                 {editMode === -5 ? (
                   <div className="flex gap-2">
@@ -248,7 +247,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                 )}
               </div>
 
-              <p className="mt-4 mb-1">Options:</p>
+              <p>Options</p>
               <div className="flex flex-col gap-2">
                 {[...pollData.poll_options]
                   .sort((a, b) => a.id - b.id)
@@ -346,6 +345,10 @@ function EditPoll({ params }: { params: EditPollParams }) {
           <Link href="/profile">
             <Button btnText="Done" />
           </Link>
+
+          <div className="w-full max-w-6xl">
+            <hr className="border-0.5 rounded-4xl border-gray-300 w-full max-w-6xl" />
+          </div>
 
           {askDelete === false && (
             <button
