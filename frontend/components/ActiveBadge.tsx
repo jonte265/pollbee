@@ -2,12 +2,12 @@ type activeBadgeTypes = {
   isActive: boolean;
 };
 
-function ActiveBadge({ isActive }: activeBadgeTypes) {
+export default function ActiveBadge({ isActive }: activeBadgeTypes) {
   return (
     <div>
       <p
         className={`py-1 px-2 rounded-4xl text-sm font-bold flex justify-center items-center gap-2 ${
-          isActive ? "bg-green-200" : "bg-red-200"
+          isActive ? "bg-badge-active" : "bg-badge-disabled"
         }`}
       >
         {isActive && (
@@ -18,5 +18,3 @@ function ActiveBadge({ isActive }: activeBadgeTypes) {
     </div>
   );
 }
-
-export default ActiveBadge;
