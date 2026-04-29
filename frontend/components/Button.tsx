@@ -6,6 +6,7 @@ type PrimaryBtnType = {
   btnText: string | ReactNode;
   onClick?: () => void;
   variant?: ButtonVariant;
+  fullWidth?: boolean;
 };
 
 const variantStyles: Record<ButtonVariant, string> = {
@@ -20,11 +21,14 @@ export default function Button({
   btnText,
   onClick,
   variant = "primary",
+  fullWidth = true,
 }: PrimaryBtnType) {
   return (
     <button
       onClick={onClick}
-      className={` font-bold flex justify-center items-center gap-1 rounded-4xl px-4 py-2 w-full min-h-10 transition-all ease-in-out ${variantStyles[variant]}`}
+      className={`font-bold flex justify-center items-center gap-1 rounded-4xl px-4 py-2 min-h-10 transition-all ease-in-out 
+      ${fullWidth ? "w-full" : "w-auto"} 
+      ${variantStyles[variant]}`}
     >
       {btnText}
     </button>

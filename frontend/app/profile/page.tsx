@@ -4,11 +4,9 @@ import LoadingSpin from "@/components/LoadingSpin";
 import PollCard from "@/components/PollCard";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
 import { useRouter } from "next/navigation";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { LuPlus } from "react-icons/lu";
-
 import { motion } from "motion/react";
 import Button from "@/components/Button";
 
@@ -104,67 +102,78 @@ export default function ProfilePage() {
       <main className="flex flex-col justify-center items-center gap-8 ">
         <div className="flex flex-col gap-2 text-center">
           <h2 className="text-2xl font-semibold">Welcome {userNameLocal}!</h2>
-          <h3 className="">Your polls:</h3>
+          <h3>Your polls</h3>
         </div>
 
-        <Link href="/create-poll">
-          <Button
-            btnText={
-              <>
-                Create poll <LuPlus />
-              </>
-            }
-          />
-        </Link>
+        <div className="flex flex-col gap-4">
+          <Link href="/create-poll" className="m-auto">
+            <Button
+              fullWidth={false}
+              btnText={
+                <>
+                  Create Poll <LuPlus />
+                </>
+              }
+            />
+          </Link>
 
-        {loading && <LoadingSpin />}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {profileData.length > 0 ? (
-            profileData.map((poll, index) => (
-              <PollCard
-                key={index}
-                poll_title={poll.poll_title}
-                is_active={poll.is_active}
-                share_id={poll.share_id}
-                created_at={poll.created_at}
-              />
-            ))
+          {loading ? (
+            <LoadingSpin />
+          ) : profileData.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {profileData.map((poll, index) => (
+                <PollCard
+                  key={index}
+                  poll_title={poll.poll_title}
+                  is_active={poll.is_active}
+                  share_id={poll.share_id}
+                  created_at={poll.created_at}
+                />
+              ))}
+            </div>
           ) : (
-            <p>No polls found.</p>
+            <p className="text-center">You haven’t created any polls yet.</p>
           )}
         </div>
-        {userNameLocal && askDelete === false && (
-          <button
-            onClick={() => setAskDelete(true)}
-            className={`flex justify-center items-center gap-2 bg-red-500 text-background font-bold rounded-4xl px-4 py-2 hover:bg-red-700 transition-all ease-in-out`}
-          >
-            <FaExclamationTriangle /> Delete Account
-          </button>
-        )}
-        {askDelete && (
-          <div>
-            <p className="text-center">
-              Are you sure you want to delete your account? <br />
-              This will permanently delete all your data
-            </p>
-            <div className="flex flex-row gap-2 pt-4">
-              <button
-                onClick={() => {
-                  if (userNameLocal) deleteAccount(userNameLocal);
-                }}
-                className={`flex justify-center items-center gap-2 bg-red-500 text-background font-bold rounded-4xl px-4 py-2 hover:bg-red-700 transition-all ease-in-out`}
-              >
-                Yes, delete account.
-              </button>
-              <button
-                onClick={() => setAskDelete(false)}
-                className={`flex justify-center items-center gap-2 bg-text text-background font-bold rounded-4xl px-4 py-2 hover:bg-text-700 transition-all ease-in-out`}
-              >
-                No, keep my account.
-              </button>
+
+        <div className="w-full max-w-6xl pt-32">
+          <hr className="border-0.5 rounded-4xl border-gray-300  w-full max-w-6xl" />
+        </div>
+
+        <div className="pt-0">
+          {userNameLocal && askDelete === false && (
+            <button
+              onClick={() => setAskDelete(true)}
+              className={`flex justify-center items-center gap-2 bg-red-500 text-background font-bold rounded-4xl px-4 py-2 hover:bg-red-700 transition-all ease-in-out`}
+            >
+              <FaExclamationTriangle /> Delete Account
+            </button>
+          )}
+          {askDelete && (
+            <div>
+              <p className="text-center">
+                Are you sure you want to delete your account? <br />
+                This will permanently delete all your data
+              </p>
+              <div className="flex flex-row gap-2 pt-4">
+                <button
+                  onClick={() => {
+                    if (userNameLocal) deleteAccount(userNameLocal);
+                  }}
+                  className={`flex justify-center items-center gap-2 bg-red-500 text-background font-bold rounded-4xl px-4 py-2 hover:bg-red-700 transition-all ease-in-out`}
+                >
+                  Yes, delete account.
+                </button>
+                <button
+                  onClick={() => setAskDelete(false)}
+                  className={`flex justify-center items-center gap-2 bg-text text-background font-bold rounded-4xl px-4 py-2 hover:bg-text-700 transition-all ease-in-out`}
+                >
+                  No, keep my account.
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </main>
     </motion.div>
   );
