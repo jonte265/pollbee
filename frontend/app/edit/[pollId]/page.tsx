@@ -301,7 +301,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                   )}
               </div>
               <div className="flex flex-col justify-center items-center mt-4">
-                <p className="text-center">Active?</p>
+                <Typography textCenter>Active?</Typography>
                 {loadingState ? (
                   <LoadingSpin />
                 ) : pollData?.is_active ? (
