@@ -10,6 +10,7 @@ import { LuPlus } from "react-icons/lu";
 import { motion } from "motion/react";
 import Button from "@/components/Button";
 import H2 from "@/components/ui/typography/H2";
+import Typography from "@/components/ui/typography/Typography";
 
 type profileDataType = {
   poll_title: string;
@@ -103,7 +104,7 @@ export default function ProfilePage() {
       <main className="flex flex-col justify-center items-center gap-8 ">
         <div className="flex flex-col gap-2 text-center">
           <H2>Welcome {userNameLocal}!</H2>
-          <p>Your polls</p>
+          <Typography>Your polls</Typography>
         </div>
 
         <div className="flex flex-col gap-4">

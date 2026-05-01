@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import LoadingSpin from "@/components/LoadingSpin";
 import { motion } from "motion/react";
 import H2 from "@/components/ui/typography/H2";
+import Typography from "@/components/ui/typography/Typography";
 
 function LoginPage() {
   const router = useRouter();
@@ -70,7 +71,7 @@ function LoginPage() {
           onSubmit={handleSubmit}
           className="flex flex-col justify-center gap-4 max-w-sm w-full"
         >
-          <p>Username</p>
+          <Typography>Username</Typography>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -78,7 +79,8 @@ function LoginPage() {
             placeholder="Username"
             className="rounded-4xl p-2 pl-4 bg-primary-50"
           />
-          <p>Password</p>
+
+          <Typography>Password</Typography>
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}

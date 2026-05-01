@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import { LuArrowRight } from "react-icons/lu";
+import Typography from "./ui/typography/Typography";
 
 function CtaSignUp() {
   const [signedIn, setSignedIn] = useState(false);
@@ -20,7 +21,7 @@ function CtaSignUp() {
 
   return (
     <section className="flex flex-col justify-center items-center gap-4 py-32">
-      <p>Want to create and share your own polls?</p>
+      <Typography>Want to create and share your own polls?</Typography>
       <Link href="/signup">
         <Button
           btnText={

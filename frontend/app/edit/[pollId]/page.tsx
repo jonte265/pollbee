@@ -10,6 +10,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 import { LuCircleCheckBig, LuCircle } from "react-icons/lu";
 import Button from "@/components/Button";
 import BackHeader from "@/components/BackHeader";
+import Typography from "@/components/ui/typography/Typography";
 
 type EditPollParams = Promise<{
   pollId: string;
@@ -207,7 +208,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
           <BackHeader title="Edit Poll" routePage="profile" />
           {pollData ? (
             <div className="flex flex-col w-full gap-2">
-              <p>Poll title</p>
+              <Typography>Poll title</Typography>
               <div className="border border-gray-300 rounded-4xl px-4 py-2 flex flex-col gap-2">
                 {editMode === -5 ? (
                   <div className="flex gap-2">
@@ -247,7 +248,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                 )}
               </div>
 
-              <p>Options</p>
+              <Typography>Options</Typography>
               <div className="flex flex-col gap-2">
                 {[...pollData.poll_options]
                   .sort((a, b) => a.id - b.id)
