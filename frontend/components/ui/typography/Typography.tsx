@@ -3,6 +3,7 @@ type TypographyTypes = {
   bold?: boolean;
   light?: boolean;
   small?: boolean;
+  textCenter?: boolean;
 };
 
 export default function Typography({
@@ -10,6 +11,7 @@ export default function Typography({
   bold = false,
   light = false,
   small = false,
+  textCenter = false,
 }: TypographyTypes) {
   return (
     <p
@@ -17,6 +19,7 @@ export default function Typography({
         ${bold ? "font-bold" : ""}
         ${light ? "opacity-70" : ""}
         ${small ? "text-sm" : ""}
+        ${textCenter ? "text-center" : ""}
         `}
     >
       {children}

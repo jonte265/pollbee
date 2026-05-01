@@ -6,6 +6,7 @@ import LoadingSpin from "@/components/LoadingSpin";
 import { useState, useEffect, use } from "react";
 import { motion } from "motion/react";
 import Typography from "@/components/ui/typography/Typography";
+import Button from "@/components/Button";
 
 type SharePollParams = Promise<{
   shareId: string;
@@ -147,16 +148,16 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                         <div className="relative flex justify-between items-center">
                           <p className="font-bold">{option.option_text}</p>
                           <div className="flex items-center justify-center gap-4">
-                            <span className="text-sm text-gray-600">
+                            <Typography textCenter light small>
                               {option.vote_count} votes ({percentage}%)
-                            </span>
+                            </Typography>
+
                             {pollData.is_active ? (
-                              <button
+                              <Button
+                                fullWidth={false}
+                                btnText={"Vote"}
                                 onClick={() => castVote(option.id)}
-                                className="px-4 py-2 bg-primary hover:bg-primary-800 text-button-text-white rounded-4xl"
-                              >
-                                Vote
-                              </button>
+                              />
                             ) : (
                               <button
                                 disabled
@@ -171,9 +172,9 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                     );
                   })}
               </div>
-              <p className="text-center text-sm text-gray-500">
+              <Typography textCenter light small>
                 {totalVotes} total votes
-              </p>
+              </Typography>
             </div>
           </div>
         )}
