@@ -86,50 +86,45 @@ export default function Header() {
           <h1 className="font-bold text-xl sm:text-2xl">PollBee🐝</h1>
         </Link>
 
-        <div className="flex gap-2 justify-center items-center ">
+        <div className="flex gap-4 justify-center items-center ">
           <button className="hidden sm:flex text-2xl" onClick={handleDarkMode}>
             {darkMode ? <LuSun /> : <LuMoonStar />}
           </button>
 
-          {isLoggedIn ? (
-            <>
-              <Link href="/profile">
-                <Button
-                  variant="outline"
-                  btnText={<>{username ? `@${username}` : "Profile"}</>}
-                />
-              </Link>
+          <div className="flex gap-2">
+            {isLoggedIn ? (
+              <>
+                <Link href="/profile">
+                  <Button
+                    variant="outline"
+                    btnText={<>{username ? `@${username}` : "Profile"}</>}
+                  />
+                </Link>
 
-              <div className="sm:flex hidden">
-                <Button
-                  onClick={signOutUser}
-                  variant="secondary"
-                  btnText={
-                    <>
-                      <LuLogOut /> Sign Out
-                    </>
-                  }
-                />
-              </div>
-            </>
-          ) : (
-            <>
-              <Link className="sm:flex hidden" href="/login">
-                <Button variant="outline" btnText={<>Log in</>} />
-              </Link>
+                <div className="sm:flex hidden">
+                  <Button
+                    onClick={signOutUser}
+                    variant="secondary"
+                    btnText={
+                      <>
+                        <LuLogOut /> Sign Out
+                      </>
+                    }
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                <Link className="sm:flex hidden" href="/login">
+                  <Button variant="outline" btnText={<>Log in</>} />
+                </Link>
 
-              <Link href="/signup">
-                <Button
-                  btnText={
-                    <>
-                      Sign Up <LuArrowRight />
-                    </>
-                  }
-                />
-              </Link>
-            </>
-          )}
-
+                <Link href="/signup">
+                  <Button btnText={<>Sign Up</>} />
+                </Link>
+              </>
+            )}
+          </div>
           <button
             className="sm:hidden text-2xl"
             onClick={() => setMenuOpen(!menuOpen)}
