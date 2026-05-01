@@ -148,6 +148,8 @@ export default function Header() {
             <div className="sm:hidden w-full bg-text/5 p-4 rounded-xl flex flex-col gap-4 ">
               {isLoggedIn ? (
                 <>
+                  {/* Logged in menu */}
+
                   <div className="flex justify-center items-center w-full text-2xl">
                     <DarkModeButton
                       darkMode={darkMode}
@@ -166,6 +168,8 @@ export default function Header() {
                 </>
               ) : (
                 <>
+                  {/* Logged out menu */}
+
                   <div className="flex justify-center items-center w-full text-2xl">
                     <DarkModeButton
                       darkMode={darkMode}
