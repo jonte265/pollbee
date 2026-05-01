@@ -9,6 +9,7 @@ import { motion } from "motion/react";
 import { LuBot } from "react-icons/lu";
 import BackHeader from "@/components/BackHeader";
 import Button from "@/components/Button";
+import Typography from "@/components/ui/typography/Typography";
 
 export default function CreatePoll() {
   const router = useRouter();
@@ -130,15 +131,20 @@ export default function CreatePoll() {
         <BackHeader title="Create a poll" routePage="profile" />
 
         <div className="flex flex-col justify-center items-center gap-2">
-          <button
+          <Button
             onClick={handleAiIdea}
-            className="flex justify-center items-center gap-1 bg-secondary text-text font-bold rounded-4xl px-4 py-2 hover:bg-secondary-300 transition-all ease-in-out"
-          >
-            <LuBot />
-            Get AI Poll Idea
-          </button>
+            variant="accent"
+            btnText={
+              <>
+                <LuBot />
+                Get AI Poll Idea
+              </>
+            }
+          />
 
-          <p className="text-sm">(3 uses per day)</p>
+          <Typography light small>
+            (3 uses per day)
+          </Typography>
           {aiMsg && <p className="text-sm">{aiMsg}</p>}
           {aiUsageLeft > 0 && (
             <p className="text-sm">Uses left: {aiUsageLeft}</p>
@@ -191,14 +197,14 @@ export default function CreatePoll() {
           {!loading ? (
             <button
               type="submit"
-              className="bg-primary text-button-text-white font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out"
+              className="bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out"
             >
               Create Poll
             </button>
           ) : (
             <button
               disabled
-              className="bg-primary-100 text-button-text-white font-bold rounded-4xl px-4 py-2 transition-all ease-in-out"
+              className="bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out"
             >
               Creating...
             </button>

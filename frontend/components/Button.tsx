@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "outline";
+type ButtonVariant = "primary" | "secondary" | "outline" | "accent";
 
 type PrimaryBtnType = {
   btnText: string | ReactNode;
@@ -15,6 +15,8 @@ const variantStyles: Record<ButtonVariant, string> = {
   secondary: "bg-text text-background hover:bg-text-800 active:bg-text-900",
   outline:
     "bg-transparent text-text border border-text/50 hover:bg-text hover:text-background hover:border-transparent",
+  accent:
+    "bg-secondary text-text hover:bg-secondary-300 active:bg-secondary-400",
 };
 
 export default function Button({
