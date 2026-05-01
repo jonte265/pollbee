@@ -139,7 +139,7 @@ export default function ProfilePage() {
         </div>
 
         <div className="w-full max-w-6xl pt-32">
-          <hr className="border-0.5 rounded-4xl border-gray-300  w-full max-w-6xl" />
+          <hr className="border-0.5 rounded-4xl border-gray-300" />
         </div>
 
         <div className="pt-0">

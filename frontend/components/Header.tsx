@@ -14,7 +14,7 @@ import {
 } from "react-icons/lu";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import DarkModeButton from "./ui/typography/DarkModeButton";
+import DarkModeButton from "./ui/DarkModeButton";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
