@@ -134,14 +134,16 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                         : 0;
 
                     return (
-                      <div
+                      <motion.div
                         key={option.id}
+                        layout
                         className="border border-primary/30 rounded-4xl px-4 py-2 relative overflow-hidden"
                       >
                         {/* Progress bar */}
-                        <div
+                        <motion.div
                           className="absolute inset-0 bg-primary/30 opacity-50"
-                          style={{ width: `${percentage}%` }}
+                          animate={{ width: `${percentage}%` }}
+                          transition={{ duration: 0.5, ease: "easeOut" }}
                         />
 
                         <div className="relative flex justify-between items-center">
@@ -167,7 +169,7 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                             )}
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     );
                   })}
               </div>
