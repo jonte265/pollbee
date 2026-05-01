@@ -119,6 +119,12 @@ export default function ProfilePage() {
               }
             />
           </Link>
+          <div className="flex justify-end">
+            <Typography light small>
+              ({profileData.length}){" "}
+              {profileData.length === 1 ? "poll" : "polls"}
+            </Typography>
+          </div>
 
           {loading ? (
             <LoadingSpin />
