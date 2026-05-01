@@ -76,7 +76,7 @@ export default function Header() {
 
   return (
     <header className="flex flex-col justify-center max-w-6xl m-auto gap-4 px-4 py-4 mb-16 rounded-4xl bg-primary/5">
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center flex-wrap">
         <Link href="/">
           <h1 className="font-bold text-xl sm:text-2xl">PollBee🐝</h1>
         </Link>

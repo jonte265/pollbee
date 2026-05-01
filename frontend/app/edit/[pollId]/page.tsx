@@ -11,6 +11,7 @@ import { LuCircleCheckBig, LuCircle } from "react-icons/lu";
 import Button from "@/components/Button";
 import BackHeader from "@/components/BackHeader";
 import Typography from "@/components/ui/typography/Typography";
+import Divider from "@/components/ui/Divider";
 
 type EditPollParams = Promise<{
   pollId: string;
@@ -348,7 +349,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
           </Link>
 
           <div className="w-full max-w-6xl">
-            <hr className="border-0.5 rounded-4xl border-gray-300 w-full max-w-6xl" />
+            <Divider />
           </div>
 
           {askDelete === false && (

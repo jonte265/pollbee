@@ -11,6 +11,7 @@ import { motion } from "motion/react";
 import Button from "@/components/Button";
 import H2 from "@/components/ui/typography/H2";
 import Typography from "@/components/ui/typography/Typography";
+import Divider from "@/components/ui/Divider";
 
 type profileDataType = {
   poll_title: string;
@@ -139,7 +140,7 @@ export default function ProfilePage() {
         </div>
 
         <div className="w-full max-w-6xl pt-32">
-          <hr className="border-0.5 rounded-4xl border-gray-300" />
+          <Divider />
         </div>
 
         <div className="pt-0">
