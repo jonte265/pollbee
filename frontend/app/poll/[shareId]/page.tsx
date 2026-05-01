@@ -7,6 +7,7 @@ import { useState, useEffect, use } from "react";
 import { motion } from "motion/react";
 import Typography from "@/components/ui/typography/Typography";
 import Button from "@/components/Button";
+import H2 from "@/components/ui/typography/H2";
 
 type SharePollParams = Promise<{
   shareId: string;
@@ -110,10 +111,8 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
         {pollData && (
           <div className="flex flex-col gap-8 w-full max-w-3xl">
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center flex-wrap">
-                <h1 className="text-2xl sm:text-4xl font-bold">
-                  {pollData.poll_title}
-                </h1>
+              <div className="flex justify-between items-center flex-wrap gap-2">
+                <H2>{pollData.poll_title}</H2>
                 <ActiveBadge isActive={pollData.is_active} />
               </div>
 

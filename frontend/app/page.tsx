@@ -27,7 +27,7 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <main className="flex flex-col gap-16 text-center ">
+        <main className="flex flex-col gap-16 text-center max-w-6xl m-auto">
           <div className="flex flex-col gap-8 py-16">
             <div className="flex flex-col gap-2 text-center">
               <H2>Create and share live polls easily.</H2>

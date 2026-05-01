@@ -82,7 +82,7 @@ export default function Header() {
   }
 
   return (
-    <header className="flex flex-col max-w-6xl m-auto gap-4 pb-16">
+    <header className="flex flex-col justify-center max-w-6xl m-auto gap-4 px-4 py-4 mb-16 rounded-4xl bg-primary/5">
       <div className="flex justify-between items-center ">
         <Link href="/">
           <h1 className="font-bold text-xl sm:text-2xl">PollBee🐝</h1>
@@ -145,7 +145,7 @@ export default function Header() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
           >
-            <div className="sm:hidden w-full bg-text/5 p-4 rounded-xl flex flex-col gap-4 ">
+            <div className="sm:hidden w-full p-4 rounded-4xl flex flex-col gap-4 ">
               {isLoggedIn ? (
                 <>
                   {/* Logged in menu */}
