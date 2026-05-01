@@ -4,14 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import LoadingSpin from "./LoadingSpin";
 import Button from "./Button";
-import {
-  LuLogOut,
-  LuArrowRight,
-  LuMenu,
-  LuX,
-  LuSun,
-  LuMoonStar,
-} from "react-icons/lu";
+import { LuLogOut, LuMenu, LuX } from "react-icons/lu";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import DarkModeButton from "./ui/DarkModeButton";
