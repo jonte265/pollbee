@@ -26,6 +26,7 @@ export default function Header() {
   function signOutUser() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setMenuOpen(false);
     window.location.href = "/";
   }
 
