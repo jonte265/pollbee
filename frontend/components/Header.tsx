@@ -133,6 +133,7 @@ export default function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            className="sm:hidden"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
