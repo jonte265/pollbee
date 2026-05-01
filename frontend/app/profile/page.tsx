@@ -135,7 +135,9 @@ export default function ProfilePage() {
               ))}
             </div>
           ) : (
-            <p className="text-center">You haven’t created any polls yet.</p>
+            <Typography textCenter light>
+              You haven’t created any polls yet.
+            </Typography>
           )}
         </div>
 
