@@ -14,6 +14,7 @@ import {
 } from "react-icons/lu";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
+import DarkModeButton from "./ui/typography/DarkModeButton";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -88,9 +89,9 @@ export default function Header() {
         </Link>
 
         <div className="flex gap-4 justify-center items-center ">
-          <button className="hidden sm:flex text-2xl" onClick={handleDarkMode}>
-            {darkMode ? <LuSun /> : <LuMoonStar />}
-          </button>
+          <div className="hidden sm:flex ">
+            <DarkModeButton darkMode={darkMode} onClick={handleDarkMode} />
+          </div>
 
           <div className="flex gap-2">
             {isLoggedIn ? (
@@ -148,9 +149,10 @@ export default function Header() {
               {isLoggedIn ? (
                 <>
                   <div className="flex justify-center items-center w-full text-2xl">
-                    <button onClick={handleDarkMode}>
-                      {darkMode ? <LuSun /> : <LuMoonStar />}
-                    </button>
+                    <DarkModeButton
+                      darkMode={darkMode}
+                      onClick={handleDarkMode}
+                    />
                   </div>
                   <Button
                     onClick={signOutUser}
@@ -165,9 +167,10 @@ export default function Header() {
               ) : (
                 <>
                   <div className="flex justify-center items-center w-full text-2xl">
-                    <button onClick={handleDarkMode}>
-                      {darkMode ? <LuSun /> : <LuMoonStar />}
-                    </button>
+                    <DarkModeButton
+                      darkMode={darkMode}
+                      onClick={handleDarkMode}
+                    />
                   </div>
                   <Link href="/login" className="w-full">
                     <Button variant="outline" btnText={<>Log in</>} />
