@@ -21,7 +21,7 @@ export default function PollChart({ data }: Props) {
     >
       <XAxis type="number" stroke="var(--color-text)" />
       <YAxis
-        dataKey="name"
+        dataKey="poll_title"
         type="category"
         width={150}
         stroke="var(--color-text)"

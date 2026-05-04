@@ -12,7 +12,7 @@ import Button from "@/components/Button";
 import H2 from "@/components/ui/typography/H2";
 import Typography from "@/components/ui/typography/Typography";
 import Divider from "@/components/ui/Divider";
-import PollChart from "@/components/ProfileChart";
+import PollChart from "@/components/PollChart";
 
 type profileDataType = {
   poll_title: string;
@@ -155,7 +155,7 @@ export default function ProfilePage() {
 
         <div className="flex flex-col gap-2 w-full max-w-4xl">
           <H2 textCenter>Total votes per poll</H2>
-          {/* <PollChart data={chartData} /> */}
+          <PollChart data={profileData} />
         </div>
 
         <div className="w-full max-w-6xl pt-32">
