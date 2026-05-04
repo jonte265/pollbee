@@ -9,7 +9,7 @@ type FeatureSectionTypes = {
   img?: string;
 };
 
-function FeatureSection({
+export default function FeatureSection({
   sectionTitle,
   li1,
   li2,
@@ -38,5 +38,3 @@ function FeatureSection({
     </section>
   );
 }
-
-export default FeatureSection;

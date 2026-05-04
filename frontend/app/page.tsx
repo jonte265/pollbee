@@ -30,9 +30,9 @@ export default function Home() {
         <main className="flex flex-col gap-16 text-center max-w-6xl m-auto">
           <div className="flex flex-col gap-8 py-16">
             <div className="flex flex-col gap-2 text-center">
-              <H2>Create and share live polls easily.</H2>
+              <H2>Create and share live polls easily</H2>
               <Typography>
-                Build your profile to manage all your polls in one place.
+                Build your profile to manage all your polls in one place
               </Typography>
             </div>
             <div className="flex justify-center items-center">
