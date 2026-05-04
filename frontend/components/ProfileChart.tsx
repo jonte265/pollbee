@@ -27,7 +27,10 @@ export default function PollChart({ data }: Props) {
           stroke="var(--color-text)"
         />
         <CartesianGrid strokeDasharray="2 2" />
-        <Tooltip content={CustomToolTip} />
+        <Tooltip
+          content={CustomToolTip}
+          cursor={{ fill: "var(--color-primary-100)" }}
+        />
         <Bar dataKey="total_votes" fill="var(--color-primary)" radius={6} />
       </BarChart>
     </ResponsiveContainer>
