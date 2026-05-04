@@ -97,12 +97,13 @@ export default function ProfilePage() {
     }
   }, [token]);
 
-  const chartData = [
-    { name: "Active", value: 5 },
-    { name: "Inactive", value: 2 },
-  ];
-
-  console.log("profile poll data", profileData);
+  const chartData = profileData.map((poll) => ({
+    name: poll.poll_title,
+    total_votes: poll.poll_options.reduce(
+      (sum, opt) => sum + opt.vote_count,
+      0,
+    ),
+  }));
 
   return (
     <motion.div
@@ -155,8 +156,8 @@ export default function ProfilePage() {
           )}
         </div>
 
-        <div>
-          <PollChart data={profileData} />
+        <div style={{ width: "100%", height: 300 }}>
+          <PollChart data={chartData} />
         </div>
 
         <div className="w-full max-w-6xl pt-32">

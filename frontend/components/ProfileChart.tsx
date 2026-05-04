@@ -1,23 +1,44 @@
 "use client";
 
-import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import Typography from "./ui/typography/Typography";
 
 type Props = {
-  data: { name: string; value: number }[];
+  data: { name: string; total_votes: number }[];
 };
-
-//   const chartData = [
-//     { name: "Active", value: 5 },
-//     { name: "Inactive", value: 2 },
-//   ];
 
 export default function PollChart({ data }: Props) {
   return (
-    <BarChart width={400} height={250} data={data}>
-      <XAxis dataKey="poll_title" />
-      <YAxis />
-      <Tooltip />
-      <Bar dataKey="value" radius={10} />
-    </BarChart>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={data} layout="vertical">
+        <XAxis type="number" stroke="var(--color-text)" />
+        <YAxis
+          dataKey="name"
+          type="category"
+          width={250}
+          stroke="var(--color-text)"
+        />
+        <Tooltip content={CustomToolTip} />
+        <Bar dataKey="total_votes" fill="var(--color-primary)" radius={6} />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function CustomToolTip({ active, payload, label }: any) {
+  if (!active || !payload?.length) return null;
+
+  return (
+    <div className="flex flex-col justify-center items-start bg-background-50 text-text rounded-2xl p-4">
+      <Typography bold>{label}</Typography>
+      <Typography>total votes: {payload[0].value}</Typography>
+    </div>
   );
 }
