@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import Typography from "./ui/typography/Typography";
 
 type Props = {
@@ -17,23 +9,30 @@ type Props = {
 
 export default function PollChart({ data }: Props) {
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data} layout="vertical">
-        <XAxis type="number" stroke="var(--color-text)" />
-        <YAxis
-          dataKey="name"
-          type="category"
-          width={150}
-          stroke="var(--color-text)"
-        />
-        <CartesianGrid strokeDasharray="2 2" />
-        <Tooltip
-          content={CustomToolTip}
-          cursor={{ fill: "var(--color-primary-100)" }}
-        />
-        <Bar dataKey="total_votes" fill="var(--color-primary)" radius={6} />
-      </BarChart>
-    </ResponsiveContainer>
+    <BarChart
+      style={{
+        width: "100%",
+        aspectRatio: 1.618,
+        margin: "auto",
+      }}
+      responsive
+      data={data}
+      layout="vertical"
+    >
+      <XAxis type="number" stroke="var(--color-text)" />
+      <YAxis
+        dataKey="name"
+        type="category"
+        width={150}
+        stroke="var(--color-text)"
+      />
+      <CartesianGrid strokeDasharray="2 2" />
+      <Tooltip
+        content={CustomToolTip}
+        cursor={{ fill: "var(--color-primary-100)" }}
+      />
+      <Bar dataKey="total_votes" fill="var(--color-primary)" radius={6} />
+    </BarChart>
   );
 }
 

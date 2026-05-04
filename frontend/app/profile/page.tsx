@@ -159,7 +159,7 @@ export default function ProfilePage() {
           )}
         </div>
 
-        <div className="flex flex-col gap-2 w-full max-w-6xl">
+        <div className="flex flex-col gap-2 w-full max-w-4xl">
           <H2 textCenter>Total votes per poll</H2>
           <PollChart data={chartData} />
         </div>
