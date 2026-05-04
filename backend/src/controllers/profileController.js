@@ -1,14 +1,14 @@
-import supabase from '../config/supabaseClient.js';
+import supabase from "../config/supabaseClient.js";
 
 export const profilePolls = async (req, res) => {
   const userid = req.user.userId; // userid from JWT
 
   if (!userid) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    return res.status(401).json({ message: "Unauthorized" });
   }
 
   const { data, error } = await supabase
-    .from('polls')
+    .from("polls")
     .select(
       `
     id,
@@ -25,17 +25,29 @@ export const profilePolls = async (req, res) => {
       vote_count,
       user_id
     )
-  `
+  `,
     )
-    .eq('user_id', userid);
+    .eq("user_id", userid);
 
   if (error) {
-    return res.status(500).json({ message: 'Database error' });
+    return res.status(500).json({ message: "Database error" });
   }
 
   if (data.length === 0) {
-    return res.status(404).json({ message: 'No polls found for that user.' });
+    return res.status(404).json({ message: "No polls found for that user." });
   }
 
-  res.status(200).json(data);
+  const result = data.map((poll) => {
+    const total_votes = poll.poll_options.reduce(
+      (sum, option) => sum + option.vote_count,
+      0,
+    );
+
+    return {
+      ...poll,
+      total_votes,
+    };
+  });
+
+  res.status(200).json(result);
 };

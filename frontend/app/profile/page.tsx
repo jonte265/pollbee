@@ -100,13 +100,7 @@ export default function ProfilePage() {
     }
   }, [token]);
 
-  const chartData = profileData.map((poll) => ({
-    name: poll.poll_title,
-    total_votes: poll.poll_options.reduce(
-      (sum, opt) => sum + opt.vote_count,
-      0,
-    ),
-  }));
+  console.log("profile data", profileData);
 
   return (
     <motion.div
@@ -161,7 +155,7 @@ export default function ProfilePage() {
 
         <div className="flex flex-col gap-2 w-full max-w-4xl">
           <H2 textCenter>Total votes per poll</H2>
-          <PollChart data={chartData} />
+          {/* <PollChart data={chartData} /> */}
         </div>
 
         <div className="w-full max-w-6xl pt-32">
