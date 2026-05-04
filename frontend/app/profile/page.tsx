@@ -19,6 +19,7 @@ type profileDataType = {
   is_active: boolean;
   share_id: string;
   created_at: string;
+  total_votes: number;
   poll_options: {
     vote_count: number;
   }[];

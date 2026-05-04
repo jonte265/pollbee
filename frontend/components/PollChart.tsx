@@ -4,7 +4,16 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import Typography from "./ui/typography/Typography";
 
 type Props = {
-  data: { name: string; total_votes: number }[];
+  data: {
+    poll_title: string;
+    is_active: boolean;
+    share_id: string;
+    created_at: string;
+    total_votes: number;
+    poll_options: {
+      vote_count: number;
+    }[];
+  }[];
 };
 
 export default function PollChart({ data }: Props) {
