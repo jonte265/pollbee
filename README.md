@@ -33,6 +33,7 @@ https://pollbee.vercel.app/
 - **jsonwebtoken (JWT)** – Custom JWT-based user session management
 - **Next.js** – React framework for frontend and server-side rendering
 - **Tailwind CSS** – Utility-first CSS for styling
+- **Recharts** – Data visualization library for charts and analytics
 - **nanoid** – Unique ID generation for shareable poll links
 
 ---
