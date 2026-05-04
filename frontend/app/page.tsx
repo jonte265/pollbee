@@ -70,7 +70,7 @@ export default function Home() {
                 li1={"Set up a poll in seconds with a simple interface"}
                 li2="Add unlimited options and control vote settings"
                 li3="Generate poll ideas automatically with AI"
-                img="create-poll-homescreen.png"
+                img="create-poll-page.png"
               />
             </motion.div>
             <motion.div
@@ -83,7 +83,7 @@ export default function Home() {
                 li1="Generate a shareable link and share with anyone"
                 li2="No login required for voters"
                 li3="Real-time updates as votes come in"
-                img="img2.png"
+                img="vote-poll-page.png"
               />
             </motion.div>
             <motion.div
