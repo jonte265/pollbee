@@ -12,6 +12,7 @@ import Button from "@/components/Button";
 import H2 from "@/components/ui/typography/H2";
 import Typography from "@/components/ui/typography/Typography";
 import Divider from "@/components/ui/Divider";
+import PollChart from "@/components/ProfileChart";
 
 type profileDataType = {
   poll_title: string;
@@ -96,6 +97,11 @@ export default function ProfilePage() {
     }
   }, [token]);
 
+  const chartData = [
+    { name: "Active", value: 5 },
+    { name: "Inactive", value: 2 },
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -145,6 +151,10 @@ export default function ProfilePage() {
               You haven’t created any polls yet.
             </Typography>
           )}
+        </div>
+
+        <div>
+          <PollChart data={chartData} />
         </div>
 
         <div className="w-full max-w-6xl pt-32">
