@@ -102,6 +102,8 @@ export default function ProfilePage() {
     { name: "Inactive", value: 2 },
   ];
 
+  console.log("profile poll data", profileData);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -154,7 +156,7 @@ export default function ProfilePage() {
         </div>
 
         <div>
-          <PollChart data={chartData} />
+          <PollChart data={profileData} />
         </div>
 
         <div className="w-full max-w-6xl pt-32">

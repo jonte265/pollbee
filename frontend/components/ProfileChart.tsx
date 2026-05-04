@@ -6,13 +6,18 @@ type Props = {
   data: { name: string; value: number }[];
 };
 
+//   const chartData = [
+//     { name: "Active", value: 5 },
+//     { name: "Inactive", value: 2 },
+//   ];
+
 export default function PollChart({ data }: Props) {
   return (
     <BarChart width={400} height={250} data={data}>
-      <XAxis dataKey="name" tick={{ fill: "var(--color-text)" }} />
-      <YAxis tick={{ fill: "var(--color-text)" }} />
+      <XAxis dataKey="poll_title" />
+      <YAxis />
       <Tooltip />
-      <Bar dataKey="value" fill="var(--color-primary)" radius={10} />
+      <Bar dataKey="value" radius={10} />
     </BarChart>
   );
 }
