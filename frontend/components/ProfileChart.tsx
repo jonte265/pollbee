@@ -7,6 +7,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 import Typography from "./ui/typography/Typography";
 
@@ -22,9 +23,10 @@ export default function PollChart({ data }: Props) {
         <YAxis
           dataKey="name"
           type="category"
-          width={250}
+          width={150}
           stroke="var(--color-text)"
         />
+        <CartesianGrid strokeDasharray="2 2" />
         <Tooltip content={CustomToolTip} />
         <Bar dataKey="total_votes" fill="var(--color-primary)" radius={6} />
       </BarChart>

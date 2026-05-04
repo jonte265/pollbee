@@ -19,6 +19,9 @@ type profileDataType = {
   is_active: boolean;
   share_id: string;
   created_at: string;
+  poll_options: {
+    vote_count: number;
+  }[];
 };
 
 export default function ProfilePage() {
