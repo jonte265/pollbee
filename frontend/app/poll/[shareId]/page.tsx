@@ -33,6 +33,12 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
 
   const { shareId } = use(params);
 
+  useEffect(() => {
+    if (pollData?.poll_title) {
+      document.title = `${pollData.poll_title} | PollBee 🐝`;
+    }
+  }, [pollData]);
+
   async function castVote(voteOption: number) {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
