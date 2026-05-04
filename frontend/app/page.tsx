@@ -95,7 +95,8 @@ export default function Home() {
                 sectionTitle="Track Results Live 📈"
                 li1="See live vote counts"
                 li2="Get insights on poll engagement"
-                li3="Built-in analytics coming soon"
+                li3="More built-in analytics coming soon"
+                img="poll-analytics-page.png"
               />
             </motion.div>
           </div>
