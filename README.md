@@ -2,7 +2,17 @@
 
 Create your own polls, share them with others, and collect votes in real-time—all in one simple app!
 
-<img src="https://github.com/user-attachments/assets/45c2aaa1-7024-413f-9d0f-7be91dd9db54" alt="demo gif" />
+
+<img width="500" height="468" alt="create-poll-page" src="https://github.com/user-attachments/assets/69ca5af4-58db-4372-9340-f9d00f547f69" />
+
+
+
+
+
+
+<img width="500" height="274" alt="vote-poll-page" src="https://github.com/user-attachments/assets/09ba59bd-7683-4a8b-a190-585e7cdc97a0" />
+
+
 
 Poll idea with ai:
 
@@ -55,7 +65,9 @@ https://pollbee.vercel.app/
 
    npm install
 
-3. Set up environment variables in backend folder (.env):
+3. Set up environment variables (.env):
+
+   **Backend folder env:**
 
    JWT_SECRET=your_jwt_secret
    
@@ -68,6 +80,14 @@ https://pollbee.vercel.app/
    AI_API_KEY=your_openrouter_api_key
 
    AI_PROMPT="Your ai prompt"
+
+   PORT=3008
+
+   **Frontend folder env.local:**
+
+   NEXT_PUBLIC_API_URL=http://localhost:3008
+   
+   NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
    
 
 5. Run the development server (backend and frontend folder):
