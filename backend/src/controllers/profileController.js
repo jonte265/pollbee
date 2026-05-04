@@ -34,7 +34,7 @@ export const profilePolls = async (req, res) => {
   }
 
   if (data.length === 0) {
-    return res.status(404).json({ message: "No polls found for that user." });
+    return res.status(200).json([]);
   }
 
   const result = data.map((poll) => {

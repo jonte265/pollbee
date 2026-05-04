@@ -109,7 +109,7 @@ export default function ProfilePage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="flex flex-col justify-center items-center gap-8 ">
+      <main className="flex flex-col justify-center items-center gap-16 ">
         <div className="flex flex-col gap-2 text-center">
           <H2>Welcome {userNameLocal}!</H2>
           <Typography>Your polls</Typography>
@@ -149,14 +149,18 @@ export default function ProfilePage() {
             </div>
           ) : (
             <Typography textCenter light>
-              You haven’t created any polls yet.
+              You haven’t created any polls yet
             </Typography>
           )}
         </div>
 
-        <div className="flex flex-col gap-2 w-full max-w-4xl">
-          <H2 textCenter>Total votes per poll</H2>
-          <PollChart data={profileData} />
+        <div className="flex flex-col gap-2 justify-center items-center w-full max-w-4xl">
+          {profileData.length > 0 && (
+            <>
+              <H2 textCenter>Total votes per poll</H2>
+              <PollChart data={profileData} />
+            </>
+          )}
         </div>
 
         <div className="w-full max-w-6xl pt-32">
