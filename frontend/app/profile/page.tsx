@@ -156,7 +156,8 @@ export default function ProfilePage() {
           )}
         </div>
 
-        <div style={{ width: "100%", height: 300 }}>
+        <div className="flex flex-col gap-2 w-full max-w-6xl">
+          <H2 textCenter>Total votes per poll</H2>
           <PollChart data={chartData} />
         </div>
 
