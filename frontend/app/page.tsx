@@ -8,6 +8,7 @@ import { LuCircleUserRound, LuArrowRight } from "react-icons/lu";
 import Button from "@/components/Button";
 import H2 from "@/components/ui/typography/H2";
 import Typography from "@/components/ui/typography/Typography";
+import { HeroEmoji } from "@/components/HeroEmoji";
 
 export default function Home() {
   const [signedIn, setSignedIn] = useState(false);
@@ -28,9 +29,10 @@ export default function Home() {
         transition={{ duration: 0.5 }}
       >
         <main className="flex flex-col gap-16 text-center max-w-6xl m-auto">
-          <div className="flex flex-col gap-8 py-16">
-            <div className="flex flex-col gap-2 text-center">
-              <H2>Create and share live polls easily</H2>
+          <div className="flex flex-col gap-8 pb-16">
+            <div className="flex flex-col gap-2 text-center ">
+              <HeroEmoji />
+              <H2 large>Create and share live polls easily</H2>
               <Typography>
                 Build your profile to manage all your polls in one place
               </Typography>
@@ -64,6 +66,7 @@ export default function Home() {
               )}
             </div>
           </div>
+
           <div className="flex flex-col gap-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
