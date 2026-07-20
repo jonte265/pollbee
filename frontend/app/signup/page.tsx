@@ -54,7 +54,7 @@ function SignupPage() {
 
       setUsername("");
       setPassword("");
-      setMessage("Registration successful, welcome aboard ✅");
+      setMessage("Registration successful, welcome aboard");
       setTimeout(() => router.push("/login"), 500);
     } catch (error) {
       console.error(error);

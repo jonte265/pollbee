@@ -109,13 +109,13 @@ export default function ProfilePage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="flex flex-col justify-center items-center gap-16 ">
+      <main className="flex flex-col justify-center items-center gap-16 max-w-6xl m-auto">
         <div className="flex flex-col gap-2 text-center">
           <H2>Welcome {userNameLocal}!</H2>
           <Typography>Your polls</Typography>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 w-full">
           <Link href="/create-poll" className="m-auto">
             <Button
               fullWidth={false}
