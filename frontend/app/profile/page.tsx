@@ -109,7 +109,7 @@ export default function ProfilePage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="flex flex-col justify-center items-center gap-16 max-w-6xl m-auto">
+      <main className="flex flex-col justify-center items-center gap-8 max-w-6xl m-auto">
         <div className="flex flex-col gap-2 text-center">
           <H2>Welcome {userNameLocal}!</H2>
           <Typography>Your polls</Typography>
