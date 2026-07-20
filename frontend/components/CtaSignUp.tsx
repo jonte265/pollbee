@@ -26,7 +26,7 @@ function CtaSignUp() {
         <Button
           btnText={
             <>
-              Sign Up <LuArrowRight />
+              Sign up <LuArrowRight />
             </>
           }
         />

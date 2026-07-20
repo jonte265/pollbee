@@ -115,7 +115,7 @@ export default function Header() {
                 </Link>
 
                 <Link href="/signup">
-                  <Button btnText={<>Sign Up</>} />
+                  <Button btnText={<>Sign up</>} />
                 </Link>
               </>
             )}

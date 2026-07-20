@@ -47,15 +47,20 @@ export default function Home() {
                   />
                 </Link>
               ) : (
-                <Link href="/signup">
-                  <Button
-                    btnText={
-                      <>
-                        Sign Up <LuArrowRight />
-                      </>
-                    }
-                  />
-                </Link>
+                <div className="flex flex-row gap-2">
+                  <Link href="/poll/iI89geUz">
+                    <Button variant="outline" btnText={<>Try sample poll</>} />
+                  </Link>
+                  <Link href="/signup">
+                    <Button
+                      btnText={
+                        <>
+                          Sign up <LuArrowRight />
+                        </>
+                      }
+                    />
+                  </Link>
+                </div>
               )}
             </div>
           </div>
