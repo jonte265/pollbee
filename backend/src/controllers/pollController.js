@@ -258,7 +258,7 @@ export const pollIdea = async (req, res) => {
 
   async function getAiIdea() {
     const completion = await openai.chat.completions.create({
-      model: "openai/gpt-oss-120b:free",
+      model: "openai/gpt-oss-20b:free",
       messages: [{ role: "user", content: process.env.AI_PROMPT }],
       response_format: {
         type: "json_schema",
