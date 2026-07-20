@@ -102,7 +102,7 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
   if (!loading && !pollData) {
     return (
       <main className="flex justify-center items-center font-bold">
-        No poll found.
+        This poll doesn’t exist or the link is incorrect.
       </main>
     );
   }

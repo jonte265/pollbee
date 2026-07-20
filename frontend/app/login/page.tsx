@@ -66,7 +66,7 @@ function LoginPage() {
       transition={{ duration: 0.5 }}
     >
       <main className="flex flex-col gap-8 items-center justify-center">
-        <H2>Log into your account</H2>
+        <H2>Log in to your account</H2>
         <form
           onSubmit={handleSubmit}
           className="flex flex-col justify-center gap-4 max-w-sm w-full"
