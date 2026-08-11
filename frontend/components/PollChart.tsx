@@ -61,7 +61,7 @@ function CustomToolTip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
 
   return (
-    <div className="flex flex-col justify-center items-start bg-background-50 text-text rounded-2xl p-4">
+    <div className="flex flex-col justify-center items-start bg-background-100 text-text rounded-2xl p-4">
       <Typography bold>{label}</Typography>
       <Typography>total votes: {payload[0].value}</Typography>
     </div>
