@@ -219,7 +219,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                       onChange={(e) => setUpdateText(e.target.value)}
                       type="text"
                       placeholder={pollData.poll_title}
-                      className="flex-grow rounded-4xl p-2 pl-4 bg-primary-50"
+                      className="flex-grow rounded-4xl p-2 pl-4 bg-background-100"
                     />
                     {loadingState ? (
                       <LoadingSpin />
@@ -265,7 +265,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                           onChange={(e) => setUpdateText(e.target.value)}
                           type="text"
                           placeholder={opt.option_text}
-                          className="flex-grow rounded-4xl p-2 pl-4 bg-primary-50"
+                          className="flex-grow rounded-4xl p-2 pl-4 bg-background-100"
                         />
                         {loadingState ? (
                           <LoadingSpin />

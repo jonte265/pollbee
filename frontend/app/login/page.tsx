@@ -78,7 +78,7 @@ function LoginPage() {
             onChange={(e) => setUsername(e.target.value)}
             type="text"
             placeholder="Username"
-            className="rounded-4xl p-2 pl-4 bg-primary-50"
+            className="rounded-4xl p-2 pl-4 bg-background-100"
           />
 
           <Typography>Password</Typography>
@@ -87,7 +87,7 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
-            className="rounded-4xl p-2 pl-4  bg-primary-50"
+            className="rounded-4xl p-2 pl-4 bg-background-100"
           />
           <Button type="submit" disabled={loading} btnText="Login" />
         </form>
