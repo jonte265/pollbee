@@ -44,11 +44,11 @@ export default function PollChart({ data }: Props) {
           />
           <Tooltip
             content={CustomToolTip}
-            cursor={{ fill: "var(--color-primary-100)" }}
+            cursor={{ fill: "var(--color-secondary-100)" }}
           />
           <Bar
             dataKey="total_votes"
-            fill="var(--color-primary)"
+            fill="var(--color-secondary)"
             radius={[0, 6, 6, 0]}
           />
         </BarChart>

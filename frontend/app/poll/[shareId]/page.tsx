@@ -143,11 +143,11 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                       <motion.div
                         key={option.id}
                         layout
-                        className="border border-primary/30 rounded-4xl px-4 py-2 relative overflow-hidden"
+                        className="border border-secondary/30 rounded-4xl px-4 py-2 relative overflow-hidden"
                       >
                         {/* Progress bar */}
                         <motion.div
-                          className="absolute inset-0 bg-primary/30 opacity-50"
+                          className="absolute inset-0 bg-secondary/30 opacity-50"
                           animate={{ width: `${percentage}%` }}
                           transition={{ duration: 0.5, ease: "easeOut" }}
                         />
