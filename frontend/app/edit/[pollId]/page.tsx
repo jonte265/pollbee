@@ -305,38 +305,50 @@ function EditPoll({ params }: { params: EditPollParams }) {
                 {loadingState ? (
                   <LoadingSpin />
                 ) : pollData?.is_active ? (
-                  <div className="flex flex-row justify-center items-center gap-2">
-                    <button
+                  <div className="mt-4 flex flex-row items-center justify-center gap-2">
+                    <Button
+                      fullWidth={false}
+                      variant="secondary"
                       onClick={() => saveActive(true)}
-                      className="flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800 rounded-4xl transition-all ease-in-out"
-                    >
-                      <LuCircleCheckBig />
-                      Yes
-                    </button>
-                    <button
+                      btnText={
+                        <>
+                          <LuCircleCheckBig /> Yes
+                        </>
+                      }
+                    />
+                    <Button
+                      fullWidth={false}
+                      variant="outline"
                       onClick={() => saveActive(false)}
-                      className="flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out"
-                    >
-                      <LuCircle />
-                      No
-                    </button>
+                      btnText={
+                        <>
+                          <LuCircle /> No
+                        </>
+                      }
+                    />
                   </div>
                 ) : (
-                  <div className="flex flex-row justify-center items-center gap-2">
-                    <button
+                  <div className="mt-4 flex flex-row items-center justify-center gap-2">
+                    <Button
+                      fullWidth={false}
+                      variant="outline"
                       onClick={() => saveActive(true)}
-                      className="flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  hover:bg-text hover:text-background rounded-4xl transition-all ease-in-out"
-                    >
-                      <LuCircle />
-                      Yes
-                    </button>
-                    <button
+                      btnText={
+                        <>
+                          <LuCircle /> Yes
+                        </>
+                      }
+                    />
+                    <Button
+                      fullWidth={false}
+                      variant="secondary"
                       onClick={() => saveActive(false)}
-                      className="flex flex-row justify-center items-center gap-2 mt-4 px-4 py-2 border border-text  bg-text text-background hover:bg-text-800  rounded-4xl transition-all ease-in-out"
-                    >
-                      <LuCircleCheckBig />
-                      No
-                    </button>
+                      btnText={
+                        <>
+                          <LuCircleCheckBig /> No
+                        </>
+                      }
+                    />
                   </div>
                 )}
               </div>
