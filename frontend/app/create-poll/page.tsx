@@ -189,26 +189,16 @@ export default function CreatePoll() {
           <button
             type="button"
             onClick={addOption}
-            className="text-sm text-primary font-bold hover:underline self-start"
+            className="text-sm font-bold hover:underline self-start"
           >
             + Add Option
           </button>
 
-          {!loading ? (
-            <button
-              type="submit"
-              className="bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out"
-            >
-              Create Poll
-            </button>
-          ) : (
-            <button
-              disabled
-              className="bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out"
-            >
-              Creating...
-            </button>
-          )}
+          <Button
+            type="submit"
+            disabled={loading}
+            btnText={loading ? "Creating..." : "Create Poll"}
+          />
         </form>
 
         {loading && <LoadingSpin />}

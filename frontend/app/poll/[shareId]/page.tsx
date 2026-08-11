@@ -166,12 +166,11 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                                 onClick={() => castVote(option.id)}
                               />
                             ) : (
-                              <button
+                              <Button
+                                fullWidth={false}
                                 disabled
-                                className="px-4 py-2 bg-primary/50 text-background/50 rounded-4xl"
-                              >
-                                Vote
-                              </button>
+                                btnText="Vote"
+                              />
                             )}
                           </div>
                         </div>

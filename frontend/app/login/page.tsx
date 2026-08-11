@@ -6,6 +6,7 @@ import LoadingSpin from "@/components/LoadingSpin";
 import { motion } from "motion/react";
 import H2 from "@/components/ui/typography/H2";
 import Typography from "@/components/ui/typography/Typography";
+import Button from "@/components/Button";
 
 function LoginPage() {
   const router = useRouter();
@@ -88,21 +89,7 @@ function LoginPage() {
             placeholder="Password"
             className="rounded-4xl p-2 pl-4  bg-primary-50"
           />
-          {!loading ? (
-            <button
-              type="submit"
-              className="bg-primary text-background font-bold rounded-4xl px-4 py-2 hover:bg-primary-700 transition-all ease-in-out"
-            >
-              Login
-            </button>
-          ) : (
-            <button
-              disabled
-              className="bg-primary-100 text-background font-bold rounded-4xl px-4 py-2 transition-all ease-in-out"
-            >
-              Login
-            </button>
-          )}
+          <Button type="submit" disabled={loading} btnText="Login" />
         </form>
         {loading && <LoadingSpin />}
         {message && <p>{message}</p>}
