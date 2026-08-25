@@ -258,7 +258,7 @@ export const pollIdea = async (req, res) => {
 
   async function getAiIdea() {
     const completion = await openai.chat.completions.create({
-      model: "openrouter/free",
+      model: "nvidia/nemotron-3.5-lightning:free",
       messages: [{ role: "user", content: process.env.AI_PROMPT }],
       response_format: {
         type: "json_schema",

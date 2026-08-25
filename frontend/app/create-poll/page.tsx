@@ -95,8 +95,8 @@ export default function CreatePoll() {
       const data = await res.json();
 
       if (!res.ok) {
-        setAiMsg(`Max AI usage reached for today`);
-        return console.log(data.message);
+        setAiMsg(data.message || "Something went wrong");
+        return;
       }
 
       if (!data) {
@@ -104,7 +104,7 @@ export default function CreatePoll() {
         return console.log("Error, No data");
       }
 
-      // console.log('ya', data);
+      // console.log("ya", data);
       setAiMsg(data.message);
       setAiUsageLeft(3 - data.usages);
       setPollTitle(data.poll_ai.title);
