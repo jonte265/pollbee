@@ -43,7 +43,7 @@ export default function PollCard({
         </Typography>
       </div>
 
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-4 w-full">
         <div className="flex gap-2 ">
           <div className="w-full">
             <Button
