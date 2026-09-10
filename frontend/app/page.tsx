@@ -1,25 +1,25 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import FeatureSection from "@/components/FeatureSection";
-import { useState, useEffect } from "react";
-import { motion } from "motion/react";
-import { LuCircleUserRound, LuArrowRight } from "react-icons/lu";
-import Button from "@/components/Button";
-import H2 from "@/components/ui/typography/H2";
-import Typography from "@/components/ui/typography/Typography";
-import { HeroEmoji } from "@/components/HeroEmoji";
+import Link from "next/link"
+import FeatureSection from "@/components/FeatureSection"
+import { useState, useEffect } from "react"
+import { motion } from "motion/react"
+import { LuCircleUserRound, LuArrowRight } from "react-icons/lu"
+import Button from "@/components/Button"
+import H2 from "@/components/ui/typography/H2"
+import Typography from "@/components/ui/typography/Typography"
+import { HeroEmoji } from "@/components/HeroEmoji"
 
 export default function Home() {
-  const [signedIn, setSignedIn] = useState(false);
+  const [signedIn, setSignedIn] = useState(false)
 
   useEffect(() => {
-    const tokenLocal = localStorage.getItem("token");
+    const tokenLocal = localStorage.getItem("token")
 
     if (tokenLocal) {
-      setSignedIn(true);
+      setSignedIn(true)
     }
-  }, []);
+  }, [])
 
   return (
     <motion.div
@@ -27,9 +27,9 @@ export default function Home() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="flex flex-col gap-16 text-center max-w-6xl m-auto">
-        <div className="flex flex-col items-center gap-8">
-          <div className="flex flex-col gap-2 text-center ">
+      <main className="m-auto flex max-w-6xl flex-col gap-16 text-center">
+        <div className="flex min-h-128 flex-col items-center justify-center gap-8">
+          <div className="flex flex-col gap-2 text-center">
             <HeroEmoji />
             <H2 large>Create and share live polls easily</H2>
             <Typography>
@@ -37,7 +37,7 @@ export default function Home() {
             </Typography>
           </div>
           {/* Cta Buttons */}
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             {signedIn ? (
               <Link href="/profile">
                 <Button
@@ -95,5 +95,5 @@ export default function Home() {
         </div>
       </main>
     </motion.div>
-  );
+  )
 }
