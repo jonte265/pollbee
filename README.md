@@ -80,6 +80,8 @@ https://pollbee.vercel.app/
 
    AI_API_KEY=your_openrouter_api_key
 
+   OPENROUTER_MODEL_NAME=your_openrouter_model
+
    AI_PROMPT="Your ai prompt"
 
    PORT=3008
