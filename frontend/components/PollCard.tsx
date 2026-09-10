@@ -38,7 +38,7 @@ export default function PollCard({
 
       <div className="text-center">
         <H2>{poll_title}</H2>
-        <Typography light small>
+        <Typography light>
           Created: {new Date(created_at).toLocaleDateString("sv-SE")}
         </Typography>
       </div>

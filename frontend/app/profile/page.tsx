@@ -1,18 +1,18 @@
 "use client"
 
+import Button from "@/components/Button"
 import LoadingSpin from "@/components/LoadingSpin"
 import PollCard from "@/components/PollCard"
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { FaExclamationTriangle } from "react-icons/fa"
-import { LuPlus } from "react-icons/lu"
-import { motion } from "motion/react"
-import Button from "@/components/Button"
+import PollChart from "@/components/PollChart"
+import Divider from "@/components/ui/Divider"
 import H2 from "@/components/ui/typography/H2"
 import Typography from "@/components/ui/typography/Typography"
-import Divider from "@/components/ui/Divider"
-import PollChart from "@/components/PollChart"
+import { motion } from "motion/react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { FaExclamationTriangle } from "react-icons/fa"
+import { LuPlus } from "react-icons/lu"
 
 type profileDataType = {
   poll_title: string
@@ -109,14 +109,13 @@ export default function ProfilePage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="m-auto flex max-w-6xl flex-col items-center justify-center gap-8">
-        <div className="flex flex-col gap-2 text-center">
-          <H2>Welcome {userNameLocal}!</H2>
-          <Typography>Your polls</Typography>
-        </div>
-
-        <div className="flex w-full flex-col gap-4">
-          <Link href="/create-poll" className="m-auto">
+      <main className="m-auto flex max-w-6xl flex-col items-center justify-center gap-16">
+        <div className="flex flex-col items-center gap-8 text-center">
+          <div>
+            <H2>Welcome {userNameLocal}!</H2>
+            <Typography light>Your polls</Typography>
+          </div>
+          <Link href="/create-poll">
             <Button
               fullWidth={false}
               btnText={
@@ -126,35 +125,37 @@ export default function ProfilePage() {
               }
             />
           </Link>
-          <div className="flex justify-end">
-            <Typography light small>
-              {profileData.length > 0 ? `(${profileData.length}) ` : "(0) "}
-              {profileData.length === 1 ? "poll" : "polls"}
-            </Typography>
-          </div>
-
-          {loading ? (
-            <LoadingSpin />
-          ) : profileData.length > 0 ? (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {profileData.map((poll, index) => (
-                <PollCard
-                  key={index}
-                  poll_title={poll.poll_title}
-                  is_active={poll.is_active}
-                  share_id={poll.share_id}
-                  created_at={poll.created_at}
-                />
-              ))}
-            </div>
-          ) : (
-            <Typography textCenter light>
-              You haven’t created any polls yet
-            </Typography>
-          )}
         </div>
 
-        <div className="flex w-full max-w-4xl flex-col items-center justify-center gap-2">
+        <div className="flex w-full flex-row-reverse items-center justify-between gap-2">
+          <Typography light>
+            {profileData.length > 0 ? `(${profileData.length}) ` : "(0) "}
+            {profileData.length === 1 ? "poll" : "polls"}
+          </Typography>
+        </div>
+
+        {loading ? (
+          <LoadingSpin />
+        ) : profileData.length > 0 ? (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {profileData.map((poll, index) => (
+              <PollCard
+                key={index}
+                poll_title={poll.poll_title}
+                is_active={poll.is_active}
+                share_id={poll.share_id}
+                created_at={poll.created_at}
+              />
+            ))}
+          </div>
+        ) : (
+          <Typography textCenter light>
+            You haven’t created any polls yet
+          </Typography>
+        )}
+
+        {/* Graph */}
+        <div className="flex w-full flex-col items-center justify-center gap-2">
           {profileData.length > 0 && (
             <>
               <H2 textCenter>Total votes per poll</H2>
@@ -163,11 +164,12 @@ export default function ProfilePage() {
           )}
         </div>
 
-        <div className="w-full max-w-6xl pt-32">
+        <div className="w-full">
           <Divider />
         </div>
 
-        <div className="pt-0">
+        {/* Delete area */}
+        <div className="">
           {userNameLocal && askDelete === false && (
             <button
               onClick={() => setAskDelete(true)}

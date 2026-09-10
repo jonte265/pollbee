@@ -44,7 +44,7 @@ export default function PollChart({ data }: Props) {
           />
           <Tooltip
             content={CustomToolTip}
-            cursor={{ fill: "var(--color-secondary-100)" }}
+            cursor={{ fill: "var(--color-text-100)" }}
           />
           <Bar
             dataKey="total_votes"
