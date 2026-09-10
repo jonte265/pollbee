@@ -17,9 +17,9 @@ const variantStyles: Record<ButtonVariant, string> = {
   secondary:
     "bg-text text-background enabled:hover:bg-background-900 enabled:active:bg-background-800",
   outline:
-    "border border-text/50 bg-transparent text-text enabled:hover:border-transparent enabled:hover:bg-background-900 enabled:hover:text-background enabled:active:bg-background-800",
+    "border border-text/50 bg-transparent text-text enabled:hover:border-transparent enabled:hover:bg-text-900 enabled:hover:text-background enabled:active:bg-background-800",
   accent:
-    "bg-text text-background enabled:hover:bg-secondary-300 enabled:active:bg-secondary-200",
+    "bg-text text-background enabled:hover:bg-text-900 enabled:active:bg-text-800",
 }
 
 export default function Button({

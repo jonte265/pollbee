@@ -1,7 +1,7 @@
 function LoadingSpin() {
   return (
-    <div className="w-8 h-8 border-4 border-secondary-300 border-dashed rounded-full animate-spin mx-auto"></div>
-  );
+    <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-dashed border-text-300"></div>
+  )
 }
 
-export default LoadingSpin;
+export default LoadingSpin
