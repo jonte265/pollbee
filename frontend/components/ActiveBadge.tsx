@@ -1,25 +1,25 @@
-import { LuCirclePause } from "react-icons/lu";
-import Typography from "./ui/typography/Typography";
+import { LuCirclePause } from "react-icons/lu"
+import Typography from "./ui/typography/Typography"
 
 type activeBadgeTypes = {
-  isActive: boolean;
-};
+  isActive: boolean
+}
 
 export default function ActiveBadge({ isActive }: activeBadgeTypes) {
   return (
     <>
       {isActive ? (
         <div
-          className={`py-1 px-2 rounded-4xl flex justify-center items-center gap-1 bg-background-200 `}
+          className={`flex items-center justify-center gap-1 rounded-4xl bg-background-100 px-2 py-1`}
         >
-          <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+          <span className="h-2 w-2 animate-pulse rounded-full bg-text" />
           <Typography small bold>
             Active
           </Typography>
         </div>
       ) : (
         <div
-          className={`py-1 px-2 rounded-4xl flex justify-center items-center gap-1 bg-background-200 `}
+          className={`flex items-center justify-center gap-1 rounded-4xl bg-background-100 px-2 py-1`}
         >
           <LuCirclePause className="text-text" size={14} />
           <Typography bold small light>
@@ -28,5 +28,5 @@ export default function ActiveBadge({ isActive }: activeBadgeTypes) {
         </div>
       )}
     </>
-  );
+  )
 }

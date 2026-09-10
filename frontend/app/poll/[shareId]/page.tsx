@@ -1,48 +1,48 @@
-"use client";
+"use client"
 
-import ActiveBadge from "@/components/ActiveBadge";
-import CtaSignUp from "@/components/CtaSignUp";
-import LoadingSpin from "@/components/LoadingSpin";
-import { useState, useEffect, use } from "react";
-import { motion } from "motion/react";
-import Typography from "@/components/ui/typography/Typography";
-import Button from "@/components/Button";
-import H2 from "@/components/ui/typography/H2";
+import ActiveBadge from "@/components/ActiveBadge"
+import CtaSignUp from "@/components/CtaSignUp"
+import LoadingSpin from "@/components/LoadingSpin"
+import { useState, useEffect, use } from "react"
+import { motion } from "motion/react"
+import Typography from "@/components/ui/typography/Typography"
+import Button from "@/components/Button"
+import H2 from "@/components/ui/typography/H2"
 
 type SharePollParams = Promise<{
-  shareId: string;
-}>;
+  shareId: string
+}>
 
 type PollOption = {
-  id: number;
-  option_text: string;
-  vote_count: number;
-};
+  id: number
+  option_text: string
+  vote_count: number
+}
 
 type PollData = {
-  poll_title: string;
-  poll_creator: string;
-  is_active: boolean;
-  created_at: string;
-  poll_options: PollOption[];
-};
+  poll_title: string
+  poll_creator: string
+  is_active: boolean
+  created_at: string
+  poll_options: PollOption[]
+}
 
 export default function SharePollPage({ params }: { params: SharePollParams }) {
-  const [loading, setLoading] = useState(false);
-  const [pollData, setPollData] = useState<PollData | null>(null);
+  const [loading, setLoading] = useState(false)
+  const [pollData, setPollData] = useState<PollData | null>(null)
 
-  const { shareId } = use(params);
+  const { shareId } = use(params)
 
   useEffect(() => {
     if (pollData?.poll_title) {
-      document.title = `${pollData.poll_title} | PollBee 🐝`;
+      document.title = `${pollData.poll_title} | PollBee 🐝`
     }
-  }, [pollData]);
+  }, [pollData])
 
   async function castVote(voteOption: number) {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
-    console.log(voteOption);
+    console.log(voteOption)
 
     try {
       const res = await fetch(`${apiUrl}/polls/vote`, {
@@ -51,60 +51,60 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ voteoption: voteOption }),
-      });
+      })
 
       if (!res.ok) {
-        console.error("Error fetching vote poll api");
-        return;
+        console.error("Error fetching vote poll api")
+        return
       }
 
-      const data = await res.json();
-      console.log(data);
+      const data = await res.json()
+      console.log(data)
 
-      fetchShareData(); // Refresh after voted
+      fetchShareData() // Refresh after voted
     } catch (err) {
-      console.error("Failed to vote:", err);
+      console.error("Failed to vote:", err)
     }
   }
 
   async function fetchShareData() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
-    setLoading(true);
+    setLoading(true)
 
     try {
-      const res = await fetch(`${apiUrl}/polls/${shareId}`);
+      const res = await fetch(`${apiUrl}/polls/${shareId}`)
 
       if (!res.ok) {
-        console.error("Error fetching poll");
-        return;
+        console.error("Error fetching poll")
+        return
       }
 
-      const data = await res.json();
-      console.log(data);
-      setPollData(data);
+      const data = await res.json()
+      console.log(data)
+      setPollData(data)
     } catch (err) {
-      console.error("Failed to fetch poll data:", err);
+      console.error("Failed to fetch poll data:", err)
     } finally {
-      setLoading(false);
-      console.log(pollData);
+      setLoading(false)
+      console.log(pollData)
     }
   }
 
   useEffect(() => {
-    fetchShareData();
-  }, []);
+    fetchShareData()
+  }, [])
 
   const totalVotes = pollData
     ? pollData.poll_options.reduce((acc, option) => acc + option.vote_count, 0)
-    : 0;
+    : 0
 
   if (!loading && !pollData) {
     return (
-      <main className="flex justify-center items-center font-bold">
+      <main className="flex items-center justify-center font-bold">
         This poll doesn’t exist or the link is incorrect.
       </main>
-    );
+    )
   }
 
   return (
@@ -113,11 +113,11 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="flex flex-col justify-center items-center py-8">
+      <main className="flex flex-col items-center justify-center py-8">
         {pollData && (
-          <div className="flex flex-col gap-8 w-full max-w-3xl">
+          <div className="flex w-full max-w-3xl flex-col gap-8">
             <div className="flex flex-col gap-2">
-              <div className="flex justify-between items-center flex-wrap gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <H2>{pollData.poll_title}</H2>
                 <ActiveBadge isActive={pollData.is_active} />
               </div>
@@ -137,22 +137,22 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                     const percentage =
                       totalVotes > 0
                         ? Math.round((option.vote_count / totalVotes) * 100)
-                        : 0;
+                        : 0
 
                     return (
                       <motion.div
                         key={option.id}
                         layout
-                        className="border border-secondary/30 rounded-4xl px-4 py-2 relative overflow-hidden"
+                        className="relative overflow-hidden rounded-4xl border border-background-200 px-4 py-2"
                       >
                         {/* Progress bar */}
                         <motion.div
-                          className="absolute inset-0 bg-secondary/30 opacity-50"
+                          className="absolute inset-0 bg-background-200 opacity-50"
                           animate={{ width: `${percentage}%` }}
                           transition={{ duration: 0.5, ease: "easeOut" }}
                         />
 
-                        <div className="relative flex justify-between items-center">
+                        <div className="relative flex items-center justify-between">
                           <p className="font-bold">{option.option_text}</p>
                           <div className="flex items-center justify-center gap-4">
                             <Typography textCenter light small>
@@ -175,7 +175,7 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
                           </div>
                         </div>
                       </motion.div>
-                    );
+                    )
                   })}
               </div>
               <Typography textCenter light small>
@@ -189,5 +189,5 @@ export default function SharePollPage({ params }: { params: SharePollParams }) {
         <CtaSignUp />
       </main>
     </motion.div>
-  );
+  )
 }
