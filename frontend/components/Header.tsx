@@ -4,7 +4,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import LoadingSpin from "./LoadingSpin"
 import Button from "./Button"
-import { LuLogOut, LuMenu, LuX } from "react-icons/lu"
+import { LuLogOut, LuMenu, LuX, LuCircleUserRound } from "react-icons/lu"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "motion/react"
 import DarkModeButton from "./ui/DarkModeButton"
@@ -92,14 +92,17 @@ export default function Header() {
                 <Link href="/profile">
                   <Button
                     variant="outline"
-                    btnText={<>{username ? `@${username}` : "Profile"}</>}
+                    btnText={
+                      <>
+                        <LuCircleUserRound /> Profile
+                      </>
+                    }
                   />
                 </Link>
 
                 <div className="hidden sm:flex">
                   <Button
                     onClick={signOutUser}
-                    variant="secondary"
                     btnText={
                       <>
                         <LuLogOut /> Sign Out
@@ -152,7 +155,6 @@ export default function Header() {
                   </div>
                   <Button
                     onClick={signOutUser}
-                    variant="secondary"
                     btnText={
                       <>
                         <LuLogOut size={16} /> Sign Out

@@ -133,7 +133,6 @@ export default function CreatePoll() {
         <div className="flex flex-col items-center justify-center gap-2">
           <Button
             onClick={handleAiIdea}
-            variant="secondary"
             btnText={
               <>
                 <LuBot />

@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "accent"
+type ButtonVariant = "outline" | "accent"
 
 type PrimaryBtnType = {
   btnText: string | ReactNode
@@ -12,10 +12,6 @@ type PrimaryBtnType = {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary:
-    "bg-primary text-background enabled:hover:bg-primary-800 enabled:active:bg-primary-900",
-  secondary:
-    "bg-text text-background enabled:hover:bg-background-900 enabled:active:bg-background-800",
   outline:
     "border border-text/50 bg-transparent text-text enabled:hover:border-transparent enabled:hover:bg-text-900 enabled:hover:text-background enabled:active:bg-background-800",
   accent:

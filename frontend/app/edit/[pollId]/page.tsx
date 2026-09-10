@@ -308,7 +308,6 @@ function EditPoll({ params }: { params: EditPollParams }) {
                   <div className="mt-4 flex flex-row items-center justify-center gap-2">
                     <Button
                       fullWidth={false}
-                      variant="secondary"
                       onClick={() => saveActive(true)}
                       btnText={
                         <>
@@ -341,7 +340,6 @@ function EditPoll({ params }: { params: EditPollParams }) {
                     />
                     <Button
                       fullWidth={false}
-                      variant="secondary"
                       onClick={() => saveActive(false)}
                       btnText={
                         <>

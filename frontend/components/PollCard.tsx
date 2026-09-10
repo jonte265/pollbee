@@ -74,7 +74,7 @@ export default function PollCard({
           </Link>
         </div>
         <Link href={`${apiUrl}/poll/${share_id}`}>
-          <Button variant="secondary" btnText="View Poll" />
+          <Button btnText="View Poll" />
         </Link>
       </div>
     </div>
