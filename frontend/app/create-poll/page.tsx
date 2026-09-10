@@ -161,7 +161,7 @@ export default function CreatePoll() {
             onChange={(e) => setPollTitle(e.target.value)}
             type="text"
             placeholder="Poll Title"
-            className="rounded-4xl bg-background-100 p-2 pl-4"
+            className="rounded-4xl bg-background-50 p-2 pl-4"
           />
 
           <label>Options</label>
@@ -172,7 +172,7 @@ export default function CreatePoll() {
                 onChange={(e) => handleOptionChange(index, e.target.value)}
                 type="text"
                 placeholder={`Option ${index + 1}`}
-                className="flex-1 rounded-4xl bg-background-100 p-2 pl-4"
+                className="flex-1 rounded-4xl bg-background-50 p-2 pl-4"
               />
               {options.length > 1 && (
                 <button

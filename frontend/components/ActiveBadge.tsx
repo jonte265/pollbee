@@ -10,7 +10,7 @@ export default function ActiveBadge({ isActive }: activeBadgeTypes) {
     <>
       {isActive ? (
         <div
-          className={`flex items-center justify-center gap-1 rounded-4xl bg-background-100 px-2 py-1`}
+          className={`flex items-center justify-center gap-1 rounded-4xl bg-background-50 px-2 py-1`}
         >
           <span className="h-2 w-2 animate-pulse rounded-full bg-text" />
           <Typography small bold>
@@ -19,7 +19,7 @@ export default function ActiveBadge({ isActive }: activeBadgeTypes) {
         </div>
       ) : (
         <div
-          className={`flex items-center justify-center gap-1 rounded-4xl bg-background-100 px-2 py-1`}
+          className={`flex items-center justify-center gap-1 rounded-4xl bg-background-50 px-2 py-1`}
         >
           <LuCirclePause className="text-text" size={14} />
           <Typography bold small light>

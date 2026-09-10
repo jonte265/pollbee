@@ -1,31 +1,31 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import LoadingSpin from "@/components/LoadingSpin";
-import { motion } from "motion/react";
-import H2 from "@/components/ui/typography/H2";
-import Typography from "@/components/ui/typography/Typography";
-import Button from "@/components/Button";
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import LoadingSpin from "@/components/LoadingSpin"
+import { motion } from "motion/react"
+import H2 from "@/components/ui/typography/H2"
+import Typography from "@/components/ui/typography/Typography"
+import Button from "@/components/Button"
 
 function LoginPage() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+    e.preventDefault()
+    setLoading(true)
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
     const newUser = {
       username: username,
       password: password,
-    };
+    }
 
     try {
       const res = await fetch(`${apiUrl}/login`, {
@@ -34,31 +34,31 @@ function LoginPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newUser),
-      });
-      const data = await res.json();
+      })
+      const data = await res.json()
 
       if (!res.ok) {
-        console.log("Respond not ok, problem");
-        setMessage(`${data.message} ❌`);
-        return;
+        console.log("Respond not ok, problem")
+        setMessage(`${data.message} ❌`)
+        return
       }
 
-      console.log(data);
+      console.log(data)
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("username", data.username);
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("username", data.username)
 
-      setUsername("");
-      setPassword("");
-      setMessage("Login successful, welcome back 🐝");
+      setUsername("")
+      setPassword("")
+      setMessage("Login successful, welcome back 🐝")
       // router.push('/profile');
-      window.location.href = "/";
+      window.location.href = "/"
     } catch (error) {
-      console.error(error);
+      console.error(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <motion.div
@@ -66,11 +66,11 @@ function LoginPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <main className="flex flex-col gap-8 items-center justify-center">
+      <main className="flex flex-col items-center justify-center gap-8">
         <H2>Log in to your account</H2>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col justify-center gap-4 max-w-sm w-full"
+          className="flex w-full max-w-sm flex-col justify-center gap-4"
         >
           <Typography>Username</Typography>
           <input
@@ -78,7 +78,7 @@ function LoginPage() {
             onChange={(e) => setUsername(e.target.value)}
             type="text"
             placeholder="Username"
-            className="rounded-4xl p-2 pl-4 bg-background-100"
+            className="rounded-4xl bg-background-50 p-2 pl-4"
           />
 
           <Typography>Password</Typography>
@@ -87,7 +87,7 @@ function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
-            className="rounded-4xl p-2 pl-4 bg-background-100"
+            className="rounded-4xl bg-background-50 p-2 pl-4"
           />
           <Button type="submit" disabled={loading} btnText="Login" />
         </form>
@@ -95,7 +95,7 @@ function LoginPage() {
         {message && <p>{message}</p>}
       </main>
     </motion.div>
-  );
+  )
 }
 
-export default LoginPage;
+export default LoginPage

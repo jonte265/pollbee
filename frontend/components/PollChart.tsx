@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   BarChart,
@@ -8,25 +8,25 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-} from "recharts";
-import Typography from "./ui/typography/Typography";
+} from "recharts"
+import Typography from "./ui/typography/Typography"
 
 type Props = {
   data: {
-    poll_title: string;
-    is_active: boolean;
-    share_id: string;
-    created_at: string;
-    total_votes: number;
+    poll_title: string
+    is_active: boolean
+    share_id: string
+    created_at: string
+    total_votes: number
     poll_options: {
-      vote_count: number;
-    }[];
-  }[];
-};
+      vote_count: number
+    }[]
+  }[]
+}
 
 export default function PollChart({ data }: Props) {
   return (
-    <div className="w-full h-80">
+    <div className="h-80 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} layout="vertical">
           <CartesianGrid strokeDasharray="2 2" opacity={0.5} />
@@ -54,16 +54,16 @@ export default function PollChart({ data }: Props) {
         </BarChart>
       </ResponsiveContainer>
     </div>
-  );
+  )
 }
 
 function CustomToolTip({ active, payload, label }: any) {
-  if (!active || !payload?.length) return null;
+  if (!active || !payload?.length) return null
 
   return (
-    <div className="flex flex-col justify-center items-start bg-background-100 text-text rounded-2xl p-4">
+    <div className="flex flex-col items-start justify-center rounded-2xl bg-background-50 p-4 text-text">
       <Typography bold>{label}</Typography>
       <Typography>total votes: {payload[0].value}</Typography>
     </div>
-  );
+  )
 }

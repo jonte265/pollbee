@@ -1,69 +1,69 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { useState, use, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import LoadingSpin from "@/components/LoadingSpin";
-import { FaCheck, FaTimes } from "react-icons/fa";
-import { motion } from "motion/react";
-import { FaExclamationTriangle } from "react-icons/fa";
-import { LuCircleCheckBig, LuCircle } from "react-icons/lu";
-import Button from "@/components/Button";
-import BackHeader from "@/components/BackHeader";
-import Typography from "@/components/ui/typography/Typography";
-import Divider from "@/components/ui/Divider";
+import Link from "next/link"
+import { useState, use, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import LoadingSpin from "@/components/LoadingSpin"
+import { FaCheck, FaTimes } from "react-icons/fa"
+import { motion } from "motion/react"
+import { FaExclamationTriangle } from "react-icons/fa"
+import { LuCircleCheckBig, LuCircle } from "react-icons/lu"
+import Button from "@/components/Button"
+import BackHeader from "@/components/BackHeader"
+import Typography from "@/components/ui/typography/Typography"
+import Divider from "@/components/ui/Divider"
 
 type EditPollParams = Promise<{
-  pollId: string;
-}>;
+  pollId: string
+}>
 
 type PollDataType = {
-  poll_title: string;
-  id: number;
-  message: string;
-  is_active: boolean;
-  poll_options: PollOptionType[];
-};
+  poll_title: string
+  id: number
+  message: string
+  is_active: boolean
+  poll_options: PollOptionType[]
+}
 
 type PollOptionType = {
-  option_text: string;
-  id: number;
-};
+  option_text: string
+  id: number
+}
 
 type NewUpdatePoll = {
-  pollid: number;
-  polltitle?: string;
-  active?: boolean;
-  options?: string;
-  optionsid?: number;
-};
+  pollid: number
+  polltitle?: string
+  active?: boolean
+  options?: string
+  optionsid?: number
+}
 
 function EditPoll({ params }: { params: EditPollParams }) {
-  const [pollData, setPollData] = useState<PollDataType | null>(null);
+  const [pollData, setPollData] = useState<PollDataType | null>(null)
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const router = useRouter();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL
+  const router = useRouter()
 
-  const { pollId } = use(params);
+  const { pollId } = use(params)
 
-  const [editMode, setEditMode] = useState(-10);
-  const [updateText, setUpdateText] = useState("");
-  const [askDelete, setAskDelete] = useState(false);
-  const [token, setToken] = useState<string | null>(null); // Get jwt token localstorage
+  const [editMode, setEditMode] = useState(-10)
+  const [updateText, setUpdateText] = useState("")
+  const [askDelete, setAskDelete] = useState(false)
+  const [token, setToken] = useState<string | null>(null) // Get jwt token localstorage
 
-  const [updateActivePoll, setUpdateActivePoll] = useState(false);
-  const [loadingState, setLoadingState] = useState(false);
+  const [updateActivePoll, setUpdateActivePoll] = useState(false)
+  const [loadingState, setLoadingState] = useState(false)
 
   useEffect(() => {
-    const username = localStorage.getItem("username");
-    const tok = localStorage.getItem("token");
+    const username = localStorage.getItem("username")
+    const tok = localStorage.getItem("token")
 
-    setToken(tok);
+    setToken(tok)
 
     if (!tok) {
-      router.push("/login");
+      router.push("/login")
     }
-  }, []);
+  }, [])
 
   async function deletePoll(pollId: number) {
     const res = await fetch(`${apiUrl}/polls`, {
@@ -75,45 +75,45 @@ function EditPoll({ params }: { params: EditPollParams }) {
       body: JSON.stringify({
         pollid: pollId,
       }),
-    });
+    })
 
     if (!res.ok) {
-      console.log("Error, not ok fail delete poll");
+      console.log("Error, not ok fail delete poll")
     }
 
-    const data = await res.json();
+    const data = await res.json()
 
-    router.push("/profile");
+    router.push("/profile")
     // window.location.href = '/profile'; // Refresh window
   }
 
   async function saveChange(
     updateText: string,
     pollType: string,
-    optionId?: number,
+    optionId?: number
   ) {
-    if (!pollData) return;
+    if (!pollData) return
 
     if (updateText.trim() === "") {
-      return;
+      return
     }
 
-    setLoadingState(true);
+    setLoadingState(true)
 
     const newUpdate: NewUpdatePoll = {
       pollid: pollData.id,
-    };
+    }
 
     if (pollType === "forTitle") {
-      newUpdate.polltitle = updateText;
+      newUpdate.polltitle = updateText
     }
 
     if (pollType === "forOption") {
-      newUpdate.options = updateText;
-      newUpdate.optionsid = optionId;
+      newUpdate.options = updateText
+      newUpdate.optionsid = optionId
     }
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token")
 
     async function pushUpdate(updateObj: NewUpdatePoll) {
       try {
@@ -124,38 +124,38 @@ function EditPoll({ params }: { params: EditPollParams }) {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(updateObj),
-        });
+        })
 
         if (!res.ok) {
-          console.log("Res not ok");
+          console.log("Res not ok")
         }
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     }
 
-    await pushUpdate(newUpdate);
-    await fetchPollData();
-    setLoadingState(false);
+    await pushUpdate(newUpdate)
+    await fetchPollData()
+    setLoadingState(false)
 
-    setUpdateText("");
-    setEditMode(-10);
+    setUpdateText("")
+    setEditMode(-10)
   }
 
   function cancelEdit() {
-    setEditMode(-10);
-    setUpdateText("");
+    setEditMode(-10)
+    setUpdateText("")
   }
 
   async function saveActive(act: boolean) {
-    if (!pollData) return;
+    if (!pollData) return
 
-    setLoadingState(true);
+    setLoadingState(true)
 
     const newActiveUpdate = {
       pollid: pollData.id,
       active: act,
-    };
+    }
 
     try {
       const res = await fetch(`${apiUrl}/polls`, {
@@ -165,36 +165,36 @@ function EditPoll({ params }: { params: EditPollParams }) {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newActiveUpdate),
-      });
+      })
 
       if (!res.ok) {
-        console.log("Res not ok, active update");
+        console.log("Res not ok, active update")
       }
 
-      const data = await res.json();
+      const data = await res.json()
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
 
-    await fetchPollData();
-    setLoadingState(false);
+    await fetchPollData()
+    setLoadingState(false)
   }
 
   async function fetchPollData() {
     try {
-      const res = await fetch(`${apiUrl}/polls/${pollId}`);
-      const data = await res.json();
+      const res = await fetch(`${apiUrl}/polls/${pollId}`)
+      const data = await res.json()
 
       // console.log(data);
-      setPollData(data);
+      setPollData(data)
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
   }
 
   useEffect(() => {
-    fetchPollData();
-  }, [pollId]);
+    fetchPollData()
+  }, [pollId])
 
   return (
     <motion.div
@@ -205,12 +205,12 @@ function EditPoll({ params }: { params: EditPollParams }) {
       {pollData?.message === "Poll not found" ? (
         <p className="text-center text-2xl">Poll not found</p>
       ) : (
-        <main className="flex flex-col gap-8 items-center justify-center max-w-xl mx-auto">
+        <main className="mx-auto flex max-w-xl flex-col items-center justify-center gap-8">
           <BackHeader title="Edit Poll" routePage="profile" />
           {pollData ? (
-            <div className="flex flex-col w-full gap-2">
+            <div className="flex w-full flex-col gap-2">
               <Typography>Poll title</Typography>
-              <div className="border border-gray-300 rounded-4xl px-4 py-2 flex flex-col gap-2">
+              <div className="flex flex-col gap-2 rounded-4xl border border-gray-300 px-4 py-2">
                 {editMode === -5 ? (
                   <div className="flex gap-2">
                     <input
@@ -219,7 +219,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                       onChange={(e) => setUpdateText(e.target.value)}
                       type="text"
                       placeholder={pollData.poll_title}
-                      className="flex-grow rounded-4xl p-2 pl-4 bg-background-100"
+                      className="flex-grow rounded-4xl bg-background-50 p-2 pl-4"
                     />
                     {loadingState ? (
                       <LoadingSpin />
@@ -237,7 +237,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                     )}
                   </div>
                 ) : (
-                  <div className="flex justify-between items-center gap-4">
+                  <div className="flex items-center justify-between gap-4">
                     <Typography bold>{pollData.poll_title}</Typography>
                     <Button
                       fullWidth={false}
@@ -256,7 +256,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                   .map((opt, index) =>
                     editMode === opt.id ? (
                       <div
-                        className="border border-gray-300 rounded-4xl px-4 py-2 flex flex-row gap-2"
+                        className="flex flex-row gap-2 rounded-4xl border border-gray-300 px-4 py-2"
                         key={opt.id}
                       >
                         <input
@@ -265,7 +265,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                           onChange={(e) => setUpdateText(e.target.value)}
                           type="text"
                           placeholder={opt.option_text}
-                          className="flex-grow rounded-4xl p-2 pl-4 bg-background-100"
+                          className="flex-grow rounded-4xl bg-background-50 p-2 pl-4"
                         />
                         {loadingState ? (
                           <LoadingSpin />
@@ -287,7 +287,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
                     ) : (
                       <div
                         key={opt.id}
-                        className="border border-gray-300 rounded-4xl px-4 py-2 flex justify-between items-center gap-4"
+                        className="flex items-center justify-between gap-4 rounded-4xl border border-gray-300 px-4 py-2"
                       >
                         <Typography bold>{opt.option_text}</Typography>
                         <Button
@@ -297,10 +297,10 @@ function EditPoll({ params }: { params: EditPollParams }) {
                           variant="accent"
                         />
                       </div>
-                    ),
+                    )
                   )}
               </div>
-              <div className="flex flex-col justify-center items-center mt-4">
+              <div className="mt-4 flex flex-col items-center justify-center">
                 <Typography textCenter>Active?</Typography>
                 {loadingState ? (
                   <LoadingSpin />
@@ -367,7 +367,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
           {askDelete === false && (
             <button
               onClick={() => setAskDelete(true)}
-              className={`flex justify-center items-center gap-2 bg-red-500 text-background font-bold rounded-4xl px-4 py-2 hover:bg-red-700 transition-all ease-in-out`}
+              className={`flex items-center justify-center gap-2 rounded-4xl bg-red-500 px-4 py-2 font-bold text-background transition-all ease-in-out hover:bg-red-700`}
             >
               <FaExclamationTriangle /> Delete Poll
             </button>
@@ -381,15 +381,15 @@ function EditPoll({ params }: { params: EditPollParams }) {
               <div className="flex flex-row gap-2 pt-4">
                 <button
                   onClick={() => {
-                    if (pollData?.id) deletePoll(pollData?.id);
+                    if (pollData?.id) deletePoll(pollData?.id)
                   }}
-                  className={`flex justify-center items-center gap-2 bg-red-500 text-background font-bold rounded-4xl px-4 py-2 hover:bg-red-700 transition-all ease-in-out`}
+                  className={`flex items-center justify-center gap-2 rounded-4xl bg-red-500 px-4 py-2 font-bold text-background transition-all ease-in-out hover:bg-red-700`}
                 >
                   Yes, delete poll
                 </button>
                 <button
                   onClick={() => setAskDelete(false)}
-                  className={`flex justify-center items-center gap-2 bg-text text-background font-bold rounded-4xl px-4 py-2 hover:bg-text-700 transition-all ease-in-out`}
+                  className={`flex items-center justify-center gap-2 rounded-4xl bg-text px-4 py-2 font-bold text-background transition-all ease-in-out hover:bg-text-700`}
                 >
                   No, keep the poll
                 </button>
@@ -399,7 +399,7 @@ function EditPoll({ params }: { params: EditPollParams }) {
         </main>
       )}
     </motion.div>
-  );
+  )
 }
 
-export default EditPoll;
+export default EditPoll
