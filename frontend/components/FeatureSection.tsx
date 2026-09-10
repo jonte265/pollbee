@@ -21,7 +21,7 @@ export default function FeatureSection({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: true, amount: 0.2, margin: "0px 0px 100px 0px" }}
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center justify-center gap-8 rounded-4xl bg-background-50 p-12 sm:p-16"
     >
