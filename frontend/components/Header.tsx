@@ -75,10 +75,10 @@ export default function Header() {
   }
 
   return (
-    <header className="m-auto mb-16 flex max-w-6xl flex-col justify-center gap-4 rounded-4xl bg-background-50 px-4 py-4">
+    <header className="m-auto mb-16 flex max-w-6xl flex-col justify-center">
       <div className="flex flex-wrap items-center justify-between">
         <Link href="/">
-          <h1 className="text-xl font-bold sm:text-2xl">🐝PollBee</h1>
+          <h1 className="text-xl font-bold sm:text-2xl">🐝 PollBee</h1>
         </Link>
 
         <div className="flex items-center justify-center gap-4">
