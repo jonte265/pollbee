@@ -1,5 +1,6 @@
 import Image from "next/image";
 import H2 from "./ui/typography/H2";
+import { motion } from "motion/react";
 
 type FeatureSectionTypes = {
   sectionTitle: string;
@@ -17,7 +18,13 @@ export default function FeatureSection({
   img,
 }: FeatureSectionTypes) {
   return (
-    <section className="flex flex-col justify-center items-center gap-8 p-12 sm:p-16 rounded-4xl bg-background-100">
+    <motion.section
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
+      className="flex flex-col justify-center items-center gap-8 p-12 sm:p-16 rounded-4xl bg-background-100"
+    >
       <div className="flex flex-col gap-4">
         <H2>{sectionTitle}</H2>
         <ul className="flex flex-col justify-center items-center">
@@ -35,6 +42,6 @@ export default function FeatureSection({
           alt="Poll"
         />
       )}
-    </section>
+    </motion.section>
   );
 }
