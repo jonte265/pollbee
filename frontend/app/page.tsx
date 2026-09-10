@@ -28,7 +28,7 @@ export default function Home() {
       transition={{ duration: 0.5 }}
     >
       <main className="m-auto flex max-w-6xl flex-col gap-16 text-center">
-        <div className="flex min-h-128 flex-col items-center justify-center gap-8">
+        <section className="flex min-h-[50vh] flex-col items-center justify-center gap-8">
           <div className="flex flex-col gap-2 text-center">
             <HeroEmoji />
             <H2 large>Create and share live polls easily</H2>
@@ -65,10 +65,10 @@ export default function Home() {
               </div>
             )}
           </div>
-        </div>
+        </section>
 
         {/* Feature cards */}
-        <div className="flex flex-col gap-8">
+        <section className="flex flex-col gap-8">
           <FeatureSection
             sectionTitle={"Create Polls Instantly with AI Assistance 📊"}
             li1={"Set up a poll in seconds with a simple interface"}
@@ -92,7 +92,7 @@ export default function Home() {
             li3="More built-in analytics coming soon"
             img="poll-analytics-page.png"
           />
-        </div>
+        </section>
       </main>
     </motion.div>
   )

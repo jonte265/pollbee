@@ -1,9 +1,9 @@
 type H2Types = {
-  children: React.ReactNode;
-  bold?: boolean;
-  large?: boolean;
-  textCenter?: boolean;
-};
+  children: React.ReactNode
+  bold?: boolean
+  large?: boolean
+  textCenter?: boolean
+}
 
 export default function H2({
   children,
@@ -13,13 +13,9 @@ export default function H2({
 }: H2Types) {
   return (
     <h2
-      className={`
-    ${large ? "text-4xl" : "text-2xl"}
-    ${bold ? "font-bold" : ""}
-    ${textCenter ? "text-center" : ""}
-    `}
+      className={` ${large ? "text-4xl" : "text-2xl"} ${bold ? "font-bold" : ""} ${textCenter ? "text-center" : ""} `}
     >
       {children}
     </h2>
-  );
+  )
 }
