@@ -14,7 +14,7 @@ export default function Header() {
   const [username, setUsername] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
   const pathname = usePathname()
 
   function signOutUser() {
@@ -37,12 +37,12 @@ export default function Header() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("darkMode") === "true") {
-      setDarkMode(true)
-      document.documentElement.classList.add("dark")
-    } else {
+    if (localStorage.getItem("darkMode") === "false") {
       setDarkMode(false)
       document.documentElement.classList.remove("dark")
+    } else {
+      setDarkMode(true)
+      document.documentElement.classList.add("dark")
     }
   }, [])
 
