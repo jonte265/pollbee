@@ -13,7 +13,7 @@ type PrimaryBtnType = {
 
 const variantStyles: Record<ButtonVariant, string> = {
   outline:
-    "border border-text/50 bg-transparent text-text enabled:hover:border-transparent enabled:hover:bg-text-900 enabled:hover:text-background enabled:active:bg-background-800",
+    "border border-text/50 bg-transparent text-text enabled:hover:border-transparent enabled:hover:bg-text enabled:hover:text-background enabled:active:bg-background-800",
   accent:
     "bg-text text-background enabled:hover:bg-text-900 enabled:active:bg-text-800",
 }
