@@ -23,7 +23,7 @@ export default function FeatureSection({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col items-center justify-center gap-8 rounded-4xl bg-background-100 p-12 sm:p-16"
+      className="flex flex-col items-center justify-center gap-8 rounded-4xl bg-background-50 p-12 sm:p-16"
     >
       <div className="flex flex-col gap-4">
         <H2>{sectionTitle}</H2>

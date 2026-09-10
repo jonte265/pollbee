@@ -1,88 +1,88 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import LoadingSpin from "./LoadingSpin";
-import Button from "./Button";
-import { LuLogOut, LuMenu, LuX } from "react-icons/lu";
-import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
-import DarkModeButton from "./ui/DarkModeButton";
+import Link from "next/link"
+import { useState, useEffect } from "react"
+import LoadingSpin from "./LoadingSpin"
+import Button from "./Button"
+import { LuLogOut, LuMenu, LuX } from "react-icons/lu"
+import { usePathname } from "next/navigation"
+import { motion, AnimatePresence } from "motion/react"
+import DarkModeButton from "./ui/DarkModeButton"
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-  const pathname = usePathname();
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [username, setUsername] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [darkMode, setDarkMode] = useState(false)
+  const pathname = usePathname()
 
   function signOutUser() {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    setMenuOpen(false);
-    window.location.href = "/";
+    localStorage.removeItem("token")
+    setIsLoggedIn(false)
+    setMenuOpen(false)
+    window.location.href = "/"
   }
 
   function handleDarkMode() {
     if (darkMode) {
-      setDarkMode(false);
-      localStorage.setItem("darkMode", "false");
+      setDarkMode(false)
+      localStorage.setItem("darkMode", "false")
     } else {
-      setDarkMode(true);
-      localStorage.setItem("darkMode", "true");
+      setDarkMode(true)
+      localStorage.setItem("darkMode", "true")
     }
 
-    document.documentElement.classList.toggle("dark");
+    document.documentElement.classList.toggle("dark")
   }
 
   useEffect(() => {
     if (localStorage.getItem("darkMode") === "true") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
+      setDarkMode(true)
+      document.documentElement.classList.add("dark")
     } else {
-      setDarkMode(false);
-      document.documentElement.classList.remove("dark");
+      setDarkMode(false)
+      document.documentElement.classList.remove("dark")
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
-    setIsLoading(true);
-    const token = localStorage.getItem("token");
-    const usernameLocal = localStorage.getItem("username");
+    setIsLoading(true)
+    const token = localStorage.getItem("token")
+    const usernameLocal = localStorage.getItem("username")
     if (usernameLocal) {
-      setUsername(usernameLocal);
+      setUsername(usernameLocal)
     }
 
     if (token === null) {
-      setIsLoggedIn(false);
+      setIsLoggedIn(false)
     } else {
-      setIsLoggedIn(true);
+      setIsLoggedIn(true)
     }
-    setIsLoading(false);
-  }, []);
+    setIsLoading(false)
+  }, [])
 
   useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+    setMenuOpen(false)
+  }, [pathname])
 
   if (isLoading) {
     return (
-      <header className="flex justify-between items-center pb-16">
+      <header className="flex items-center justify-between pb-16">
         <LoadingSpin />
       </header>
-    );
+    )
   }
 
   return (
-    <header className="flex flex-col justify-center max-w-6xl m-auto gap-4 px-4 py-4 mb-16 rounded-4xl bg-background-100">
-      <div className="flex justify-between items-center flex-wrap">
+    <header className="m-auto mb-16 flex max-w-6xl flex-col justify-center gap-4 rounded-4xl bg-background-50 px-4 py-4">
+      <div className="flex flex-wrap items-center justify-between">
         <Link href="/">
-          <h1 className="font-bold text-xl sm:text-2xl">🐝PollBee</h1>
+          <h1 className="text-xl font-bold sm:text-2xl">🐝PollBee</h1>
         </Link>
 
-        <div className="flex gap-4 justify-center items-center ">
-          <div className="hidden sm:flex ">
+        <div className="flex items-center justify-center gap-4">
+          <div className="hidden sm:flex">
             <DarkModeButton darkMode={darkMode} onClick={handleDarkMode} />
           </div>
 
@@ -96,7 +96,7 @@ export default function Header() {
                   />
                 </Link>
 
-                <div className="sm:flex hidden">
+                <div className="hidden sm:flex">
                   <Button
                     onClick={signOutUser}
                     variant="secondary"
@@ -110,7 +110,7 @@ export default function Header() {
               </>
             ) : (
               <>
-                <Link className="sm:flex hidden" href="/login">
+                <Link className="hidden sm:flex" href="/login">
                   <Button variant="outline" btnText={<>Log in</>} />
                 </Link>
 
@@ -121,7 +121,7 @@ export default function Header() {
             )}
           </div>
           <button
-            className="sm:hidden text-2xl"
+            className="text-2xl sm:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             {menuOpen ? <LuX /> : <LuMenu />}
@@ -139,12 +139,12 @@ export default function Header() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
           >
-            <div className="sm:hidden w-full p-4 rounded-4xl flex flex-col gap-4 ">
+            <div className="flex w-full flex-col gap-4 rounded-4xl p-4 sm:hidden">
               {isLoggedIn ? (
                 <>
                   {/* Logged in menu */}
 
-                  <div className="flex justify-center items-center w-full text-2xl">
+                  <div className="flex w-full items-center justify-center text-2xl">
                     <DarkModeButton
                       darkMode={darkMode}
                       onClick={handleDarkMode}
@@ -164,7 +164,7 @@ export default function Header() {
                 <>
                   {/* Logged out menu */}
 
-                  <div className="flex justify-center items-center w-full text-2xl">
+                  <div className="flex w-full items-center justify-center text-2xl">
                     <DarkModeButton
                       darkMode={darkMode}
                       onClick={handleDarkMode}
@@ -180,5 +180,5 @@ export default function Header() {
         )}
       </AnimatePresence>
     </header>
-  );
+  )
 }
