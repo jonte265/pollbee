@@ -25,9 +25,9 @@ export default function FeatureSection({
       transition={{ duration: 0.5 }}
       className="flex flex-col items-center justify-center gap-8 rounded-4xl bg-background-50 p-12 sm:p-16"
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <H2>{sectionTitle}</H2>
-        <ul className="flex flex-col items-center justify-center">
+        <ul className="flex flex-col items-center justify-center text-text-600">
           {li1 && <li>{li1}</li>}
           {li2 && <li>{li2}</li>}
           {li3 && <li>{li3}</li>}

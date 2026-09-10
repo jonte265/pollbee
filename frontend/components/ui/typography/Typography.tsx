@@ -1,10 +1,10 @@
 type TypographyTypes = {
-  children: React.ReactNode;
-  bold?: boolean;
-  light?: boolean;
-  small?: boolean;
-  textCenter?: boolean;
-};
+  children: React.ReactNode
+  bold?: boolean
+  light?: boolean
+  small?: boolean
+  textCenter?: boolean
+}
 
 export default function Typography({
   children,
@@ -15,14 +15,9 @@ export default function Typography({
 }: TypographyTypes) {
   return (
     <p
-      className={`   
-        ${bold ? "font-bold" : ""}
-        ${light ? "opacity-70" : ""}
-        ${small ? "text-sm" : ""}
-        ${textCenter ? "text-center" : ""}
-        `}
+      className={` ${bold ? "font-bold" : ""} ${light ? "text-text-600" : ""} ${small ? "text-sm" : ""} ${textCenter ? "text-center" : ""} `}
     >
       {children}
     </p>
-  );
+  )
 }
