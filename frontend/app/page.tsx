@@ -29,7 +29,7 @@ export default function Home() {
     >
       <main className="m-auto flex max-w-6xl flex-col gap-16 text-center">
         <section className="flex min-h-[50vh] flex-col items-center justify-center gap-8">
-          <div className="flex flex-col gap-2 text-center">
+          <div className="flex flex-col gap-4 text-center">
             <HeroEmoji />
             <H2 large>Create and share live polls easily</H2>
             <Typography>
@@ -70,7 +70,7 @@ export default function Home() {
         {/* Feature cards */}
         <section className="flex flex-col gap-8">
           <FeatureSection
-            sectionTitle={"Create Polls Instantly with AI Assistance 📊"}
+            sectionTitle={"Create Polls Instantly with AI Assistance"}
             li1={"Set up a poll in seconds with a simple interface"}
             li2="Add unlimited options and control vote settings"
             li3="Generate poll ideas automatically with AI"
@@ -78,7 +78,7 @@ export default function Home() {
           />
 
           <FeatureSection
-            sectionTitle="Share Seamlessly 🔁"
+            sectionTitle="Share Seamlessly"
             li1="Generate a shareable link and share with anyone"
             li2="No login required for voters"
             li3="Real-time updates as votes come in"
@@ -86,7 +86,7 @@ export default function Home() {
           />
 
           <FeatureSection
-            sectionTitle="Track Results Live 📈"
+            sectionTitle="Track Results Live"
             li1="See live vote counts"
             li2="Get insights on poll engagement"
             li3="More built-in analytics coming soon"
